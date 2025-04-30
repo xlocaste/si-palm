@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KontrakController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RealisasiPenyerahanController;
 use App\Http\Controllers\SalesOrderController;
@@ -101,5 +102,20 @@ Route::prefix('/kontrak-pk')->name('kontrak-pk.')->group(function() {
         Route::get('/', [KontrakController::class, 'showPK'])->name('index');
     });
 });
+
+Route::prefix('/pembayaran')->name('pembayaran.')->group(function() {
+    Route::group(['middleware' => ['auth']], function() {
+        Route::get('/', [PembayaranController::class, 'index'])->name('index');
+        Route::get('/create', [PembayaranController::class, 'create'])->name('create');
+        Route::post('/', [PembayaranController::class, 'store'])->name('store');
+        Route::put('/{pembayaran}', [PembayaranController::class, 'update'])->name('update');
+        Route::delete('/{pembayaran}', [PembayaranController::class, 'destroy'])->name('destroy');
+        Route::get('/{pembayaran}/edit', [PembayaranController::class, 'edit'])->name('edit');
+    });
+});
+
+
+
+
 
 require __DIR__.'/auth.php';

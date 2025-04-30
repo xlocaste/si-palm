@@ -66,6 +66,13 @@ export default function Authenticated({ user, header, children }) {
                                     </NavLink>
                                 )}
                             </Menu.Item>
+                            <Menu.Item>
+                                {() => (
+                                    <NavLink href={route('pembayaran.index')} active={route().current('pembayaran.create')}>
+                                        Pembayaran
+                                    </NavLink>
+                                )}
+                            </Menu.Item>
                         </Menu.Items>
                     </Menu>
 

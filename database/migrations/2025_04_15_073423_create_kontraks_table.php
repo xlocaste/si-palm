@@ -14,12 +14,28 @@ return new class extends Migration
         Schema::create('kontrak', function (Blueprint $table) {
             $table->id();
             $table->string('no_kontrak');
+            $table->string('penjual_dan_pemilik_komoditas');
+            $table->string('no_referensi');
+            $table->string('komoditi');
+            $table->string('jenis_komoditi');
+            $table->string('symbol');
+            $table->string('packaging');
+            $table->text('deskripsi_produk');
+            $table->string('produsen');
+            $table->string('pelabuhan_muat');
+            $table->decimal('harga_satuan', 15, 2);
+            $table->boolean('ppn');
+            $table->string('kondisi_penyerahan');
+            $table->string('waktu_penyerahan')->nullable();
+            $table->text('syarat_lain');
+            $table->text('dasar_ketentuan');
+            $table->decimal('jumlah_pembayaran', 15, 2);
             $table->string('pembeli');
             $table->integer('mutu');
-            $table->integer('harga');
-            $table->integer('volume');
+            $table->decimal('harga', 15, 2);
+            $table->decimal('volume', 15, 2);
             $table->date('tanggal_kontrak');
-            $table->date(column:'jatuh_tempo');
+            $table->date('jatuh_tempo');
             $table->timestamps();
         });
     }
