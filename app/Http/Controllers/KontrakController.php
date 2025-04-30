@@ -29,8 +29,7 @@ class KontrakController extends Controller
     
     public function showCPO()
     {
-        $kontrakCPO = Kontrak::with('pembayaran')
-                        ->where('jenis_kontrak', 'CPO')
+        $kontrakCPO = Kontrak::where('jenis_kontrak', 'CPO')
                         ->get();
         
         return Inertia::render('Detail/CPO/List', [
@@ -43,8 +42,7 @@ class KontrakController extends Controller
 
     public function showPK()
     {
-        $kontrakPK = Kontrak::with('pembayaran')
-                        ->where('jenis_kontrak', 'PK')
+        $kontrakPK = Kontrak::where('jenis_kontrak', 'PK')
                         ->get();
         
         return Inertia::render('Detail/PK/List', [

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
@@ -12,28 +12,31 @@ export default function Add({ auth, kontrak }) {
         nilai: '',
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    // Hitung nilai ketika kontrak_id atau volume_sales_order berubah
+    useEffect(() => {
+        const selectedKontrak = kontrak.find(k => k.id === parseInt(values.kontrak_id));
+        const volume = parseFloat(values.volume_sales_order);
 
-        if (name === 'kontrak_id' || name === 'volume_sales_order') {
-            const newValues = { ...values, [name]: value };
-            
-            if (newValues.kontrak_id && newValues.volume_sales_order) {
-                const selectedKontrak = kontrakData.find(k => k.id === parseInt(newValues.kontrak_id));
-                
-                if (selectedKontrak) {
-                    const nilai = selectedKontrak.harga * newValues.volume_sales_order;
-                    newValues.nilai = nilai;
-                }
-            }
-            
-            setValues(newValues);
+        if (selectedKontrak && !isNaN(volume)) {
+            setValues(prev => ({
+                ...prev,
+                nilai: selectedKontrak.harga * volume
+            }));
         } else {
-            setValues({
-                ...values,
-                [name]: value,
-            });
+            setValues(prev => ({
+                ...prev,
+                nilai: ''
+            }));
         }
+    }, [values.kontrak_id, values.volume_sales_order]);
+
+    const handleChange = (e) => {
+        const { name, value, type } = e.target;
+
+        setValues({
+            ...values,
+            [name]: type === "number" ? (value === '' ? '' : parseFloat(value)) : value
+        });
     };
 
     const handleSubmit = (e) => {
@@ -73,12 +76,13 @@ export default function Add({ auth, kontrak }) {
                                 />
                             </div>
                             <div>
-                                <label>Volume Sales Order (ton)</label>
+                                <label>Volume Sales Order</label>
                                 <input
                                     type="number"
                                     name="volume_sales_order"
                                     value={values.volume_sales_order}
                                     onChange={handleChange}
+                                    step="any"
                                     required
                                     className="w-full border p-2 rounded"
                                 />
@@ -95,12 +99,13 @@ export default function Add({ auth, kontrak }) {
                                 />
                             </div>
                             <div>
-                                <label className="block mb-2">Pilih Kontrak</label>
-                                <select 
-                                    name="kontrak_id" 
-                                    value={values.kontrak_id} 
-                                    onChange={handleChange} 
-                                    required    
+                                <label htmlFor="kontrak_id" className="block text-sm font-medium text-gray-700 dark:text-white">Kontrak</label>
+                                <select
+                                    name="kontrak_id"
+                                    id="kontrak_id"
+                                    value={values.kontrak_id}
+                                    onChange={handleChange}
+                                    required
                                     className="w-full border p-2 rounded"
                                 >
                                     <option value="">-- Pilih Kontrak --</option>
@@ -120,6 +125,7 @@ export default function Add({ auth, kontrak }) {
                                     onChange={handleChange}
                                     required
                                     className="w-full border p-2 rounded"
+                                    readOnly
                                 />
                             </div>
                             <div className="text-right">
