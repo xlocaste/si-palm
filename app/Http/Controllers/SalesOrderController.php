@@ -81,7 +81,8 @@ class SalesOrderController extends Controller
     public function edit(SalesOrder $salesOrder)
     {
         return Inertia::render('SalesOrder/Update', [
-            'salesOrder'=> $salesOrder
+            'salesOrder'=> $salesOrder,
+            'kontrak' => Kontrak::all(),
         ]);
     }
 }

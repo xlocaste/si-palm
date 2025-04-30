@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function Update({ auth, salesOrder }) {
+export default function Update({ auth, salesOrder, kontrak }) {
     const [values, setValues] = useState({
         no_sales_order: salesOrder.no_sales_order || '',
         tanggal_sales_order: salesOrder.tanggal_sales_order || '',
         tahap: salesOrder.tahap || '',
         volume_sales_order: salesOrder.volume_sales_order || '',
+        kontrak_id: salesOrder.kontrak_id || '',
+        tahap: salesOrder.tahap || '',
         nilai: salesOrder.nilai || '',
     });
 
@@ -70,6 +72,35 @@ export default function Update({ auth, salesOrder }) {
                                     className="w-full border p-2 rounded"
                                     required
                                 />
+                            </div>
+                            <div>
+                                <label>Tahap</label>
+                                <input
+                                    type="number"
+                                    name="tahap"
+                                    value={values.tahap}
+                                    onChange={handleChange}
+                                    className="w-full border p-2 rounded"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="kontrak_id" className="block text-sm font-medium text-gray-700 dark:text-white">Kontrak</label>
+                                <select
+                                    name="kontrak_id"
+                                    id="kontrak_id"
+                                    value={values.kontrak_id}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full border p-2 rounded"
+                                >
+                                    <option value="">-- Pilih Kontrak --</option>
+                                    {kontrak.map((k) => (
+                                        <option key={k.id} value={k.id}>
+                                            {`#${k.id} - No.Kontrak: ${k.no_kontrak} - Harga: Rp${k.harga.toLocaleString('id-ID')} - Volume: ${k.volume.toLocaleString()}`}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                             <div>
                                 <label>Nilai</label>
