@@ -69,7 +69,7 @@ export default function List({ auth, InvoiceCPO, InvoicePK, filters }) {
     };
 
     const TableSection = ({ title, data, totalPages, jenis }) => (
-        <div className="mb-12">
+        <div className="mb-12 bg-white p-10 rounded-md">
             <div className="flex justify-between items-center mb-2">
                 <h3 className="text-lg font-semibold text-gray-800 ">
                     {title}
@@ -160,7 +160,6 @@ export default function List({ auth, InvoiceCPO, InvoicePK, filters }) {
                 </tbody>
             </table>
 
-            {/* Pagination */}
             {totalPages > 1 && (
                 <div className="flex justify-center mt-4 gap-2">
                     {[...Array(totalPages)].map((_, i) => (
@@ -192,36 +191,38 @@ export default function List({ auth, InvoiceCPO, InvoicePK, filters }) {
         >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                        <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-                            <div className="flex gap-2">
-                                <PrimaryButton>
-                                    <Link href={route("invoice.create")}>
-                                        TAMBAH INVOICE
-                                    </Link>
-                                </PrimaryButton>
-                            </div>
-                            <form
-                                onSubmit={handleSubmit}
-                                className="w-full sm:w-64 flex"
-                            >
-                                <input
-                                    type="text"
-                                    placeholder="Cari No. Invoice..."
-                                    value={search}
-                                    onChange={(e) => {
-                                        setSearch(e.target.value);
-                                        setCurrentPage(1);
-                                    }}
-                                    className="px-3 py-2 border rounded w-full"
-                                />
-                                <button
-                                    type="submit"
-                                    className="ml-2 px-3 py-2 bg-blue-500 text-white rounded"
+                    <div className="overflow-hidden sm:rounded-lg">
+                        <div className="flex flex-col sm:flex-row justify-between items-center">
+                            <div className="flex justify-between w-full bg-white p-4 rounded-md">
+                                <div className="flex gap-2">
+                                    <PrimaryButton>
+                                        <Link href={route("invoice.create")}>
+                                            TAMBAH INVOICE
+                                        </Link>
+                                    </PrimaryButton>
+                                </div>
+                                <form
+                                    onSubmit={handleSubmit}
+                                    className="w-full sm:w-64 flex"
                                 >
-                                    <FaSearch />
-                                </button>
-                            </form>
+                                    <input
+                                        type="text"
+                                        placeholder="Cari No. Invoice..."
+                                        value={search}
+                                        onChange={(e) => {
+                                            setSearch(e.target.value);
+                                            setCurrentPage(1);
+                                        }}
+                                        className="px-3 py-2 border rounded w-full"
+                                    />
+                                    <button
+                                        type="submit"
+                                        className="ml-2 px-3 py-2 bg-blue-500 text-white rounded"
+                                    >
+                                        <FaSearch />
+                                    </button>
+                                </form>
+                            </div>
                         </div>
 
                         <TableSection
