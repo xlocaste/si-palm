@@ -114,14 +114,11 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function printSingle(Invoice $invoice)
+    public function print($invoice)
     {
-        $invoice->load('kontrak');
+        $invoice = Invoice::with('kontrak')->findOrFail($invoice);
 
-        $pdf = Pdf::loadView('pdf.invoice_single', [
-            'invoice' => $invoice
-        ]);
-
-        return $pdf->stream('invoice_' . $invoice->no_invoice . '.pdf');
+        $pdf = Pdf::loadView('pdf.invoice_detail', compact('invoice'));
+        return $pdf->download("invoice_{$invoice->no_invoice}.pdf");
     }
 }
