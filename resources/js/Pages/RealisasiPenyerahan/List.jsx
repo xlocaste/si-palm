@@ -1,49 +1,30 @@
-// resources/js/Pages/RealisasiPenyerahan/List.jsx
-
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Link, router } from "@inertiajs/react";
-import PrimaryButton from "@/Components/PrimaryButton";
+import { Head, Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faEdit,faTrash,faSearch,faFilePdf,faPrint,faEye,} from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPrint } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import DetailView from "@/Components/DetailView";
+import PrimaryButton from "@/Components/PrimaryButton";
+import { IoIosSearch } from "react-icons/io";
 
-export default function List({ auth, realisasiPenyerahan, filters }) {
-    const [values, setValues] = useState({
-        search: filters?.search || "",
-    });
-
+export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahanPK }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [modalTitle, setModalTitle] = useState("");
+    const { filters } = usePage().props;
+    const [search, setSearch] = useState(filters.search || "");
 
-    const handleChange = (e) => {
-        const key = e.target.id;
-        const value = e.target.value;
-        setValues((values) => ({
-            ...values,
-            [key]: value,
-        }));
-    };
-
-    const handleSubmit = (e) => {
+    const handleSearch = (e) => {
         e.preventDefault();
-        router.get(route("realisasi-penyerahan.index"), values);
+        router.get(route("realisasiPenyerahan.index"), { search }, { preserveState: true });
     };
 
-    const handleExportPDF = () => {
-        router.get(route("realisasi-penyerahan.index"), {
-            ...values,
-            export_pdf: "true",
-        });
-    };
-
-    const handlePrint = (id) => {
-        window.open(route("realisasi-penyerahan.print", id), "_blank");
-    };
-
-    const openDetailModal = (item) => {
+    const openDetailModal = (item, type) => {
         setSelectedItem(item);
+        setModalTitle(
+            `Detail Realisasi Penyerahan ${type === "cpo" ? "CPO" : "PK"}: ${item.no_ba}`
+        );
         setModalOpen(true);
     };
 
@@ -56,195 +37,196 @@ export default function List({ auth, realisasiPenyerahan, filters }) {
                 </h2>
             }
         >
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white shadow-sm sm:rounded-lg p-6">
-                        <div className="flex justify-between items-center mb-6">
+            <Head title="Daftar Realisasi Penyerahan" />
+            <div className="min-h-screen bg-gray-100 p-6">
+                <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
+                    <div className="flex items-center justify-between mb-6">
+                        <PrimaryButton>
                             <Link href={route("realisasi-penyerahan.create")}>
-                                <PrimaryButton className="px-4 py-2 text-white rounded">
-                                    Tambah Realisasi Penyerahan
-                                </PrimaryButton>
+                                TAMBAH REALISASI PENYERAHAN
                             </Link>
+                        </PrimaryButton>
+                        <form onSubmit={handleSearch} className="flex items-center gap-2">
+                            <input
+                                type="text"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Cari..."
+                                className="border px-3 pr-40 py-1 rounded-md text-sm"
+                            />
                             <button
-                                onClick={handleExportPDF}
-                                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center"
+                                type="submit"
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-md text-sm"
                             >
-                                <FontAwesomeIcon
-                                    icon={faFilePdf}
-                                    className="mr-2"
-                                />
-                                Export PDF
+                                <IoIosSearch />
                             </button>
-                        </div>
+                        </form>
+                    </div>
 
-                        <div className="mb-6 bg-gray-50-700 p-4 rounded-lg">
-                            <form onSubmit={handleSubmit}>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label
-                                            htmlFor="search"
-                                            className="block text-sm font-medium text-gray-700-300 mb-1"
-                                        >
-                                            Pencarian
-                                        </label>
-                                        <div className="relative">
-                                            <input
-                                                type="text"
-                                                id="search"
-                                                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
-                                                placeholder="No. BA, No. Surat Penerbitan Invoice..."
-                                                value={values.search}
-                                                onChange={handleChange}
-                                            />
-                                            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                                                <FontAwesomeIcon
-                                                    icon={faSearch}
-                                                    className="text-gray-400"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-end">
-                                        <button
-                                            type="submit"
-                                            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-                                        >
-                                            Filter
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    <label className="font-bold text-gray-700">
+                        TABEL REALISASI PENYERAHAN CPO
+                    </label>
 
-                        <table className="min-w-full text-sm text-left">
-                            <thead className="bg-gray-200 text-gray-600">
+                    <div className="overflow-auto mt-6">
+                        <table className="min-w-full text-sm text-left text-gray-500">
+                            <thead className="text-xs text-gray-700 bg-gray-100">
                                 <tr>
-                                    <th className="px-4 py-2">No. BA</th>
-                                    <th className="px-4 py-2">
-                                        No. Surat Penerbitan Invoice
-                                    </th>
-                                    <th className="px-4 py-2">Kontrak</th>
-                                    <th className="px-4 py-2">Tanggal Serah</th>
-                                    <th className="px-4 py-2">Status</th>
-                                    <th className="px-4 py-2">Action</th>
+                                    <th className="px-6 py-3 border">No BA</th>
+                                    <th className="px-6 py-3 border">No Surat Penerbitan Invoice</th>
+                                    <th className="px-6 py-3 border">Kontrak</th>
+                                    <th className="px-6 py-3 border">Tanggal Serah</th>
+                                    <th className="px-6 py-3 border">Status</th>
+                                    <th className="px-6 py-3 border">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {realisasiPenyerahan.map((item) => (
-                                    <tr key={item.id} className="border-b">
-                                        <td className="px-4 py-2">
-                                            {item.no_ba}
-                                        </td>
-                                        <td className="px-4 py-2">
-                                            {item.no_surat_penerbitan_invoice}
-                                        </td>
-                                        <td className="px-4 py-2">
-                                            {item.kontrak
-                                                ? `Kontrak #${item.kontrak.id}`
-                                                : "-"}
-                                        </td>
-                                        <td className="px-4 py-2">
-                                            {item.tanggal_serah}
-                                        </td>
-                                        <td className="px-4 py-2">
-                                            <span
-                                                className={`text-${
-                                                    item.alb ? "green" : "red"
-                                                }-500`}
-                                            >
-                                                ALB: {item.alb ? "Yes" : "No"}
-                                            </span>
-                                            <br />
-                                            <span
-                                                className={`text-${
-                                                    item.ka ? "green" : "red"
-                                                }-500`}
-                                            >
-                                                KA: {item.ka ? "Yes" : "No"}
-                                            </span>
-                                            <br />
-                                            <span
-                                                className={`text-${
-                                                    item.kk ? "green" : "red"
-                                                }-500`}
-                                            >
-                                                KK: {item.kk ? "Yes" : "No"}
-                                            </span>
-                                        </td>
-                                        <td className="px-4 py-2">
-                                            <div className="flex gap-2">
+                                {realisasiPenyerahanCPO.length > 0 ? (
+                                    realisasiPenyerahanCPO.map((item, index) => (
+                                        <tr key={index} className="bg-white border-b hover:bg-gray-50">
+                                            <td className="px-6 py-4 border">{item.no_ba}</td>
+                                            <td className="px-6 py-4 border">{item.no_surat_penerbitan_invoice}</td>
+                                            <td className="px-6 py-4 border">{item.kontrak.id}</td>
+                                            <td className="px-6 py-4 border">{item.tanggal_serah}</td>
+                                            <td className="px-4 py-2">
+                                                <span
+                                                    className={`text-${
+                                                        item.alb ? "green" : "red"
+                                                    }-500`}
+                                                >
+                                                    ALB: {item.alb ? "Yes" : "No"}
+                                                </span>
+                                                <br />
+                                                <span
+                                                    className={`text-${
+                                                        item.ka ? "green" : "red"
+                                                    }-500`}
+                                                >
+                                                    KA: {item.ka ? "Yes" : "No"}
+                                                </span>
+                                                <br />
+                                                <span
+                                                    className={`text-${
+                                                        item.kk ? "green" : "red"
+                                                    }-500`}
+                                                >
+                                                    KK: {item.kk ? "Yes" : "No"}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4 border space-x-2">
                                                 <button
-                                                    onClick={() =>
-                                                        openDetailModal(item)
-                                                    }
-                                                    className="text-blue-500 hover:text-blue-600"
-                                                    title="Detail"
+                                                    onClick={() => openDetailModal(item, "cpo")}
+                                                    className="text-blue-500 hover:underline"
                                                 >
-                                                    <FontAwesomeIcon
-                                                        icon={faEye}
-                                                    />
+                                                    <FontAwesomeIcon icon={faEye} />
                                                 </button>
-                                                <Link
-                                                    href={route(
-                                                        "realisasi-penyerahan.edit",
-                                                        item.id
-                                                    )}
-                                                    className="text-yellow-500"
+
+                                                <a
+                                                    href={route("realisasi-penyerahan.print", item.id)}
+                                                    target="_blank"
+                                                    className="text-green-600 hover:underline"
                                                 >
-                                                    <FontAwesomeIcon
-                                                        icon={faEdit}
-                                                    />
-                                                </Link>
-                                                <Link
-                                                    href={route(
-                                                        "realisasi-penyerahan.destroy",
-                                                        item.id
-                                                    )}
-                                                    method="delete"
-                                                    as="button"
-                                                    onClick={(e) => {
-                                                        if (
-                                                            !confirm(
-                                                                "Yakin ingin menghapus data ini?"
-                                                            )
-                                                        ) {
-                                                            e.preventDefault();
-                                                        }
-                                                    }}
-                                                    className="text-red-400"
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={faTrash}
-                                                    />
-                                                </Link>
-                                                <button
-                                                    onClick={() =>
-                                                        handlePrint(item.id)
-                                                    }
-                                                    className="text-blue-500 hover:text-blue-600"
-                                                    title="Cetak"
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={faPrint}
-                                                    />
-                                                </button>
-                                            </div>
+                                                    <FontAwesomeIcon icon={faPrint} />
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="5" className="text-center py-4 text-gray-400">
+                                            Tidak ada data CPO.
                                         </td>
                                     </tr>
-                                ))}
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6 mt-6">
+                    <label className="font-bold text-gray-700">
+                        TABEL REALISASI PENYERAHAN PK
+                    </label>
+
+                    <div className="overflow-auto mt-6">
+                        <table className="min-w-full text-sm text-left text-gray-500">
+                            <thead className="text-xs text-gray-700 bg-gray-100">
+                                <tr>
+                                    <th className="px-6 py-3 border">No BA</th>
+                                    <th className="px-6 py-3 border">No Surat Penerbitan Invoice</th>
+                                    <th className="px-6 py-3 border">Kontrak</th>
+                                    <th className="px-6 py-3 border">Tanggal Serah</th>
+                                    <th className="px-6 py-3 border">Status</th>
+                                    <th className="px-6 py-3 border">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {realisasiPenyerahanPK.length > 0 ? (
+                                    realisasiPenyerahanPK.map((item, index) => (
+                                        <tr key={index} className="bg-white border-b hover:bg-gray-50">
+                                            <td className="px-6 py-4 border">{item.no_ba}</td>
+                                            <td className="px-6 py-4 border">{item.no_surat_penerbitan_invoice}</td>
+                                            <td className="px-6 py-4 border">{item.kontrak.id}</td>
+                                            <td className="px-6 py-4 border">{item.tanggal_serah}</td>
+                                            <td className="px-4 py-2">
+                                                <span
+                                                    className={`text-${
+                                                        item.alb ? "green" : "red"
+                                                    }-500`}
+                                                >
+                                                    ALB: {item.alb ? "Yes" : "No"}
+                                                </span>
+                                                <br />
+                                                <span
+                                                    className={`text-${
+                                                        item.ka ? "green" : "red"
+                                                    }-500`}
+                                                >
+                                                    KA: {item.ka ? "Yes" : "No"}
+                                                </span>
+                                                <br />
+                                                <span
+                                                    className={`text-${
+                                                        item.kk ? "green" : "red"
+                                                    }-500`}
+                                                >
+                                                    KK: {item.kk ? "Yes" : "No"}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4 border space-x-2">
+                                                <button
+                                                    onClick={() => openDetailModal(item, "pk")}
+                                                    className="text-blue-500 hover:underline"
+                                                >
+                                                    <FontAwesomeIcon icon={faEye} />
+                                                </button>
+
+                                                <a
+                                                    href={route("realisasi-penyerahan.print", item.id)}
+                                                    target="_blank"
+                                                    className="text-green-600 hover:underline"
+                                                >
+                                                    <FontAwesomeIcon icon={faPrint} />
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="5" className="text-center py-4 text-gray-400">
+                                            Tidak ada data PK.
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            {/* Detail Modal */}
             <Modal
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}
-                title={`Detail Realisasi Penyerahan: ${
-                    selectedItem?.no_ba || ""
-                }`}
+                title={modalTitle}
             >
                 {selectedItem && <DetailView data={selectedItem} />}
             </Modal>

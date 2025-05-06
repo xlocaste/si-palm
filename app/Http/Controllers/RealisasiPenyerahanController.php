@@ -16,23 +16,34 @@ class RealisasiPenyerahanController extends Controller
 {
     public function index(Request $request)
     {
-        $query = RealisasiPenyerahan::with('kontrak', 'invoice');
+        $queryCPO = RealisasiPenyerahan::with('kontrak', 'invoice')
+            ->whereHas('kontrak', function ($query) {
+                $query->where('jenis_kontrak', 'CPO');
+            });
+        $queryPK = RealisasiPenyerahan::with('kontrak', 'invoice')
+            ->whereHas('kontrak', function ($query) {
+                $query->where('jenis_kontrak', 'PK');
+            });
 
-        // Filter berdasarkan pencarian
         if ($request->has('search') && $request->search) {
             $searchTerm = '%' . $request->search . '%';
-            $query->where(function ($q) use ($searchTerm) {
+            $queryCPO->where(function ($q) use ($searchTerm) {
+                $q->where('no_ba', 'like', $searchTerm)
+                    ->orWhere('no_surat_penerbitan_invoice', 'like', $searchTerm);
+            });
+            $queryPK->where(function ($q) use ($searchTerm) {
                 $q->where('no_ba', 'like', $searchTerm)
                     ->orWhere('no_surat_penerbitan_invoice', 'like', $searchTerm);
             });
         }
 
-        $daftarRealisasiPenyerahan = $query->get();
+        $daftarRealisasiPenyerahanCPO = $queryCPO->get();
+        $daftarRealisasiPenyerahanPK = $queryPK->get();
 
-        // Jika request untuk PDF
         if ($request->has('export_pdf') && $request->export_pdf === 'true') {
             $pdf = Pdf::loadView('pdf.realisasi_penyerahan_list', [
-                'realisasiPenyerahan' => $daftarRealisasiPenyerahan,
+                'realisasiPenyerahanCPO' => $daftarRealisasiPenyerahanCPO,
+                'realisasiPenyerahanPK' => $daftarRealisasiPenyerahanPK,
                 'filter' => [
                     'search' => $request->search
                 ]
@@ -41,7 +52,8 @@ class RealisasiPenyerahanController extends Controller
         }
 
         return Inertia::render('RealisasiPenyerahan/List', [
-            'realisasiPenyerahan' => $daftarRealisasiPenyerahan,
+            'realisasiPenyerahanCPO' => $daftarRealisasiPenyerahanCPO,
+            'realisasiPenyerahanPK' => $daftarRealisasiPenyerahanPK,
             'filters' => [
                 'search' => $request->search,
             ],
