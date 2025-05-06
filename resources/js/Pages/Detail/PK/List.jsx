@@ -79,6 +79,17 @@ export default function List({ kontrakPK, filters, auth }) {
         setModalOpen(true);
     };
 
+    function formatTanggalJamMenit(datetime) {
+        const date = new Date(datetime);
+        const tanggal = date.toLocaleDateString('id-ID');
+        const jamMenit = date.toLocaleTimeString('id-ID', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+        });
+        return `${tanggal} ${jamMenit}`;
+    }
+
     return (
         <AuthenticatedLayout user={auth.user}>
             <div className="py-12">
@@ -214,9 +225,8 @@ export default function List({ kontrakPK, filters, auth }) {
                                         <th className="px-4 py-2">Mutu</th>
                                         <th className="px-4 py-2">Harga</th>
                                         <th className="px-4 py-2">Volume</th>
-                                        <th className="px-4 py-2">
-                                            Tanggal Kontrak
-                                        </th>
+                                        <th className="px-4 py-2">Tanggal Kontrak</th>
+                                        <th className="px-4 py-2">Jatuh Tempo</th>
                                         <th className="px-4 py-2 text-center">
                                             Aksi
                                         </th>
@@ -248,7 +258,10 @@ export default function List({ kontrakPK, filters, auth }) {
                                                     {kontrak.volume}
                                                 </td>
                                                 <td className="px-4 py-2">
-                                                    {kontrak.tanggal_kontrak}
+                                                    {formatTanggalJamMenit(kontrak.tanggal_kontrak)}
+                                                </td>
+                                                <td className="px-4 py-2">
+                                                    {formatTanggalJamMenit(kontrak.jatuh_tempo)}
                                                 </td>
                                                 <td className="px-4 py-2 text-center">
                                                     <div className="flex justify-center gap-3">
