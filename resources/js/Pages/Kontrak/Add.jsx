@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { router, useForm } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { ValidationErrors } from "@/Components/AlertMessage";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 function Input({
     label,
@@ -114,16 +115,16 @@ export default function Add({ auth, pembayaran }) {
                 </h2>
             }
         >
-            <div className="py-12">
-                <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+            <div className="min-h-screen bg-gray-100 p-6">
+                <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
+                    <div className="shadow-sm sm:rounded-lg p-6">
                         {Object.keys(errors).length > 0 && (
                             <div className="mb-4">
                                 <ValidationErrors errors={errors} />
                             </div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="grid grid-cols-2 items-center gap-6">
                             <Input
                                 label="No Kontrak"
                                 name="no_kontrak"
@@ -203,7 +204,6 @@ export default function Add({ auth, pembayaran }) {
                                 error={errors.jenis_tempo_penyerahan}
                             />
 
-                            {/* Produk Info */}
                             <Input
                                 label="Penjual & Pemilik Komoditas"
                                 name="penjual_dan_pemilik_komoditas"
@@ -342,16 +342,10 @@ export default function Add({ auth, pembayaran }) {
                                 error={errors.jumlah_pembayaran}
                             />
 
-                            <div className="flex justify-end">
-                                <button
-                                    type="submit"
-                                    className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded"
-                                    disabled={processing}
-                                >
-                                    {processing
-                                        ? "Menyimpan..."
-                                        : "Simpan Kontrak"}
-                                </button>
+                            <div className="col-span-2 flex justify-end">
+                                <PrimaryButton type="submit" disabled={processing}>
+                                    {processing ? "Menyimpan..." : "Simpan Kontrak"}
+                                </PrimaryButton>
                             </div>
                         </form>
                     </div>
