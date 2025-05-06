@@ -51,7 +51,7 @@ export default function Add({ auth, kontrak }) {
                                     <option value="">-- Pilih Kontrak --</option>
                                     {kontrak.map((k) => (
                                         <option key={k.id} value={k.id}>
-                                            {`#${k.id} - No.Kontrak:${k.no_kontrak} - Harga: Rp${k.harga}, Volume: ${k.volume}`}
+                                            {`${k.jenis_kontrak} - No.Kontrak:${k.no_kontrak} - Harga: Rp${k.harga}, Volume: ${k.volume}`}
                                         </option>
                                     ))}
                                 </select>

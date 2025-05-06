@@ -25,7 +25,6 @@ class InvoiceController extends Controller
                 $query->where('jenis_kontrak', 'PK');
             });
 
-        // Filter berdasarkan nomor invoice jika ada
         if ($request->has('search') && $request->search) {
             $searchTerm = '%' . $request->search . '%';
             $queryInvoiceCPO->where('no_invoice', 'like', $searchTerm);
@@ -35,7 +34,6 @@ class InvoiceController extends Controller
         $daftarInvoiceCPO = $queryInvoiceCPO->get();
         $daftarInvoicePK = $queryInvoicePK->get();
 
-        // Jika request untuk PDF
         if ($request->has('export_pdf') && $request->export_pdf === 'true') {
             $jenis = $request->jenis ?? 'all';
 
@@ -98,11 +96,14 @@ class InvoiceController extends Controller
 
     public function create()
     {
+        $usedKontrakIds = Invoice::pluck('kontrak_id')->toArray();
+        $kontrak = Kontrak::whereNotIn('id', $usedKontrakIds)->get();
+
         return Inertia::render('Invoice/Add', [
             'auth' => [
                 'user' => auth()->user(),
             ],
-            'kontrak' => Kontrak::all(),
+            'kontrak' => $kontrak,
         ]);
     }
 
@@ -113,7 +114,6 @@ class InvoiceController extends Controller
         ]);
     }
 
-    // Fungsi untuk mencetak invoice individual
     public function printSingle(Invoice $invoice)
     {
         $invoice->load('kontrak');
