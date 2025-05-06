@@ -19,13 +19,13 @@ export default function List({ auth, Kontrak, jenis_tempo_penyerahan }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">Tempo Penyerahan</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tempo Penyerahan</h2>}
         >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
-                        <div className="bg-white dark:bg-gray-800 p-4 rounded shadow">
-                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+                    <div className="bg-white shadow-sm sm:rounded-lg p-6">
+                        <div className="bg-white p-4 rounded shadow">
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Filter Jenis Tempo
                             </label>
                             <select
@@ -39,7 +39,7 @@ export default function List({ auth, Kontrak, jenis_tempo_penyerahan }) {
                             </select>
                         </div>
                         <table className="min-w-full divide-y divide-gray-200 text-sm">
-                            <thead className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                            <thead className="bg-gray-100 700 text-gray-600">
                                 <tr>
                                     <th className="px-4 py-2 text-left">No Kontrak</th>
                                     <th className="px-4 py-2 text-left">Pembeli</th>
