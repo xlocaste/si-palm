@@ -14,6 +14,7 @@ import Modal from "@/Components/Modal";
 import DetailView from "@/Components/DetailView";
 
 export default function List({ kontrakCPO, filters, auth }) {
+    console.log(kontrakCPO)
     const [values, setValues] = useState({
         search: filters?.search || "",
         date_from: filters?.date_from || "",
@@ -78,6 +79,17 @@ export default function List({ kontrakCPO, filters, auth }) {
         setSelectedItem(kontrak);
         setModalOpen(true);
     };
+
+    function formatTanggalJamMenit(datetime) {
+        const date = new Date(datetime);
+        const tanggal = date.toLocaleDateString('id-ID');
+        const jamMenit = date.toLocaleTimeString('id-ID', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+        });
+        return `${tanggal} ${jamMenit}`;
+    }
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -251,10 +263,10 @@ export default function List({ kontrakCPO, filters, auth }) {
                                                     {kontrak.volume}
                                                 </td>
                                                 <td className="px-4 py-2">
-                                                    {kontrak.tanggal_kontrak}
+                                                    {formatTanggalJamMenit(kontrak.tanggal_kontrak)}
                                                 </td>
                                                 <td className="px-4 py-2">
-                                                    {kontrak.jatuh_tempo}
+                                                    {formatTanggalJamMenit(kontrak.jatuh_tempo)}
                                                 </td>
                                                 <td className="px-4 py-2 text-center">
                                                     <div className="flex justify-center gap-3">

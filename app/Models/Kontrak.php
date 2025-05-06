@@ -43,8 +43,8 @@ class Kontrak extends Model
 
     protected $casts = [
         'waktu_penyerahan' => 'datetime',
-        'tanggal_kontrak' => 'date',
-        'jatuh_tempo' => 'date',
+        'tanggal_kontrak' => 'datetime',
+        'jatuh_tempo' => 'datetime',
     ];
 
     public function invoices()
