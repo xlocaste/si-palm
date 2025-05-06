@@ -32,7 +32,6 @@ class KontrakController extends Controller
     {
         $query = Kontrak::where('jenis_kontrak', 'CPO');
 
-        // Filter berdasarkan pencarian
         if ($request->has('search') && $request->search) {
             $searchTerm = '%' . $request->search . '%';
             $query->where(function ($q) use ($searchTerm) {
@@ -42,7 +41,6 @@ class KontrakController extends Controller
             });
         }
 
-        // Filter berdasarkan tanggal kontrak
         if ($request->has('date_from') && $request->date_from) {
             $query->whereDate('tanggal_kontrak', '>=', $request->date_from);
         }
@@ -51,7 +49,6 @@ class KontrakController extends Controller
             $query->whereDate('tanggal_kontrak', '<=', $request->date_to);
         }
 
-        // Filter berdasarkan harga
         if ($request->has('harga_from') && $request->harga_from) {
             $query->where('harga', '>=', $request->harga_from);
         }
@@ -62,7 +59,6 @@ class KontrakController extends Controller
 
         $kontrakCPO = $query->get();
 
-        // Jika request untuk PDF
         if ($request->has('export_pdf') && $request->export_pdf === 'true') {
             $pdf = Pdf::loadView('pdf.kontrak_cpo', [
                 'kontrakCPO' => $kontrakCPO,
@@ -95,7 +91,6 @@ class KontrakController extends Controller
     {
         $query = Kontrak::where('jenis_kontrak', 'PK');
 
-        // Filter berdasarkan pencarian
         if ($request->has('search') && $request->search) {
             $searchTerm = '%' . $request->search . '%';
             $query->where(function ($q) use ($searchTerm) {
@@ -105,7 +100,6 @@ class KontrakController extends Controller
             });
         }
 
-        // Filter berdasarkan tanggal kontrak
         if ($request->has('date_from') && $request->date_from) {
             $query->whereDate('tanggal_kontrak', '>=', $request->date_from);
         }
@@ -114,7 +108,6 @@ class KontrakController extends Controller
             $query->whereDate('tanggal_kontrak', '<=', $request->date_to);
         }
 
-        // Filter berdasarkan harga
         if ($request->has('harga_from') && $request->harga_from) {
             $query->where('harga', '>=', $request->harga_from);
         }
@@ -125,7 +118,6 @@ class KontrakController extends Controller
 
         $kontrakPK = $query->get();
 
-        // Jika request untuk PDF
         if ($request->has('export_pdf') && $request->export_pdf === 'true') {
             $pdf = Pdf::loadView('pdf.kontrak_pk', [
                 'kontrakPK' => $kontrakPK,

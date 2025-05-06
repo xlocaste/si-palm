@@ -13,36 +13,44 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class SalesOrderController extends Controller
 {
-    /**
-     * Menampilkan semua data sales order.
-     */
     public function index(Request $request)
     {
-        $query = SalesOrder::with('kontrak');
+        $searchTerm = $request->search;
 
-        // Filter berdasarkan pencarian
-        if ($request->has('search') && $request->search) {
-            $searchTerm = '%' . $request->search . '%';
-            $query->where('no_sales_order', 'like', $searchTerm);
-        }
+        $salesOrderCPO = SalesOrder::whereHas('kontrak', function ($query) {
+                $query->where('jenis_kontrak', 'CPO');
+            })
+            ->with('kontrak')
+            ->when($searchTerm, function ($query, $searchTerm) {
+                $query->where('no_sales_order', 'like', '%' . $searchTerm . '%');
+            })
+            ->get();
 
-        $daftarSalesOrder = $query->get();
+        $salesOrderPK = SalesOrder::whereHas('kontrak', function ($query) {
+                $query->where('jenis_kontrak', 'PK');
+            })
+            ->with('kontrak')
+            ->when($searchTerm, function ($query, $searchTerm) {
+                $query->where('no_sales_order', 'like', '%' . $searchTerm . '%');
+            })
+            ->get();
 
-        // Jika request untuk PDF
         if ($request->has('export_pdf') && $request->export_pdf === 'true') {
-            $pdf = Pdf::loadView('pdf.sales_order_list', [
-                'salesOrders' => $daftarSalesOrder,
+            $pdf = Pdf::loadView('pdf.sales_order_by_kontrak', [
+                'salesOrderCPO' => $salesOrderCPO,
+                'salesOrderPK' => $salesOrderPK,
                 'filter' => [
-                    'search' => $request->search
+                    'search' => $searchTerm,
                 ]
             ]);
-            return $pdf->download('daftar_sales_order.pdf');
+            return $pdf->download('daftar_sales_order_by_kontrak.pdf');
         }
 
         return Inertia::render('SalesOrder/List', [
-            'SalesOrder' => $daftarSalesOrder,
+            'salesOrderCPO' => $salesOrderCPO,
+            'salesOrderPK' => $salesOrderPK,
             'filters' => [
-                'search' => $request->search,
+                'search' => $searchTerm,
             ],
             'auth' => [
                 'user' => auth()->user(),
@@ -50,9 +58,6 @@ class SalesOrderController extends Controller
         ]);
     }
 
-    /**
-     * Menampilkan form tambah sales order.
-     */
     public function create()
     {
         return Inertia::render('SalesOrder/Add', [
@@ -108,9 +113,6 @@ class SalesOrderController extends Controller
         ]);
     }
 
-    /**
-     * Mencetak Sales Order secara individual sebagai PDF
-     */
     public function printSingle(SalesOrder $salesOrder)
     {
         $salesOrder->load('kontrak');

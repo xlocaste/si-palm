@@ -119,6 +119,6 @@ class InvoiceController extends Controller
         $invoice = Invoice::with('kontrak')->findOrFail($invoice);
 
         $pdf = Pdf::loadView('pdf.invoice_detail', compact('invoice'));
-        return $pdf->download("invoice_{$invoice->no_invoice}.pdf");
+        return $pdf->stream("invoice_{$invoice->no_invoice}.pdf");
     }
 }

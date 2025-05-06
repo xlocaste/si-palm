@@ -1,48 +1,30 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import PrimaryButton from "@/Components/PrimaryButton";
-import { Link, router } from "@inertiajs/react";
-import {PencilSquareIcon, TrashIcon, EyeIcon,} from "@heroicons/react/24/outline";
+import { Head, Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faFilePdf, faPrint, faSearch,} from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPrint } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import DetailView from "@/Components/DetailView";
+import PrimaryButton from "@/Components/PrimaryButton";
+import { IoIosSearch } from "react-icons/io";
 
-export default function List({ auth, SalesOrder, filters }) {
-    const [values, setValues] = useState({
-        search: filters?.search || "",
-    });
-
+export default function List({ auth, salesOrderCPO, salesOrderPK }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [modalTitle, setModalTitle] = useState("");
+    const { filters } = usePage().props;
+    const [search, setSearch] = useState(filters.search || "");
 
-    const handleChange = (e) => {
-        const key = e.target.id;
-        const value = e.target.value;
-        setValues((values) => ({
-            ...values,
-            [key]: value,
-        }));
-    };
-
-    const handleSubmit = (e) => {
+    const handleSearch = (e) => {
         e.preventDefault();
-        router.get(route("sales-order.index"), values);
+        router.get(route("salesOrder.index"), { search }, { preserveState: true });
     };
 
-    const handleExportPDF = () => {
-        router.get(route("sales-order.index"), {
-            ...values,
-            export_pdf: "true",
-        });
-    };
-
-    const handlePrint = (id) => {
-        window.open(route("sales-order.print", id), "_blank");
-    };
-
-    const openDetailModal = (item) => {
+    const openDetailModal = (item, type) => {
         setSelectedItem(item);
+        setModalTitle(
+            `Detail Sales Order ${type === "cpo" ? "CPO" : "PK"}: ${item.no_sales_order}`
+        );
         setModalOpen(true);
     };
 
@@ -55,171 +37,148 @@ export default function List({ auth, SalesOrder, filters }) {
                 </h2>
             }
         >
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                        <div className="flex justify-between items-center mb-6">
-                            <PrimaryButton>
-                                <Link href={route("sales-order.create")}>
-                                    TAMBAH SALES ORDER
-                                </Link>
-                            </PrimaryButton>
+            <Head title="Daftar Sales Order" />
+            <div className="min-h-screen bg-gray-100 p-6">
+                <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
+                    <div className="flex items-center justify-between mb-6">
+                        <PrimaryButton>
+                            <Link href={route("sales-order.create")}>
+                                TAMBAH SALES ORDER
+                            </Link>
+                        </PrimaryButton>
+                        <form onSubmit={handleSearch} className="flex items-center gap-2">
+                            <input
+                                type="text"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Cari..."
+                                className="border px-3 pr-40 py-1 rounded-md text-sm"
+                            />
                             <button
-                                onClick={handleExportPDF}
-                                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center"
+                                type="submit"
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-md text-sm"
                             >
-                                <FontAwesomeIcon
-                                    icon={faFilePdf}
-                                    className="mr-2"
-                                />
-                                Export PDF
+                                <IoIosSearch />
                             </button>
-                        </div>
+                        </form>
+                    </div>
 
-                        <div className="mb-6 bg-gray-50-700 p-4 rounded-lg">
-                            <form onSubmit={handleSubmit}>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label
-                                            htmlFor="search"
-                                            className="block text-sm font-medium text-gray-700-300 mb-1"
-                                        >
-                                            Pencarian
-                                        </label>
-                                        <div className="relative">
-                                            <input
-                                                type="text"
-                                                id="search"
-                                                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
-                                                placeholder="No. Sales Order..."
-                                                value={values.search}
-                                                onChange={handleChange}
-                                            />
-                                            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                                                <FontAwesomeIcon
-                                                    icon={faSearch}
-                                                    className="text-gray-400"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-end">
-                                        <button
-                                            type="submit"
-                                            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-                                        >
-                                            Filter
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    <label className="font-bold text-gray-700">
+                        TABEL SALES ORDER CPO
+                    </label>
 
-                        <table className="w-full text-sm text-left">
-                            <thead className="bg-gray-200 text-gray-600">
+                    <div className="overflow-auto mt-6">
+                        <table className="min-w-full text-sm text-left text-gray-500">
+                            <thead className="text-xs text-gray-700 bg-gray-100">
                                 <tr>
-                                    <th className="px-4 py-2">
-                                        No. Sales Order
-                                    </th>
-                                    <th className="px-4 py-2">Tanggal</th>
-                                    <th className="px-4 py-2">Tahap</th>
-                                    <th className="px-4 py-2">Volume</th>
-                                    <th className="px-4 py-2">nilai</th>
-                                    <th className="px-4 py-2">Action</th>
+                                    <th className="px-6 py-3 border">No Sales Order</th>
+                                    <th className="px-6 py-3 border">Tanggal</th>
+                                    <th className="px-6 py-3 border">Tahap</th>
+                                    <th className="px-6 py-3 border">Volume</th>
+                                    <th className="px-6 py-3 border">Nilai</th>
+                                    <th className="px-6 py-3 border">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {SalesOrder.map((item, index) => (
-                                    <tr key={index} className="border-b">
-                                        <td className="px-4 py-2">
-                                            {item.no_sales_order}
-                                        </td>
-                                        <td className="px-4 py-2">
-                                            {item.tanggal_sales_order}
-                                        </td>
-                                        <td className="px-4 py-2">
-                                            {item.tahap}
-                                        </td>
-                                        <td className="px-4 py-2">
-                                            {item.volume_sales_order}
-                                        </td>
-                                        <td className="px-4 py-2">
-                                            {item.nilai}
-                                        </td>
-                                        <td className="px-4 py-2 text-center">
-                                            <div className="flex items-center justify-center gap-4">
+                                {salesOrderCPO.length > 0 ? (
+                                    salesOrderCPO.map((item, index) => (
+                                        <tr key={index} className="bg-white border-b hover:bg-gray-50">
+                                            <td className="px-6 py-4 border">{item.no_sales_order}</td>
+                                            <td className="px-6 py-4 border">{item.tanggal_sales_order}</td>
+                                            <td className="px-6 py-4 border">{item.tahap}</td>
+                                            <td className="px-6 py-4 border">{item.volume_sales_order}</td>
+                                            <td className="px-6 py-4 border">Rp {parseFloat(item.nilai).toLocaleString()}</td>
+                                            <td className="px-6 py-4 border space-x-2">
                                                 <button
-                                                    onClick={() =>
-                                                        openDetailModal(item)
-                                                    }
-                                                    className="text-blue-500 hover:text-blue-600"
-                                                    title="Detail"
+                                                    onClick={() => openDetailModal(item, "cpo")}
+                                                    className="text-blue-500 hover:underline"
                                                 >
-                                                    <EyeIcon className="h-5 w-5" />
+                                                    <FontAwesomeIcon icon={faEye} />
                                                 </button>
 
-                                                <Link
-                                                    href={route(
-                                                        "sales-order.edit",
-                                                        item.id
-                                                    )}
-                                                    className="text-yellow-500 hover:text-yellow-600"
-                                                    title="Edit"
+                                                <a
+                                                    href={route("sales-order.print", item.id)}
+                                                    target="_blank"
+                                                    className="text-green-600 hover:underline"
                                                 >
-                                                    <PencilSquareIcon className="h-5 w-5" />
-                                                </Link>
-
-                                                <Link
-                                                    href={route(
-                                                        "sales-order.destroy",
-                                                        item.id
-                                                    )}
-                                                    method="delete"
-                                                    as="button"
-                                                    className="text-red-500 hover:text-red-600"
-                                                    title="Hapus"
-                                                    onClick={(e) => {
-                                                        if (
-                                                            !confirm(
-                                                                "Yakin ingin menghapus data ini?"
-                                                            )
-                                                        ) {
-                                                            e.preventDefault();
-                                                        }
-                                                    }}
-                                                >
-                                                    <TrashIcon className="h-5 w-5" />
-                                                </Link>
-
-                                                <button
-                                                    onClick={() =>
-                                                        handlePrint(item.id)
-                                                    }
-                                                    className="text-blue-500 hover:text-blue-600"
-                                                    title="Cetak"
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={faPrint}
-                                                        className="h-4 w-4"
-                                                    />
-                                                </button>
-                                            </div>
+                                                    <FontAwesomeIcon icon={faPrint} />
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="5" className="text-center py-4 text-gray-400">
+                                            Tidak ada data sales order.
                                         </td>
                                     </tr>
-                                ))}
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6 mt-6">
+                    <label className="font-bold text-gray-700">
+                        TABEL SALES ORDER PK
+                    </label>
+
+                    <div className="overflow-auto mt-6">
+                        <table className="min-w-full text-sm text-left text-gray-500">
+                            <thead className="text-xs text-gray-700 bg-gray-100">
+                                <tr>
+                                    <th className="px-6 py-3 border">No Sales Order</th>
+                                    <th className="px-6 py-3 border">Tanggal</th>
+                                    <th className="px-6 py-3 border">Tahap</th>
+                                    <th className="px-6 py-3 border">Volume</th>
+                                    <th className="px-6 py-3 border">Nilai</th>
+                                    <th className="px-6 py-3 border">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {salesOrderPK.length > 0 ? (
+                                    salesOrderPK.map((item, index) => (
+                                        <tr key={index} className="bg-white border-b hover:bg-gray-50">
+                                            <td className="px-6 py-4 border">{item.no_sales_order}</td>
+                                            <td className="px-6 py-4 border">{item.tanggal_sales_order}</td>
+                                            <td className="px-6 py-4 border">{item.tahap}</td>
+                                            <td className="px-6 py-4 border">{item.volume_sales_order}</td>
+                                            <td className="px-6 py-4 border">Rp {parseFloat(item.nilai).toLocaleString()}</td>
+                                            <td className="px-6 py-4 border space-x-2">
+                                                <button
+                                                    onClick={() => openDetailModal(item, "pk")}
+                                                    className="text-blue-500 hover:underline"
+                                                >
+                                                    <FontAwesomeIcon icon={faEye} />
+                                                </button>
+
+                                                <a
+                                                    href={route("sales-order.print", item.id)}
+                                                    target="_blank"
+                                                    className="text-green-600 hover:underline"
+                                                >
+                                                    <FontAwesomeIcon icon={faPrint} />
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="5" className="text-center py-4 text-gray-400">
+                                            Tidak ada data sales order.
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            {/* Detail Modal */}
             <Modal
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}
-                title={`Detail Sales Order: ${
-                    selectedItem?.no_sales_order || ""
-                }`}
+                title={modalTitle}
             >
                 {selectedItem && <DetailView data={selectedItem} />}
             </Modal>
