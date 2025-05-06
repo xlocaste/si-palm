@@ -25,12 +25,7 @@ class Kontrak extends Model
         'harga_satuan',
         'ppn',
         'kondisi_penyerahan',
-        'pembayaran',
-        'metode',
-        'nama_bank',
-        'cara_pembayaran',
-        'atas_nama',
-        'rek_no',
+        'pembayaran_id',
         'waktu_penyerahan',
         'syarat_lain',
         'dasar_ketentuan',
@@ -58,9 +53,9 @@ class Kontrak extends Model
     }
 
     public function pembayaran()
-{
-    return $this->hasOne(Pembayaran::class);
-}
+    {
+        return $this->hasOne(Pembayaran::class);
+    }
 
 
 }

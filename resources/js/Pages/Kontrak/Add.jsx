@@ -1,5 +1,5 @@
-import React from "react";
-import { useForm } from "@inertiajs/react";
+import React, { useState } from "react";
+import { router, useForm } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { ValidationErrors } from "@/Components/AlertMessage";
 
@@ -14,7 +14,7 @@ function Input({
 }) {
     return (
         <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 200">
                 {label}
             </label>
             <input
@@ -43,7 +43,7 @@ function Select({
 }) {
     return (
         <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 200">
                 {label}
             </label>
             <select
@@ -66,8 +66,7 @@ function Select({
         </div>
     );
 }
-
-export default function Add({ auth }) {
+export default function Add({ auth, pembayaran }) {
     const { data, setData, post, processing, errors } = useForm({
         no_kontrak: "",
         jenis_kontrak: "",
@@ -90,12 +89,7 @@ export default function Add({ auth }) {
         harga_satuan: "",
         ppn: "",
         kondisi_penyerahan: "",
-        pembayaran: "",
-        metode: "",
-        nama_bank: "",
-        cara_pembayaran: "",
-        atas_nama: "",
-        rek_no: "",
+        pembayaran_id: "",
         waktu_penyerahan: "",
         syarat_lain: "",
         dasar_ketentuan: "",
@@ -115,14 +109,14 @@ export default function Add({ auth }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800  leading-tight">
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Tambah Kontrak
                 </h2>
             }
         >
             <div className="py-12">
                 <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white -800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                         {Object.keys(errors).length > 0 && (
                             <div className="mb-4">
                                 <ValidationErrors errors={errors} />
@@ -209,6 +203,7 @@ export default function Add({ auth }) {
                                 error={errors.jenis_tempo_penyerahan}
                             />
 
+                            {/* Produk Info */}
                             <Input
                                 label="Penjual & Pemilik Komoditas"
                                 name="penjual_dan_pemilik_komoditas"
@@ -296,48 +291,26 @@ export default function Add({ auth }) {
                                 onChange={handleChange}
                                 error={errors.kondisi_penyerahan}
                             />
-                            <Input
-                                label="Pembayaran"
-                                name="pembayaran"
-                                value={data.pembayaran}
-                                onChange={handleChange}
-                                error={errors.pembayaran}
-                            />
-                            <Input
-                                label="Metode"
-                                name="metode"
-                                value={data.metode}
-                                onChange={handleChange}
-                                error={errors.metode}
-                            />
-                            <Input
-                                label="Nama Bank"
-                                name="nama_bank"
-                                value={data.nama_bank}
-                                onChange={handleChange}
-                                error={errors.nama_bank}
-                            />
-                            <Input
-                                label="Cara Pembayaran"
-                                name="cara_pembayaran"
-                                value={data.cara_pembayaran}
-                                onChange={handleChange}
-                                error={errors.cara_pembayaran}
-                            />
-                            <Input
-                                label="Atas Nama"
-                                name="atas_nama"
-                                value={data.atas_nama}
-                                onChange={handleChange}
-                                error={errors.atas_nama}
-                            />
-                            <Input
-                                label="No Rekening"
-                                name="rek_no"
-                                value={data.rek_no}
-                                onChange={handleChange}
-                                error={errors.rek_no}
-                            />
+
+                            <div>
+                                <label className="block text-sm font-medium mb-2">Pembayaran</label>
+                                <select
+                                    name="pembayaran_id"
+                                    value={data.pembayaran_id}
+                                    onChange={handleChange}
+                                    className="w-full border p-2 rounded"
+                                >
+                                    <option value="">-- Pilih Pembayaran --</option>
+                                    {pembayaran.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.nama_bank}
+                                    </option>
+                                    ))}
+                                </select>
+                                {errors.pembayaran && (
+                                    <p className="text-red-500 text-xs mt-1">{errors.pembayaran}</p>
+                                )}
+                            </div>
                             <Input
                                 type="datetime-local"
                                 label="Waktu Penyerahan"

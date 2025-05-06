@@ -178,7 +178,6 @@ class KontrakController extends Controller
 
     public function store(StoreRequest $request)
     {
-        // Menambahkan field baru saat menyimpan kontrak
         $kontrak = Kontrak::create([
             'no_kontrak' => $request->no_kontrak,
             'penjual_dan_pemilik_komoditas' => $request->penjual_dan_pemilik_komoditas,
@@ -193,12 +192,7 @@ class KontrakController extends Controller
             'harga_satuan' => $request->harga_satuan,
             'ppn' => $request->ppn,
             'kondisi_penyerahan' => $request->kondisi_penyerahan,
-            'pembayaran' => $request->pembayaran,
-            'metode' => $request->metode,
-            'nama_bank' => $request->nama_bank,
-            'cara_pembayaran' => $request->cara_pembayaran,
-            'atas_nama' => $request->atas_nama,
-            'rek_no' => $request->rek_no,
+            'pembayaran_id' => $request->pembayaran_id,
             'waktu_penyerahan' => $request->waktu_penyerahan,
             'syarat_lain' => $request->syarat_lain,
             'dasar_ketentuan' => $request->dasar_ketentuan,
@@ -281,10 +275,8 @@ class KontrakController extends Controller
         ]);
     }
 
-    // Fungsi untuk mencetak satu data CPO
     public function printSingleCPO(Kontrak $kontrak)
     {
-        // Pastikan hanya kontrak CPO yang dicetak
         if ($kontrak->jenis_kontrak !== 'CPO') {
             return redirect()->back()->with('error', 'Kontrak bukan tipe CPO');
         }
@@ -296,10 +288,8 @@ class KontrakController extends Controller
         return $pdf->stream('kontrak_cpo_' . $kontrak->no_kontrak . '.pdf');
     }
 
-    // Fungsi untuk mencetak satu data PK
     public function printSinglePK(Kontrak $kontrak)
     {
-        // Pastikan hanya kontrak PK yang dicetak
         if ($kontrak->jenis_kontrak !== 'PK') {
             return redirect()->back()->with('error', 'Kontrak bukan tipe PK');
         }
