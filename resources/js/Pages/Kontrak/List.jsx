@@ -25,29 +25,27 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Daftar Kontrak
                 </h2>
             }
         >
             <div className="py-12 space-y-12">
-                {/* Tabel CPO */}
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                        <label className="font-bold text-gray-700 dark:text-white">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                        <label className="font-bold text-gray-700 ">
                             TABEL MINYAK SAWIT (CPO)
                         </label>
 
                         <div className="overflow-x-auto mt-4">
-                            <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-300">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+                            <table className="min-w-full text-sm text-left text-gray-500">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                                     <tr>
                                         <th className="px-6 py-3">
                                             No Kontrak
                                         </th>
                                         <th className="px-6 py-3">Pembeli</th>
                                         <th className="px-6 py-3">Volume</th>
-                                        {/* <th className="px-6 py-3">Aksi</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,7 +53,7 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                                         kontrakCPO.map((item, index) => (
                                             <tr
                                                 key={index}
-                                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                                className="bg-white border-b -800 hover:bg-gray-50 -gray-600"
                                             >
                                                 <td className="px-6 py-4">
                                                     {item.no_kontrak}
@@ -66,21 +64,6 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                                                 <td className="px-6 py-4">
                                                     {item.volume}
                                                 </td>
-                                                {/* <td className="px-6 py-4">
-                                                    <button
-                                                        onClick={() =>
-                                                            openDetailModal(
-                                                                item,
-                                                                "cpo"
-                                                            )
-                                                        }
-                                                        className="text-blue-500 hover:text-blue-700"
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            icon={faEye}
-                                                        />
-                                                    </button>
-                                                </td> */}
                                             </tr>
                                         ))
                                     ) : (
@@ -97,7 +80,6 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                             </table>
                         </div>
 
-                        {/* Tombol Detail CPO di bawah tabel */}
                         <div className="text-right mt-4">
                             <Link
                                 href={route("kontrak-cpo.index")}
@@ -109,23 +91,21 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                     </div>
                 </div>
 
-                {/* Tabel PK */}
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                        <label className="font-bold text-gray-700 dark:text-white">
+                    <div className="bg-white -800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                        <label className="font-bold text-gray-700 ">
                             TABEL INTI SAWIT (KERNEL / PK)
                         </label>
 
                         <div className="overflow-x-auto mt-4">
-                            <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-300">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+                            <table className="min-w-full text-sm text-left text-gray-500 -300">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-100 -700 -300">
                                     <tr>
                                         <th className="px-6 py-3">
                                             No Kontrak
                                         </th>
                                         <th className="px-6 py-3">Pembeli</th>
                                         <th className="px-6 py-3">Volume</th>
-                                        {/* <th className="px-6 py-3">Aksi</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -133,7 +113,7 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                                         kontrakPK.map((item, index) => (
                                             <tr
                                                 key={index}
-                                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                                className="bg-white border-b -800 -700 hover:bg-gray-50 -gray-600"
                                             >
                                                 <td className="px-6 py-4">
                                                     {item.no_kontrak}
@@ -144,21 +124,6 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                                                 <td className="px-6 py-4">
                                                     {item.volume}
                                                 </td>
-                                                {/* <td className="px-6 py-4">
-                                                    <button
-                                                        onClick={() =>
-                                                            openDetailModal(
-                                                                item,
-                                                                "pk"
-                                                            )
-                                                        }
-                                                        className="text-blue-500 hover:text-blue-700"
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            icon={faEye}
-                                                        />
-                                                    </button>
-                                                </td> */}
                                             </tr>
                                         ))
                                     ) : (
@@ -175,7 +140,6 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                             </table>
                         </div>
 
-                        {/* Tombol Detail PK di bawah tabel */}
                         <div className="text-right mt-4">
                             <Link
                                 href={route("kontrak-pk.index")}
@@ -188,7 +152,6 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                 </div>
             </div>
 
-            {/* Detail Modal */}
             <Modal
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}

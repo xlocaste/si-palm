@@ -55,15 +55,14 @@ export default function Update({ auth, kontrak }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Edit Kontrak
                 </h2>
             }
         >
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
-                        {/* Tampilkan error validasi jika ada */}
+                    <div className="bg-white shadow-sm sm:rounded-lg p-6">
                         {Object.keys(errors).length > 0 && (
                             <div className="mb-4">
                                 <ValidationErrors errors={errors} />

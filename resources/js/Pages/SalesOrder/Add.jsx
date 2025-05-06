@@ -12,7 +12,6 @@ export default function Add({ auth, kontrak }) {
         nilai: '',
     });
 
-    // Hitung nilai ketika kontrak_id atau volume_sales_order berubah
     useEffect(() => {
         const selectedKontrak = kontrak.find(k => k.id === parseInt(values.kontrak_id));
         const volume = parseFloat(values.volume_sales_order);
@@ -47,11 +46,11 @@ export default function Add({ auth, kontrak }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">Tambah Sales Order</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Sales Order</h2>}
         >
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+                    <div className="bg-white shadow-sm sm:rounded-lg p-6">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
                                 <label>No. Sales Order</label>
@@ -99,7 +98,7 @@ export default function Add({ auth, kontrak }) {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="kontrak_id" className="block text-sm font-medium text-gray-700 dark:text-white">Kontrak</label>
+                                <label htmlFor="kontrak_id" className="block text-sm font-medium text-gray-700">Kontrak</label>
                                 <select
                                     name="kontrak_id"
                                     id="kontrak_id"

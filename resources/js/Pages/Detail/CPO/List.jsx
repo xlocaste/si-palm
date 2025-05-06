@@ -83,30 +83,20 @@ export default function List({ kontrakCPO, filters, auth }) {
         <AuthenticatedLayout user={auth.user}>
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+                    <div className="bg-white shadow-sm sm:rounded-lg p-6">
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                            <h2 className="text-2xl font-semibold text-gray-900">
                                 Daftar Kontrak Minyak Sawit (CPO)
                             </h2>
-                            {/* <button
-                                onClick={handleExportPDF}
-                                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center"
-                            >
-                                <FontAwesomeIcon
-                                    icon={faFilePdf}
-                                    className="mr-2"
-                                />
-                                Export PDF
-                            </button> */}
                         </div>
 
-                        <div className="mb-6 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <div className="mb-6 bg-gray-50-700 p-4 rounded-lg">
                             <form onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                                     <div>
                                         <label
                                             htmlFor="search"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                            className="block text-sm font-medium text-gray-700 mb-1"
                                         >
                                             Pencarian
                                         </label>
@@ -114,8 +104,8 @@ export default function List({ kontrakCPO, filters, auth }) {
                                             <input
                                                 type="text"
                                                 id="search"
-                                                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-                                                placeholder="No.Kontrak, Pembeli, Mutu"
+                                                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
+                                                placeholder="Cari..."
                                                 value={values.search}
                                                 onChange={handleChange}
                                             />
@@ -131,14 +121,14 @@ export default function List({ kontrakCPO, filters, auth }) {
                                     <div>
                                         <label
                                             htmlFor="date_from"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                            className="block text-sm font-medium text-gray-700-300 mb-1"
                                         >
                                             Tanggal Dari
                                         </label>
                                         <input
                                             type="date"
                                             id="date_from"
-                                            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                                            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
                                             value={values.date_from}
                                             onChange={handleChange}
                                         />
@@ -147,14 +137,14 @@ export default function List({ kontrakCPO, filters, auth }) {
                                     <div>
                                         <label
                                             htmlFor="date_to"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                            className="block text-sm font-medium text-gray-700-300 mb-1"
                                         >
                                             Tanggal Sampai
                                         </label>
                                         <input
                                             type="date"
                                             id="date_to"
-                                            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                                            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
                                             value={values.date_to}
                                             onChange={handleChange}
                                         />
@@ -163,14 +153,14 @@ export default function List({ kontrakCPO, filters, auth }) {
                                     <div>
                                         <label
                                             htmlFor="harga_from"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                            className="block text-sm font-medium text-gray-700-300 mb-1"
                                         >
                                             Harga Dari
                                         </label>
                                         <input
                                             type="number"
                                             id="harga_from"
-                                            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                                            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
                                             placeholder="Minimal"
                                             value={values.harga_from}
                                             onChange={handleChange}
@@ -180,14 +170,14 @@ export default function List({ kontrakCPO, filters, auth }) {
                                     <div>
                                         <label
                                             htmlFor="harga_to"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                            className="block text-sm font-medium text-gray-700-300 mb-1"
                                         >
                                             Harga Sampai
                                         </label>
                                         <input
                                             type="number"
                                             id="harga_to"
-                                            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                                            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
                                             placeholder="Maksimal"
                                             value={values.harga_to}
                                             onChange={handleChange}
@@ -214,8 +204,8 @@ export default function List({ kontrakCPO, filters, auth }) {
                         </div>
 
                         <div className="overflow-x-auto">
-                            <table className="min-w-full table-auto text-sm text-left border border-gray-200 dark:border-gray-700">
-                                <thead className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                            <table className="min-w-full table-auto text-sm text-left border border-gray-200-700">
+                                <thead className="bg-gray-100-700 text-gray-700-200">
                                     <tr>
                                         <th className="px-4 py-2">
                                             No. Kontrak
@@ -240,7 +230,7 @@ export default function List({ kontrakCPO, filters, auth }) {
                                         kontrakCPO.map((kontrak) => (
                                             <tr
                                                 key={kontrak.id}
-                                                className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+                                                className="border-b-700 hover:bg-gray-50-gray-700 transition"
                                             >
                                                 <td className="px-4 py-2">
                                                     {kontrak.no_kontrak}
@@ -340,7 +330,6 @@ export default function List({ kontrakCPO, filters, auth }) {
                 </div>
             </div>
 
-            {/* Detail Modal */}
             <Modal
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}

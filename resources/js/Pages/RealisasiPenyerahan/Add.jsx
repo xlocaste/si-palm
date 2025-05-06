@@ -29,13 +29,12 @@ export default function Add({ auth, kontrak, invoice }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">Tambah Realisasi Penyerahan</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800  leading-tight">Tambah Realisasi Penyerahan</h2>}
         >
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+                    <div className="bg-white shadow-sm sm:rounded-lg p-6">
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            {/* Kontrak */}
                             <div>
                                 <label>Pilih Kontrak</label>
                                 <select
@@ -54,7 +53,6 @@ export default function Add({ auth, kontrak, invoice }) {
                                 </select>
                             </div>
 
-                            {/* Invoice */}
                             <div>
                                 <label>Pilih Invoice</label>
                                 <select
@@ -73,7 +71,6 @@ export default function Add({ auth, kontrak, invoice }) {
                                 </select>
                             </div>
 
-                            {/* Tanggal Serah */}
                             <div>
                                 <label>Tanggal Serah</label>
                                 <input
@@ -86,7 +83,6 @@ export default function Add({ auth, kontrak, invoice }) {
                                 />
                             </div>
 
-                            {/* ALB */}
                             <div>
                                 <label>ALB (%)</label>
                                 <input
@@ -99,7 +95,6 @@ export default function Add({ auth, kontrak, invoice }) {
                                 />
                             </div>
 
-                            {/* KA */}
                             <div>
                                 <label>KA (%)</label>
                                 <input
@@ -112,7 +107,6 @@ export default function Add({ auth, kontrak, invoice }) {
                                 />
                             </div>
 
-                            {/* KK */}
                             <div>
                                 <label>KK (%)</label>
                                 <input
@@ -125,7 +119,6 @@ export default function Add({ auth, kontrak, invoice }) {
                                 />
                             </div>
 
-                            {/* No BA */}
                             <div>
                                 <label>No. BA</label>
                                 <input
@@ -138,7 +131,6 @@ export default function Add({ auth, kontrak, invoice }) {
                                 />
                             </div>
 
-                            {/* No Surat Penerbitan Invoice */}
                             <div>
                                 <label>No. Surat Penerbitan Invoice</label>
                                 <input
@@ -151,7 +143,6 @@ export default function Add({ auth, kontrak, invoice }) {
                                 />
                             </div>
 
-                            {/* Tanggal Surat Invoice */}
                             <div>
                                 <label>Tanggal Surat Invoice</label>
                                 <input
@@ -164,7 +155,6 @@ export default function Add({ auth, kontrak, invoice }) {
                                 />
                             </div>
 
-                            {/* Submit Button */}
                             <div className="text-right">
                                 <button
                                     type="submit"

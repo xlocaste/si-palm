@@ -5,14 +5,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link, router } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faEdit,
-    faTrash,
-    faSearch,
-    faFilePdf,
-    faPrint,
-    faEye,
-} from "@fortawesome/free-solid-svg-icons";
+import {faEdit,faTrash,faSearch,faFilePdf,faPrint,faEye,} from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import DetailView from "@/Components/DetailView";
 
@@ -58,14 +51,14 @@ export default function List({ auth, realisasiPenyerahan, filters }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Daftar Realisasi Penyerahan
                 </h2>
             }
         >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+                    <div className="bg-white shadow-sm sm:rounded-lg p-6">
                         <div className="flex justify-between items-center mb-6">
                             <Link href={route("realisasi-penyerahan.create")}>
                                 <PrimaryButton className="px-4 py-2 text-white rounded">
@@ -84,13 +77,13 @@ export default function List({ auth, realisasiPenyerahan, filters }) {
                             </button>
                         </div>
 
-                        <div className="mb-6 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <div className="mb-6 bg-gray-50-700 p-4 rounded-lg">
                             <form onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label
                                             htmlFor="search"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                            className="block text-sm font-medium text-gray-700-300 mb-1"
                                         >
                                             Pencarian
                                         </label>
@@ -98,7 +91,7 @@ export default function List({ auth, realisasiPenyerahan, filters }) {
                                             <input
                                                 type="text"
                                                 id="search"
-                                                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                                                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
                                                 placeholder="No. BA, No. Surat Penerbitan Invoice..."
                                                 value={values.search}
                                                 onChange={handleChange}

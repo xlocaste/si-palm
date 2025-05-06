@@ -71,18 +71,12 @@ export default function List({ auth, InvoiceCPO, InvoicePK, filters }) {
     const TableSection = ({ title, data, totalPages, jenis }) => (
         <div className="mb-12">
             <div className="flex justify-between items-center mb-2">
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                <h3 className="text-lg font-semibold text-gray-800 ">
                     {title}
                 </h3>
-                {/* <button
-                    onClick={() => handleExportPDF(jenis)}
-                    className="px-3 py-1 bg-red-600 text-white rounded flex items-center text-sm"
-                >
-                    <FaFilePdf className="mr-1" /> Export PDF
-                </button> */}
             </div>
-            <table className="w-full text-sm text-left bg-white dark:bg-gray-900 shadow-md rounded">
-                <thead className="bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <table className="w-full text-sm text-left bg-white shadow-md rounded">
+                <thead className="bg-gray-200 text-gray-600">
                     <tr>
                         <th className="px-4 py-2">No. Invoice</th>
                         <th className="px-4 py-2">Tanggal</th>
@@ -96,7 +90,7 @@ export default function List({ auth, InvoiceCPO, InvoicePK, filters }) {
                         data.map((item, index) => (
                             <tr
                                 key={index}
-                                className="border-b dark:border-gray-700"
+                                className="border-b"
                             >
                                 <td className="px-4 py-2">{item.no_invoice}</td>
                                 <td className="px-4 py-2">
@@ -191,14 +185,14 @@ export default function List({ auth, InvoiceCPO, InvoicePK, filters }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
+                <h2 className="font-semibold text-xl text-gray-800  leading-tight">
                     Daftar Invoice
                 </h2>
             }
         >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                         <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
                             <div className="flex gap-2">
                                 <PrimaryButton>
@@ -206,13 +200,6 @@ export default function List({ auth, InvoiceCPO, InvoicePK, filters }) {
                                         TAMBAH INVOICE
                                     </Link>
                                 </PrimaryButton>
-                                {/* <button
-                                    onClick={() => handleExportPDF()}
-                                    className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 flex items-center"
-                                >
-                                    <FaFilePdf className="mr-2" />
-                                    Export PDF
-                                </button> */}
                             </div>
                             <form
                                 onSubmit={handleSubmit}
@@ -224,7 +211,7 @@ export default function List({ auth, InvoiceCPO, InvoicePK, filters }) {
                                     value={search}
                                     onChange={(e) => {
                                         setSearch(e.target.value);
-                                        setCurrentPage(1); // reset halaman saat search berubah
+                                        setCurrentPage(1);
                                     }}
                                     className="px-3 py-2 border rounded w-full"
                                 />
@@ -253,7 +240,6 @@ export default function List({ auth, InvoiceCPO, InvoicePK, filters }) {
                 </div>
             </div>
 
-            {/* Detail Modal */}
             <Modal
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}

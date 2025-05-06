@@ -24,11 +24,11 @@ export default function Update({ auth, invoice }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">Edit Invoice</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Edit Invoice</h2>}
         >
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+                    <div className="bg-white shadow-sm sm:rounded-lg p-6">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium">No. Invoice</label>
