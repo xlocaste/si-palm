@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 export default function Add({ auth, kontrak }) {
     const [values, setValues] = useState({
@@ -46,12 +47,12 @@ export default function Add({ auth, kontrak }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Sales Order</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Invoice</h2>}
         >
-            <div className="py-12">
-                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div className="min-h-screen bg-gray-100 p-6">
+                <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
                     <div className="bg-white shadow-sm sm:rounded-lg p-6">
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="grid grid-cols-2 items-center gap-6">
                             <div>
                                 <label>No. Sales Order</label>
                                 <input
@@ -127,10 +128,8 @@ export default function Add({ auth, kontrak }) {
                                     readOnly
                                 />
                             </div>
-                            <div className="text-right">
-                                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                                    Simpan
-                                </button>
+                            <div className="col-span-2 flex justify-end">
+                                <PrimaryButton type="submit">Simpan</PrimaryButton>
                             </div>
                         </form>
                     </div>
