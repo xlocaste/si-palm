@@ -25,7 +25,12 @@ class Kontrak extends Model
         'harga_satuan',
         'ppn',
         'kondisi_penyerahan',
-        'pembayaran_id',
+        'pembayaran',
+        'metode',
+        'nama_bank',
+        'cara_pembayaran',
+        'atas_nama',
+        'rek_no',
         'waktu_penyerahan',
         'syarat_lain',
         'dasar_ketentuan',
@@ -39,7 +44,13 @@ class Kontrak extends Model
         'jenis_tempo_penyerahan',
         'jenis_kontrak',
     ];
-    
+
+
+    protected $casts = [
+        'waktu_penyerahan' => 'datetime',
+        'tanggal_kontrak' => 'date',
+        'jatuh_tempo' => 'date',
+    ];
 
     public function invoices()
     {

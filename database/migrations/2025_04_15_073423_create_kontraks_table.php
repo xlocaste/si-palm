@@ -20,22 +20,29 @@ return new class extends Migration
             $table->string('jenis_komoditi');
             $table->string('symbol');
             $table->string('packaging');
-            $table->text('deskripsi_produk');
+            $table->string('deskripsi_produk');
             $table->string('produsen');
             $table->string('pelabuhan_muat');
-            $table->decimal('harga_satuan', 15, 2);
-            $table->boolean('ppn');
+            $table->integer('harga_satuan');
+            $table->string('ppn');
             $table->string('kondisi_penyerahan');
-            $table->string('waktu_penyerahan')->nullable();
-            $table->text('syarat_lain');
-            $table->text('dasar_ketentuan');
-            $table->decimal('jumlah_pembayaran', 15, 2);
+            $table->string('pembayaran');
+            $table->string('metode');
+            $table->string('nama_bank');
+            $table->string('cara_pembayaran');
+            $table->string('atas_nama');
+            $table->string('rek_no');
+            $table->timestamp('waktu_penyerahan')->nullable();
+            $table->string('syarat_lain');
+            $table->string('dasar_ketentuan');
+            $table->string('jumlah_pembayaran');
             $table->string('pembeli');
             $table->integer('mutu');
             $table->decimal('harga', 15, 2);
             $table->decimal('volume', 15, 2);
             $table->date('tanggal_kontrak');
             $table->date('jatuh_tempo');
+
             $table->timestamps();
         });
     }
