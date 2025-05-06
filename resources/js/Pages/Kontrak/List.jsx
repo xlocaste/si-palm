@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
@@ -30,48 +30,35 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                 </h2>
             }
         >
-            <div className="py-12 space-y-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+            <Head title="Daftar Kontrak" />
+            <div className="min-h-screen bg-gray-100 p-6">
+                <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <label className="font-bold text-gray-700 ">
                             TABEL MINYAK SAWIT (CPO)
                         </label>
 
-                        <div className="overflow-x-auto mt-4">
+                        <div className="overflow-auto mt-6">
                             <table className="min-w-full text-sm text-left text-gray-500">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-100">
+                                <thead className="text-xs text-gray-700 bg-gray-100">
                                     <tr>
-                                        <th className="px-6 py-3">
-                                            No Kontrak
-                                        </th>
-                                        <th className="px-6 py-3">Pembeli</th>
-                                        <th className="px-6 py-3">Volume</th>
+                                        <th className="px-6 py-3 border">No Kontrak</th>
+                                        <th className="px-6 py-3 border">Pembeli</th>
+                                        <th className="px-6 py-3 border">Volume</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {kontrakCPO.length > 0 ? (
                                         kontrakCPO.map((item, index) => (
-                                            <tr
-                                                key={index}
-                                                className="bg-white border-b -800 hover:bg-gray-50 -gray-600"
-                                            >
-                                                <td className="px-6 py-4">
-                                                    {item.no_kontrak}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {item.pembeli}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {item.volume}
-                                                </td>
+                                            <tr key={index} className="bg-white border-b -800 hover:bg-gray-50 -gray-600">
+                                                <td className="px-6 py-4 border">{item.no_kontrak}</td>
+                                                <td className="px-6 py-4 border">{item.pembeli}</td>
+                                                <td className="px-6 py-4 border">{item.volume}</td>
                                             </tr>
                                         ))
                                     ) : (
                                         <tr>
-                                            <td
-                                                colSpan="4"
-                                                className="text-center py-4 text-gray-400"
-                                            >
+                                            <td colSpan="4" className="text-center py-4 text-gray-400">
                                                 Tidak ada data kontrak.
                                             </td>
                                         </tr>
@@ -91,47 +78,33 @@ export default function List({ auth, kontrakPK, kontrakCPO }) {
                     </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white -800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6 mt-6">
+                    <div className="bg-white -800 overflow-hidden shadow-sm sm:rounded-lg">
                         <label className="font-bold text-gray-700 ">
                             TABEL INTI SAWIT (KERNEL / PK)
                         </label>
 
-                        <div className="overflow-x-auto mt-4">
-                            <table className="min-w-full text-sm text-left text-gray-500 -300">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-100 -700 -300">
+                        <div className="overflow-x-auto mt-6">
+                            <table className="min-w-full text-sm text-left text-gray-500">
+                                <thead className="text-xs text-gray-700 bg-gray-100">
                                     <tr>
-                                        <th className="px-6 py-3">
-                                            No Kontrak
-                                        </th>
-                                        <th className="px-6 py-3">Pembeli</th>
-                                        <th className="px-6 py-3">Volume</th>
+                                        <th className="px-6 py-3 border">No Kontrak</th>
+                                        <th className="px-6 py-3 border">Pembeli</th>
+                                        <th className="px-6 py-3 border">Volume</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {kontrakPK.length > 0 ? (
                                         kontrakPK.map((item, index) => (
-                                            <tr
-                                                key={index}
-                                                className="bg-white border-b -800 -700 hover:bg-gray-50 -gray-600"
-                                            >
-                                                <td className="px-6 py-4">
-                                                    {item.no_kontrak}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {item.pembeli}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {item.volume}
-                                                </td>
+                                            <tr key={index} className="bg-white border-b -800 -700 hover:bg-gray-50 -gray-600">
+                                                <td className="px-6 py-4 border">{item.no_kontrak}</td>
+                                                <td className="px-6 py-4 border">{item.pembeli}</td>
+                                                <td className="px-6 py-4 border">{item.volume}</td>
                                             </tr>
                                         ))
                                     ) : (
                                         <tr>
-                                            <td
-                                                colSpan="4"
-                                                className="text-center py-4 text-gray-400"
-                                            >
+                                            <td colSpan="4" className="text-center py-4 text-gray-400">
                                                 Tidak ada data kontrak.
                                             </td>
                                         </tr>
