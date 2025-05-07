@@ -9,6 +9,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { IoIosSearch } from "react-icons/io";
 
 export default function List({ auth, InvoiceCPO, InvoicePK }) {
+    console.log(InvoiceCPO)
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [modalTitle, setModalTitle] = useState("");

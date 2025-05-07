@@ -39,14 +39,6 @@ class Kontrak extends Model
         'jenis_tempo_penyerahan',
         'jenis_kontrak',
     ];
-
-
-    protected $casts = [
-        'waktu_penyerahan' => 'datetime',
-        'tanggal_kontrak' => 'datetime',
-        'jatuh_tempo' => 'datetime',
-    ];
-
     public function invoices()
     {
         return $this->hasMany(Invoice::class);

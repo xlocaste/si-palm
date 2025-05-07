@@ -151,22 +151,27 @@ class KontrakController extends Controller
     {
         $jenis = $request->jenis_tempo_penyerahan;
 
-        $query = Kontrak::query();
+        $queryCPO = Kontrak::where('jenis_kontrak', 'CPO');
+        $queryPK = Kontrak::where('jenis_kontrak', 'PK');
 
         if (!empty($jenis)) {
-            $query->where('jenis_tempo_penyerahan', $jenis);
+            $queryCPO->where('jenis_tempo_penyerahan', $jenis);
+            $queryPK->where('jenis_tempo_penyerahan', $jenis);
         }
 
-        $kontrak = $query->get();
+        $kontrakCPO = $queryCPO->get();
+        $kontrakPK = $queryPK->get();
 
         return Inertia::render('TempoPenyerahan/List', [
-            'Kontrak' => $kontrak,
+            'kontrakCPO' => $kontrakCPO,
+            'kontrakPK' => $kontrakPK,
             'jenis_tempo_penyerahan' => $jenis,
             'auth' => [
                 'user' => Auth::user(),
             ],
         ]);
     }
+
 
     public function store(StoreRequest $request)
     {
