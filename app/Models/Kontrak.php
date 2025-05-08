@@ -46,8 +46,7 @@ class Kontrak extends Model
 
     public function pembayaran()
     {
-        return $this->hasOne(Pembayaran::class);
+        return $this->belongsTo(Pembayaran::class);
     }
-
 
 }

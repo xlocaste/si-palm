@@ -278,6 +278,8 @@ class KontrakController extends Controller
             return redirect()->back()->with('error', 'Kontrak bukan tipe CPO');
         }
 
+        $kontrak = Kontrak::with('pembayaran')->find($kontrak->id);
+
         $pdf = Pdf::loadView('pdf.kontrak_cpo_single', [
             'kontrak' => $kontrak
         ]);
@@ -290,6 +292,8 @@ class KontrakController extends Controller
         if ($kontrak->jenis_kontrak !== 'PK') {
             return redirect()->back()->with('error', 'Kontrak bukan tipe PK');
         }
+
+        $kontrak = Kontrak::with('pembayaran')->find($kontrak->id);
 
         $pdf = Pdf::loadView('pdf.kontrak_pk_single', [
             'kontrak' => $kontrak

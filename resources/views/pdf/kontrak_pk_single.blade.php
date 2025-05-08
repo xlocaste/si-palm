@@ -58,7 +58,7 @@
         <p>Nomor Kontrak: {{ $kontrak->no_kontrak }}</p>
         <p>Tanggal Cetak: {{ date('d-m-Y H:i:s') }}</p>
     </div>
-    
+
     <div class="info-section">
         <table class="detail-table">
             <tr>
@@ -138,9 +138,9 @@
             </tr>
         </table>
     </div>
-    
+
     <div class="footer">
         <p>Dokumen ini dicetak oleh sistem dan sah tanpa tanda tangan.</p>
     </div>
 </body>
-</html> 
+</html>
