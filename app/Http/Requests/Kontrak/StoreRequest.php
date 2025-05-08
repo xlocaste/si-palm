@@ -41,7 +41,7 @@ class StoreRequest extends FormRequest
             'dasar_ketentuan' => ['required'],
             'jumlah_pembayaran' => ['required'],
             'pembeli' => ['required'],
-            'mutu' => ['required', 'numeric'],
+            'mutu' => ['required'],
             'harga' => ['required', 'numeric'],
             'volume' => ['required', 'numeric'],
             'tanggal_kontrak' => ['required', 'date'],

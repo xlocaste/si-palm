@@ -1,74 +1,10 @@
-import React, { useState } from "react";
-import { router, useForm } from "@inertiajs/react";
+import { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { ValidationErrors } from "@/Components/AlertMessage";
+import { router } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 
-function Input({
-    label,
-    name,
-    type = "text",
-    value,
-    onChange,
-    required = false,
-    error = null,
-}) {
-    return (
-        <div>
-            <label className="block text-sm font-medium text-gray-700 200">
-                {label}
-            </label>
-            <input
-                type={type}
-                name={name}
-                value={value}
-                onChange={onChange}
-                required={required}
-                className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 ${
-                    error ? "border-red-500" : ""
-                }`}
-            />
-            {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
-        </div>
-    );
-}
-
-function Select({
-    label,
-    name,
-    options,
-    value,
-    onChange,
-    required = false,
-    error = null,
-}) {
-    return (
-        <div>
-            <label className="block text-sm font-medium text-gray-700 200">
-                {label}
-            </label>
-            <select
-                name={name}
-                value={value}
-                onChange={onChange}
-                required={required}
-                className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 ${
-                    error ? "border-red-500" : ""
-                }`}
-            >
-                <option value="">-- Pilih {label} --</option>
-                {options.map((opt) => (
-                    <option key={opt} value={opt}>
-                        {opt}
-                    </option>
-                ))}
-            </select>
-            {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
-        </div>
-    );
-}
 export default function Add({ auth, pembayaran }) {
-    const { data, setData, post, processing, errors } = useForm({
+    const [values, setValues] = useState({
         no_kontrak: "",
         jenis_kontrak: "",
         pembeli: "",
@@ -98,257 +34,145 @@ export default function Add({ auth, pembayaran }) {
     });
 
     const handleChange = (e) => {
-        setData(e.target.name, e.target.value);
+        const { name, value } = e.target;
+        setValues({ ...values, [name]: value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("kontrak.store"));
+        router.post(route("kontrak.store"), values);
     };
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Tambah Kontrak
-                </h2>
-            }
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Kontrak</h2>}
         >
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
-                    <div className="shadow-sm sm:rounded-lg p-6">
-                        {Object.keys(errors).length > 0 && (
-                            <div className="mb-4">
-                                <ValidationErrors errors={errors} />
-                            </div>
-                        )}
+                    <form onSubmit={handleSubmit} className="grid grid-cols-2 items-center gap-6">
+                        <div>
+                            <label>No Kontrak</label>
+                            <input type="text" name="no_kontrak" value={values.no_kontrak} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Jenis Kontrak</label>
+                            <select name="jenis_kontrak" value={values.jenis_kontrak} onChange={handleChange} required className="w-full border p-2 rounded">
+                                <option value="">-- Pilih --</option>
+                                <option value="CPO">CPO</option>
+                                <option value="PK">PK</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Pembeli</label>
+                            <input type="text" name="pembeli" value={values.pembeli} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Mutu</label>
+                            <input type="text" name="mutu" value={values.mutu} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Harga</label>
+                            <input type="number" name="harga" value={values.harga} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Volume</label>
+                            <input type="number" name="volume" value={values.volume} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Tanggal Kontrak</label>
+                            <input type="date" name="tanggal_kontrak" value={values.tanggal_kontrak} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Jatuh Tempo</label>
+                            <input type="date" name="jatuh_tempo" value={values.jatuh_tempo} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Jenis Tempo Penyerahan</label>
+                            <select name="jenis_tempo_penyerahan" value={values.jenis_tempo_penyerahan} onChange={handleChange} required className="w-full border p-2 rounded">
+                                <option value="">-- Pilih --</option>
+                                <option value="tender">Tender</option>
+                                <option value="bid_offer">Bid Offer</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Penjual & Pemilik Komoditas</label>
+                            <input type="text" name="penjual_dan_pemilik_komoditas" value={values.penjual_dan_pemilik_komoditas} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>No Referensi</label>
+                            <input type="text" name="no_referensi" value={values.no_referensi} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Komoditi</label>
+                            <input type="text" name="komoditi" value={values.komoditi} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Jenis Komoditi</label>
+                            <input type="text" name="jenis_komoditi" value={values.jenis_komoditi} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Symbol</label>
+                            <input type="text" name="symbol" value={values.symbol} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Packaging</label>
+                            <input type="text" name="packaging" value={values.packaging} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Deskripsi Produk</label>
+                            <input type="text" name="deskripsi_produk" value={values.deskripsi_produk} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Produsen</label>
+                            <input type="text" name="produsen" value={values.produsen} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Pelabuhan Muat</label>
+                            <input type="text" name="pelabuhan_muat" value={values.pelabuhan_muat} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Harga Satuan</label>
+                            <input type="number" name="harga_satuan" value={values.harga_satuan} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>PPN (%)</label>
+                            <input type="number" name="ppn" value={values.ppn} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Kondisi Penyerahan</label>
+                            <input type="text" name="kondisi_penyerahan" value={values.kondisi_penyerahan} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Pembayaran</label>
+                            <select name="pembayaran_id" value={values.pembayaran_id} onChange={handleChange} required className="w-full border p-2 rounded">
+                                <option value="">-- Pilih Pembayaran --</option>
+                                {pembayaran.map((item) => (
+                                    <option key={item.id} value={item.id}>{item.nama_bank}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label>Waktu Penyerahan</label>
+                            <input type="datetime-local" name="waktu_penyerahan" value={values.waktu_penyerahan} onChange={handleChange} className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Syarat Lain</label>
+                            <input type="text" name="syarat_lain" value={values.syarat_lain} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Dasar Ketentuan</label>
+                            <input type="text" name="dasar_ketentuan" value={values.dasar_ketentuan} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label>Jumlah Pembayaran</label>
+                            <input type="number" name="jumlah_pembayaran" value={values.jumlah_pembayaran} onChange={handleChange} required className="w-full border p-2 rounded" />
+                        </div>
 
-                        <form onSubmit={handleSubmit} className="grid grid-cols-2 items-center gap-6">
-                            <Input
-                                label="No Kontrak"
-                                name="no_kontrak"
-                                value={data.no_kontrak}
-                                onChange={handleChange}
-                                required
-                                error={errors.no_kontrak}
-                            />
-                            <Select
-                                label="Jenis Kontrak"
-                                name="jenis_kontrak"
-                                options={["CPO", "PK"]}
-                                value={data.jenis_kontrak}
-                                onChange={handleChange}
-                                required
-                                error={errors.jenis_kontrak}
-                            />
-                            <Input
-                                label="Pembeli"
-                                name="pembeli"
-                                value={data.pembeli}
-                                onChange={handleChange}
-                                required
-                                error={errors.pembeli}
-                            />
-                            <Input
-                                label="Mutu"
-                                name="mutu"
-                                value={data.mutu}
-                                onChange={handleChange}
-                                required
-                                error={errors.mutu}
-                            />
-                            <Input
-                                label="Harga"
-                                name="harga"
-                                type="number"
-                                value={data.harga}
-                                onChange={handleChange}
-                                required
-                                error={errors.harga}
-                            />
-                            <Input
-                                label="Volume (ton)"
-                                name="volume"
-                                type="number"
-                                value={data.volume}
-                                onChange={handleChange}
-                                required
-                                error={errors.volume}
-                            />
-                            <Input
-                                label="Tanggal Kontrak"
-                                name="tanggal_kontrak"
-                                type="date"
-                                value={data.tanggal_kontrak}
-                                onChange={handleChange}
-                                required
-                                error={errors.tanggal_kontrak}
-                            />
-                            <Input
-                                label="Jatuh Tempo"
-                                name="jatuh_tempo"
-                                type="date"
-                                value={data.jatuh_tempo}
-                                onChange={handleChange}
-                                required
-                                error={errors.jatuh_tempo}
-                            />
-                            <Select
-                                label="Jenis Tempo Penyerahan"
-                                name="jenis_tempo_penyerahan"
-                                options={["tender", "bid_offer"]}
-                                value={data.jenis_tempo_penyerahan}
-                                onChange={handleChange}
-                                required
-                                error={errors.jenis_tempo_penyerahan}
-                            />
-
-                            <Input
-                                label="Penjual & Pemilik Komoditas"
-                                name="penjual_dan_pemilik_komoditas"
-                                value={data.penjual_dan_pemilik_komoditas}
-                                onChange={handleChange}
-                                error={errors.penjual_dan_pemilik_komoditas}
-                            />
-                            <Input
-                                label="No Referensi"
-                                name="no_referensi"
-                                value={data.no_referensi}
-                                onChange={handleChange}
-                                error={errors.no_referensi}
-                            />
-                            <Input
-                                label="Komoditi"
-                                name="komoditi"
-                                value={data.komoditi}
-                                onChange={handleChange}
-                                error={errors.komoditi}
-                            />
-                            <Input
-                                label="Jenis Komoditi"
-                                name="jenis_komoditi"
-                                value={data.jenis_komoditi}
-                                onChange={handleChange}
-                                error={errors.jenis_komoditi}
-                            />
-                            <Input
-                                label="Symbol"
-                                name="symbol"
-                                value={data.symbol}
-                                onChange={handleChange}
-                                error={errors.symbol}
-                            />
-                            <Input
-                                label="Packaging"
-                                name="packaging"
-                                value={data.packaging}
-                                onChange={handleChange}
-                                error={errors.packaging}
-                            />
-                            <Input
-                                label="Deskripsi Produk"
-                                name="deskripsi_produk"
-                                value={data.deskripsi_produk}
-                                onChange={handleChange}
-                                error={errors.deskripsi_produk}
-                            />
-                            <Input
-                                label="Produsen"
-                                name="produsen"
-                                value={data.produsen}
-                                onChange={handleChange}
-                                error={errors.produsen}
-                            />
-                            <Input
-                                label="Pelabuhan Muat"
-                                name="pelabuhan_muat"
-                                value={data.pelabuhan_muat}
-                                onChange={handleChange}
-                                error={errors.pelabuhan_muat}
-                            />
-                            <Input
-                                label="Harga Satuan"
-                                name="harga_satuan"
-                                type="number"
-                                value={data.harga_satuan}
-                                onChange={handleChange}
-                                error={errors.harga_satuan}
-                            />
-                            <Input
-                                label="PPN (%)"
-                                name="ppn"
-                                type="number"
-                                value={data.ppn}
-                                onChange={handleChange}
-                                error={errors.ppn}
-                            />
-
-                            <Input
-                                label="Kondisi Penyerahan"
-                                name="kondisi_penyerahan"
-                                value={data.kondisi_penyerahan}
-                                onChange={handleChange}
-                                error={errors.kondisi_penyerahan}
-                            />
-
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Pembayaran</label>
-                                <select
-                                    name="pembayaran_id"
-                                    value={data.pembayaran_id}
-                                    onChange={handleChange}
-                                    className="w-full border p-2 rounded"
-                                >
-                                    <option value="">-- Pilih Pembayaran --</option>
-                                    {pembayaran.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                        {item.nama_bank}
-                                    </option>
-                                    ))}
-                                </select>
-                                {errors.pembayaran && (
-                                    <p className="text-red-500 text-xs mt-1">{errors.pembayaran}</p>
-                                )}
-                            </div>
-                            <Input
-                                type="datetime-local"
-                                label="Waktu Penyerahan"
-                                name="waktu_penyerahan"
-                                value={data.waktu_penyerahan}
-                                onChange={handleChange}
-                                error={errors.waktu_penyerahan}
-                            />
-                            <Input
-                                label="Syarat Lain"
-                                name="syarat_lain"
-                                value={data.syarat_lain}
-                                onChange={handleChange}
-                                error={errors.syarat_lain}
-                            />
-                            <Input
-                                label="Dasar Ketentuan"
-                                name="dasar_ketentuan"
-                                value={data.dasar_ketentuan}
-                                onChange={handleChange}
-                                error={errors.dasar_ketentuan}
-                            />
-                            <Input
-                                label="Jumlah Pembayaran"
-                                name="jumlah_pembayaran"
-                                type="number"
-                                value={data.jumlah_pembayaran}
-                                onChange={handleChange}
-                                error={errors.jumlah_pembayaran}
-                            />
-
-                            <div className="col-span-2 flex justify-end">
-                                <PrimaryButton type="submit" disabled={processing}>
-                                    {processing ? "Menyimpan..." : "Simpan Kontrak"}
-                                </PrimaryButton>
-                            </div>
-                        </form>
-                    </div>
+                        <div className="col-span-2 flex justify-end">
+                            <PrimaryButton type="submit">Simpan Kontrak</PrimaryButton>
+                        </div>
+                    </form>
                 </div>
             </div>
         </AuthenticatedLayout>
