@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('deskripsi_produk');
             $table->string('produsen');
             $table->string('pelabuhan_muat');
-            $table->integer('harga_satuan');
+            $table->decimal('harga_satuan', 15, 2);
             $table->string('ppn');
             $table->string('kondisi_penyerahan');
             $table->timestamp('waktu_penyerahan')->nullable();
