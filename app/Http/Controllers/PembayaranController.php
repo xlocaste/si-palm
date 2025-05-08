@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\MetodeEnum;
 use App\Models\Pembayaran;
 use App\Models\Kontrak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 
 class PembayaranController extends Controller
@@ -18,7 +20,7 @@ class PembayaranController extends Controller
             'auth' => [
                 'user' => Auth::user(),
             ],
-        ]);    
+        ]);
     }
 
     public function create()
@@ -29,7 +31,7 @@ class PembayaranController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'metode' => 'required',
+            'metode' => ['required', new Enum(MetodeEnum::class)],
             'nama_bank' => 'nullable',
             'cara_pembayaran' => 'required',
             'atas_nama' => 'required',

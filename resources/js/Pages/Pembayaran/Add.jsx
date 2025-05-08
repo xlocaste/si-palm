@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Add({ auth }) {
     const [values, setValues] = useState({
@@ -31,10 +32,23 @@ export default function Add({ auth }) {
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white shadow-sm sm:rounded-lg p-6">
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="grid grid-cols-2 items-center gap-6">
                             <div>
                                 <label>Metode</label>
-                                <input type="text" name="metode" value={values.metode} onChange={handleChange} required className="w-full border p-2 rounded" />
+                                <select
+                                    name="metode"
+                                    value={values.metode}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full border p-2 rounded"
+                                >
+                                    <option value="">Pilih Metode</option>
+                                    <option value="Tunai">Tunai</option>
+                                    <option value="Transfer">Transfer</option>
+                                    <option value="Debit">Debit</option>
+                                    <option value="Kredit">Kredit</option>
+                                    <option value="E-Wallet">E-Wallet</option>
+                                </select>
                             </div>
                             <div>
                                 <label>Nama Bank</label>
@@ -56,10 +70,8 @@ export default function Add({ auth }) {
                                 <label>Jatuh Tempo Pembayaran</label>
                                 <input type="date" name="jatuh_tempo_pembayaran" value={values.jatuh_tempo_pembayaran} onChange={handleChange} required className="w-full border p-2 rounded" />
                             </div>
-                            <div className="text-right">
-                                <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                                    Simpan
-                                </button>
+                            <div className="col-span-2 flex justify-end">
+                                <PrimaryButton type="submit">Simpan</PrimaryButton>
                             </div>
                         </form>
                     </div>
