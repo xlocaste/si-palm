@@ -1,146 +1,98 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Kontrak Inti Sawit (PK)</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            line-height: 1.4;
-            color: #333;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .info-section {
-            margin-bottom: 20px;
-        }
-        .detail-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        .detail-table td {
-            padding: 5px;
-            vertical-align: top;
-        }
-        .detail-table .label {
-            width: 35%;
-            font-weight: bold;
-        }
-        .detail-table .separator {
-            width: 5%;
-            text-align: center;
-        }
-        .detail-table .value {
-            width: 60%;
-        }
-        .footer {
-            margin-top: 30px;
-            text-align: right;
-            font-size: 11px;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <title>Detail Kontrak Minyak Sawit (PK)</title>
+    <link rel="stylesheet" href="{{ public_path('css/pdf.css') }}">
 </head>
 <body>
     <div class="header">
-        <h1>DETAIL KONTRAK INTI SAWIT (PK)</h1>
-        <p>Nomor Kontrak: {{ $kontrak->no_kontrak }}</p>
-        <p>Tanggal Cetak: {{ date('d-m-Y H:i:s') }}</p>
+        <h1 style="font-size: 16px; font-weight: bold; margin: 0;">Detail Kontrak Minyak Sawit (PK)</h1>
+        <p style="text-decoration: underline; font-weight: bold; font-size: 16px; margin: 0;">Nomor Kontrak: {{ $kontrak->no_kontrak }}</p>
+        <p style="font-size: 16px; margin: 0;">Tanggal Cetak: {{ date('d-m-Y H:i:s') }}</p>
     </div>
 
-    <div class="info-section">
-        <table class="detail-table">
-            <tr>
-                <td class="label">Nomor Kontrak</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->no_kontrak }}</td>
-            </tr>
-            <tr>
-                <td class="label">Pembeli</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->pembeli }}</td>
-            </tr>
-            <tr>
-                <td class="label">Mutu</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->mutu }}</td>
-            </tr>
-            <tr>
-                <td class="label">Harga</td>
-                <td class="separator">:</td>
-                <td class="value">Rp {{ number_format($kontrak->harga,0,',','.') }}</td>
-            </tr>
-            <tr>
-                <td class="label">Volume</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->volume }}</td>
-            </tr>
-            <tr>
-                <td class="label">Tanggal Kontrak</td>
-                <td class="separator">:</td>
-                <td class="value">{{ date('d/m/Y', strtotime($kontrak->tanggal_kontrak)) }}</td>
-            </tr>
-            <tr>
-                <td class="label">Jatuh Tempo</td>
-                <td class="separator">:</td>
-                <td class="value">{{ date('d/m/Y', strtotime($kontrak->jatuh_tempo)) }}</td>
-            </tr>
-            <tr>
-                <td class="label">Penjual & Pemilik Komoditas</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->penjual_dan_pemilik_komoditas }}</td>
-            </tr>
-            <tr>
-                <td class="label">Nomor Referensi</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->no_referensi }}</td>
-            </tr>
-            <tr>
-                <td class="label">Komoditi</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->komoditi }}</td>
-            </tr>
-            <tr>
-                <td class="label">Jenis Komoditi</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->jenis_komoditi }}</td>
-            </tr>
-            <tr>
-                <td class="label">Kondisi Penyerahan</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->kondisi_penyerahan }}</td>
-            </tr>
-            <tr>
-                <td class="label">Metode Pembayaran</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->metode }}</td>
-            </tr>
-            <tr>
-                <td class="label">Waktu Penyerahan</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->waktu_penyerahan }}</td>
-            </tr>
-            <tr>
-                <td class="label">Jenis Tempo Penyerahan</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $kontrak->jenis_tempo_penyerahan }}</td>
-            </tr>
-        </table>
-    </div>
+    <table class="table">
+        <tr><td class="label">Penjual & Pemilik Komoditas</td><td class="separator">:</td><td class="value">{{ $kontrak->penjual_dan_pemilik_komoditas }}</td></tr>
+        <tr><td class="label">Penjual</td><td class="separator">:</td><td class="value">{{ $kontrak->penjual_dan_pemilik_komoditas }}</td></tr>
+        <tr><td class="label">Pembeli</td><td class="separator">:</td><td class="value">{{ $kontrak->pembeli }}</td></tr>
+        <tr><td class="label">No. Referensi</td><td class="separator">:</td><td class="value">{{ $kontrak->no_referensi }}</td></tr>
+        <tr><td class="label">Nomor Kontrak</td><td class="separator">:</td><td class="value">{{ $kontrak->no_kontrak }}</td></tr>
+        <tr>
+            <td class="label">Komoditi</td>
+            <td class="separator">:</td>
+            <td class="value">{{ $kontrak->komoditi }}</td>
+            <td class="label2">Jenis Komoditi</td>
+            <td class="separator">:</td>
+            <td class="value">{{ $kontrak->jenis_kontrak }}</td>
+        </tr>
+        <tr>
+            <td class="label">Packaging</td>
+            <td class="separator">:</td>
+            <td class="value">{{ $kontrak->packaging }}</td>
+            <td class="label2">Symbol</td>
+            <td class="separator">:</td>
+            <td class="value">{{ $kontrak->symbol }}</td>
+        </tr>
+        <tr><td class="label">Deskripsi Produk</td><td class="separator">:</td><td class="value">{{ $kontrak->jenis_kontrak }}</td></tr>
+        <tr><td class="label">Mutu</td><td class="separator">:</td><td class="value">{{ $kontrak->mutu }}</td></tr>
+        <tr><td class="label">Produsen</td><td class="separator">:</td><td class="value">{{ $kontrak->produsen }}</td></tr>
+        <tr><td class="label">Pelabuhan Muat</td><td class="separator">:</td><td class="value">{{ $kontrak->pelabuhan_muat }}</td></tr>
+        <tr><td class="label">Volume</td><td class="separator">:</td><td class="value">{{ $kontrak->volume }} Kg</td></tr>
+        <tr><td class="label">Harga Satuan</td><td class="separator">:</td><td class="value">Rp {{ number_format($kontrak->harga_satuan,0,',','.') }}</td></tr>
+        <tr><td class="label">PPN</td><td class="separator">:</td><td class="value">{{ $kontrak->ppn }} %</td></tr>
+        <tr><td class="label">Kondisi Penyerahan</td><td class="separator">:</td><td class="value">{{ $kontrak->kondisi_penyerahan }}</td></tr>
+        <tr>
+            <td class="label">Pembayaran</td>
+            <td class="separator">:</td>
+            <td class="label3">Metode</td>
+            <td class="separator1">: {{ $kontrak->pembayaran->metode ?? 'Tidak tersedia' }}</td>
+            <td class="label3">Cara Pembayaran</td>
+            <td class="separator1">:</td>
+            <td class="value1">{{ $kontrak->pembayaran->cara_pembayaran ?? 'Tidak tersedia' }}</td>
+        </tr>
+        <tr>
+            <td class="label"></td>
+            <td class="separator"></td>
+            <td class="label3">Nama Bank</td>
+            <td class="separator1">: {{ $kontrak->pembayaran->nama_bank ?? 'Tidak tersedia' }}</td>
+            <td class="label3">Jatuh Tempo</td>
+            <td class="separator1">:</td>
+            <td class="value1">{{ $kontrak->pembayaran->jatuh_tempo_pembayaran ?? 'Tidak tersedia' }}</td>
+        </tr>
+        <tr>
+            <td class="label"></td>
+            <td class="separator"></td>
+            <td class="label3">Atas Nama</td>
+            <td class="separator1">: {{ $kontrak->pembayaran->atas_nama ?? 'Tidak tersedia' }}</td>
+        </tr>
+        <tr>
+            <td class="label"></td>
+            <td class="separator"></td>
+            <td class="label3">Rek No</td>
+            <td class="separator1">: {{ $kontrak->pembayaran->rek_no ?? 'Tidak tersedia' }}</td>
+        </tr>
+        <tr><td class="label">Waktu Penyerahan</td><td class="separator">:</td><td class="value">{{ $kontrak->waktu_penyerahan }}</td></tr>
+        <tr><td class="label">Syarat - Syarat Lain</td><td class="separator">:</td><td class="value">{{ $kontrak->syarat_lain }}</td></tr>
+        <tr><td class="label">Jumlah Pembayaran</td><td class="separator">:</td><td class="value">Rp {{ number_format($kontrak->jumlah_pembayaran,0,',','.') }}</td></tr>
+    </table>
 
     <div class="footer">
-        <p>Dokumen ini dicetak oleh sistem dan sah tanpa tanda tangan.</p>
+        <div class="left">
+            <p>Persetujuan Pembeli</p>
+            <p>{{ $kontrak->pembeli }}</p>
+        </div>
+        <div class="right">
+            <p>Yang Menyetujui</p>
+            <p>Nama Penandatangan</p>
+            <p><br></p>
+            <p><br></p>
+            <p><br></p>
+            <p><br></p>
+            <p><br></p>
+            <p>Kepala Divisi</p>
+        </div>
     </div>
+
 </body>
 </html>
