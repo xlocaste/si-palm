@@ -27,7 +27,7 @@ export default function Add({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Invoice</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Pembayaran</h2>}
         >
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
