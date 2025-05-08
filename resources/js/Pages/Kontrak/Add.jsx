@@ -154,7 +154,7 @@ export default function Add({ auth, pembayaran }) {
                         </div>
                         <div>
                             <label>Waktu Penyerahan</label>
-                            <input type="datetime-local" name="waktu_penyerahan" value={values.waktu_penyerahan} onChange={handleChange} className="w-full border p-2 rounded" />
+                            <input type="text" name="waktu_penyerahan" value={values.waktu_penyerahan} onChange={handleChange} className="w-full border p-2 rounded" />
                         </div>
                         <div>
                             <label>Syarat Lain</label>

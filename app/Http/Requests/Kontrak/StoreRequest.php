@@ -36,7 +36,7 @@ class StoreRequest extends FormRequest
             'ppn' => ['required'],
             'kondisi_penyerahan' => ['required'],
             'pembayaran_id' => ['required'],
-            'waktu_penyerahan' => ['nullable', 'date'],
+            'waktu_penyerahan' => ['required'],
             'syarat_lain' => ['required'],
             'dasar_ketentuan' => ['required'],
             'jumlah_pembayaran' => ['required'],

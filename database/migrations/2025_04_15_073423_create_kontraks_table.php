@@ -26,7 +26,7 @@ return new class extends Migration
             $table->decimal('harga_satuan', 15, 2);
             $table->string('ppn');
             $table->string('kondisi_penyerahan');
-            $table->timestamp('waktu_penyerahan')->nullable();
+            $table->string('waktu_penyerahan');
             $table->string('syarat_lain');
             $table->string('dasar_ketentuan');
             $table->string('jumlah_pembayaran');
