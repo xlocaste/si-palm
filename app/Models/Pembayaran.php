@@ -22,6 +22,6 @@ class Pembayaran extends Model
 
     public function kontrak()
     {
-        return $this->belongsTo(Kontrak::class);
+        return $this->hasOne(Kontrak::class);
     }
 }

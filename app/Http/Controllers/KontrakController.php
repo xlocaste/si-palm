@@ -262,7 +262,7 @@ class KontrakController extends Controller
 
     public function create()
     {
-        $pembayaran = Pembayaran::all();
+        $pembayaran = Pembayaran::doesntHave('kontrak')->get();
 
         return Inertia::render('Kontrak/Add', [
             'auth' => [
