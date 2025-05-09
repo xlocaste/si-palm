@@ -20,8 +20,7 @@ export default function Authenticated({ user, header, children }) {
 
     return (
         <div className="min-h-screen bg-gray-100 flex">
-            {/* Sidebar */}
-            <div className={`bg-white w-64 text-gray-800 p-4 flex flex-col space-y-6 
+            <div className={`bg-white w-64 text-gray-800 p-4 flex flex-col space-y-6
                 ${showingSidebar ? 'block' : 'hidden'} sm:block`}>
 
                 <div className="flex items-center justify-between sm:justify-center">
@@ -33,12 +32,10 @@ export default function Authenticated({ user, header, children }) {
                     </button>
                 </div>
 
-                {/* User Info at Top */}
                 <div className="font-bold text-sm border-b border-gray-200 pb-2">
                     {user.name}
                 </div>
 
-                {/* Navigation */}
                 <nav className="flex flex-col space-y-6 pb-8 text-sm font-semibold text-gray-700">
                     <NavLink href={route('dashboard')} active={route().current('dashboard')} className="flex items-center gap-2 hover:text-green-700 transition">
                         <HomeIcon className="h-5 w-5" />
@@ -96,12 +93,12 @@ export default function Authenticated({ user, header, children }) {
                         Tempo Penyerahan
                     </NavLink>
 
-                    <NavLink href={route('dashboard')} active={route().current('dashboard')} className="flex items-center gap-2 hover:text-green-700 transition">
+                    <NavLink href={route('jatuh-tempo.index')} active={route().current('jatuh-tempo.index')} className="flex items-center gap-2 hover:text-green-700 transition">
                         <CalendarIcon className="h-5 w-5" />
                         Jatuh Tempo
                     </NavLink>
 
-                    <NavLink href={route('dashboard')} active={route().current('dashboard')} className="flex items-center gap-2 hover:text-green-700 transition">
+                    <NavLink href={route('laporan.index')} active={route().current('laporan.index')} className="flex items-center gap-2 hover:text-green-700 transition">
                         <CalendarIcon className="h-5 w-5" />
                         Laporan
                     </NavLink>

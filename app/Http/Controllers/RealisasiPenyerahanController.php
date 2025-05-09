@@ -121,9 +121,6 @@ class RealisasiPenyerahanController extends Controller
         ]);
     }
 
-    /**
-     * Mencetak Realisasi Penyerahan secara individual sebagai PDF
-     */
     public function printSingle(RealisasiPenyerahan $realisasiPenyerahan)
     {
         $realisasiPenyerahan->load(['kontrak', 'invoice']);
