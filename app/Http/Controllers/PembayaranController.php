@@ -14,7 +14,8 @@ class PembayaranController extends Controller
 {
     public function index()
     {
-        $pembayaran = Pembayaran::all();
+        $pembayaran = Pembayaran::with('kontrak')->get();
+
         return Inertia::render('Pembayaran/List', [
             'Pembayaran' => $pembayaran,
             'auth' => [

@@ -5,6 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { FaEdit } from 'react-icons/fa';
 
 export default function List({ Pembayaran, auth }) {
+    console.log(Pembayaran)
   return (
     <>
     <AuthenticatedLayout
@@ -31,6 +32,7 @@ export default function List({ Pembayaran, auth }) {
             <table className="min-w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 bg-gray-100">
                 <tr>
+                  <th className="px-4 py-2 border">No Kontrak</th>
                   <th className="px-4 py-2 border">Metode</th>
                   <th className="px-4 py-2 border">Nama Bank</th>
                   <th className="px-4 py-2 border">Cara Pembayaran</th>
@@ -44,6 +46,7 @@ export default function List({ Pembayaran, auth }) {
                 {Pembayaran.length > 0 ? (
                   Pembayaran.map((item, index) => (
                     <tr key={item.id} className="hover:bg-gray-50">
+                      <td className="px-4 py-2 border">{item.kontrak ? item.kontrak.no_kontrak : 'Belum digunakan'}</td>
                       <td className="px-4 py-2 border">{item.metode}</td>
                       <td className="px-4 py-2 border">{item.nama_bank}</td>
                       <td className="px-4 py-2 border">{item.cara_pembayaran}</td>
