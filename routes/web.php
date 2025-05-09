@@ -3,6 +3,7 @@
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\JatuhTempoController;
 use App\Http\Controllers\KontrakController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RealisasiPenyerahanController;
@@ -171,8 +172,7 @@ Route::prefix('/jatuh-tempo')->name('jatuh-tempo.')->group(function () {
 
 Route::prefix('/laporan')->name('laporan.')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('/', [KontrakController::class, 'showPK'])->name('index');
-        Route::get('/print/{kontrak}', [KontrakController::class, 'printSinglePK'])->name('print');
+        Route::get('/', [LaporanController::class, 'index'])->name('index');
     });
 });
 
