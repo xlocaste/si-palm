@@ -45,8 +45,8 @@
         <tr>
             <td class="label">Pembayaran</td>
             <td class="separator">:</td>
-            <td class="label3">Metode <p>: {{ $kontrak->pembayaran->metode ?? 'Tidak tersedia' }}</p></td>
-            <td class="separator1"></td>
+            <td class="label3">Metode</td>
+            <td class="separator1">: {{ $kontrak->pembayaran->metode ?? 'Tidak tersedia' }}</td>
             <td class="label3">Cara Pembayaran</td>
             <td class="separator1">:</td>
             <td class="value1">{{ $kontrak->pembayaran->cara_pembayaran ?? 'Tidak tersedia' }}</td>
