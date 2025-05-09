@@ -49,7 +49,7 @@
             <td class="separator">:</td>
             <td class="label3">Metode</td>
             <td class="separator1">: {{ $kontrak->pembayaran->metode ?? 'Tidak tersedia' }}</td>
-            <td class="label3">Cara Pembayaran</td>
+            <td class="label3" style="padding-left: 40px">Cara Pembayaran</td>
             <td class="separator1">:</td>
             <td class="value1">{{ $kontrak->pembayaran->cara_pembayaran ?? 'Tidak tersedia' }}</td>
         </tr>
@@ -58,7 +58,7 @@
             <td class="separator"></td>
             <td class="label3">Nama Bank</td>
             <td class="separator1">: {{ $kontrak->pembayaran->nama_bank ?? 'Tidak tersedia' }}</td>
-            <td class="label3">Jatuh Tempo</td>
+            <td class="label3" style="padding-left: 40px">Jatuh Tempo</td>
             <td class="separator1">:</td>
             <td class="value1">{{ $kontrak->pembayaran->jatuh_tempo_pembayaran ?? 'Tidak tersedia' }}</td>
         </tr>
