@@ -26,19 +26,26 @@ class PembayaranController extends Controller
 
     public function create()
     {
-        return Inertia::render('Pembayaran/Add');
+        $kontrak = kontrak::all();
+
+        return Inertia::render('Pembayaran/Add', [
+            'auth' => [
+                'user' => Auth::user(),
+            ],
+            'kontrak' => $kontrak,
+        ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'metode' => ['required', new Enum(MetodeEnum::class)],
-            'nama_bank' => 'nullable',
+            'nama_bank' => 'required',
             'cara_pembayaran' => 'required',
             'atas_nama' => 'required',
             'rek_no' => 'required',
             'jatuh_tempo_pembayaran' => 'nullable|date',
-            'kontrak_id' => 'nullable|exists:kontrak,id',
+            'kontrak_id' => 'required|exists:kontrak,id',
         ]);
 
         Pembayaran::create($request->all());

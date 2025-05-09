@@ -46,7 +46,7 @@ export default function List({ Pembayaran, auth }) {
                 {Pembayaran.length > 0 ? (
                   Pembayaran.map((item, index) => (
                     <tr key={item.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-2 border">{item.kontrak ? item.kontrak.no_kontrak : 'Belum digunakan'}</td>
+                      <td className="px-4 py-2 border">{item.kontrak.no_kontrak}</td>
                       <td className="px-4 py-2 border">{item.metode}</td>
                       <td className="px-4 py-2 border">{item.nama_bank}</td>
                       <td className="px-4 py-2 border">{item.cara_pembayaran}</td>

@@ -3,7 +3,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 
-export default function Add({ auth }) {
+export default function Add({ auth, kontrak }) {
+    console.log(kontrak)
     const [values, setValues] = useState({
         metode: '',
         nama_bank: '',
@@ -11,6 +12,7 @@ export default function Add({ auth }) {
         atas_nama: '',
         rek_no: '',
         jatuh_tempo_pembayaran: '',
+        kontrak_id: '',
     });
 
     const handleChange = (e) => {
@@ -48,6 +50,23 @@ export default function Add({ auth }) {
                                     <option value="Debit">Debit</option>
                                     <option value="Kredit">Kredit</option>
                                     <option value="E-Wallet">E-Wallet</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Kontrak</label>
+                                <select
+                                    name="kontrak_id"
+                                    value={values.kontrak_id}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full border p-2 rounded"
+                                >
+                                    <option value="">-- Pilih Kontrak --</option>
+                                    {kontrak.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.no_kontrak}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                             <div>

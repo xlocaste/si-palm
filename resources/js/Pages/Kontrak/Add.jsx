@@ -144,15 +144,6 @@ export default function Add({ auth, pembayaran }) {
                             <input type="text" name="kondisi_penyerahan" value={values.kondisi_penyerahan} onChange={handleChange} required className="w-full border p-2 rounded" />
                         </div>
                         <div>
-                            <label>Pembayaran</label>
-                            <select name="pembayaran_id" value={values.pembayaran_id} onChange={handleChange} required className="w-full border p-2 rounded">
-                                <option value="">-- Pilih Pembayaran --</option>
-                                {pembayaran.map((item) => (
-                                    <option key={item.id} value={item.id}>{item.nama_bank}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
                             <label>Waktu Penyerahan</label>
                             <input type="text" name="waktu_penyerahan" value={values.waktu_penyerahan} onChange={handleChange} className="w-full border p-2 rounded" />
                         </div>

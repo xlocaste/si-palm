@@ -12,6 +12,7 @@ class Pembayaran extends Model
     protected $table = 'pembayaran';
 
     protected $fillable = [
+        'kontrak_id',
         'metode',
         'nama_bank',
         'cara_pembayaran',
@@ -22,6 +23,6 @@ class Pembayaran extends Model
 
     public function kontrak()
     {
-        return $this->hasOne(Kontrak::class);
+        return $this->belongsTo(Kontrak::class);
     }
 }

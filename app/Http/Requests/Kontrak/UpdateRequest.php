@@ -35,7 +35,7 @@ class UpdateRequest extends FormRequest
             'harga_satuan' => ['required', 'numeric'],
             'ppn' => ['required'],
             'kondisi_penyerahan' => ['required'],
-            'pembayaran_id' => ['required'],
+            'pembayaran_id' => ['nullable'],
             'waktu_penyerahan' => ['required'],
             'syarat_lain' => ['required'],
             'dasar_ketentuan' => ['required'],
