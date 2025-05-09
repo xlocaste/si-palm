@@ -13,14 +13,6 @@ body {
     margin-bottom: 8px;
 }
 
-.table td {
-    border: 1px solid;
-}
-
-.table1 td {
-    border: 1px solid;
-}
-
 .table1 .label {
     padding-right: 46px;
 }
@@ -28,6 +20,7 @@ body {
 .label {
     font-weight: bold;
     font-size: x-small;
+    white-space: nowrap;
 }
 
 .label2 {
