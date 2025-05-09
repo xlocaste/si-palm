@@ -56,16 +56,16 @@ export default function Add({ auth, kontrak }) {
                                 <label>Kontrak</label>
                                 <select
                                     name="kontrak_id"
-                                    value={values.kontrak_id}
+                                    value={values.kontrak_id || ""}
                                     onChange={handleChange}
                                     required
                                     className="w-full border p-2 rounded"
                                 >
                                     <option value="">-- Pilih Kontrak --</option>
                                     {kontrak.map((item) => (
-                                        <option key={item.id} value={item.id}>
-                                            {item.no_kontrak}
-                                        </option>
+                                    <option key={item.id} value={item.id}>
+                                        {item.no_kontrak}
+                                    </option>
                                     ))}
                                 </select>
                             </div>

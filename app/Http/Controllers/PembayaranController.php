@@ -26,7 +26,7 @@ class PembayaranController extends Controller
 
     public function create()
     {
-        $kontrak = kontrak::all();
+        $kontrak = Kontrak::doesntHave('pembayaran')->get();
 
         return Inertia::render('Pembayaran/Add', [
             'auth' => [
@@ -45,7 +45,7 @@ class PembayaranController extends Controller
             'atas_nama' => 'required',
             'rek_no' => 'required',
             'jatuh_tempo_pembayaran' => 'nullable|date',
-            'kontrak_id' => 'required|exists:kontrak,id',
+            'kontrak_id' => 'required|exists:kontrak,id|unique:pembayaran,kontrak_id',
         ]);
 
         Pembayaran::create($request->all());
