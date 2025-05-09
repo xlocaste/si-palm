@@ -42,6 +42,8 @@
         <tr><td class="label">Harga Satuan</td><td class="separator">:</td><td class="value">Rp {{ number_format($kontrak->harga_satuan,0,',','.') }}</td></tr>
         <tr><td class="label">PPN</td><td class="separator">:</td><td class="value">{{ $kontrak->ppn }} %</td></tr>
         <tr><td class="label">Kondisi Penyerahan</td><td class="separator">:</td><td class="value">{{ $kontrak->kondisi_penyerahan }}</td></tr>
+        </table>
+        <table class="table1">
         <tr>
             <td class="label">Pembayaran</td>
             <td class="separator">:</td>
