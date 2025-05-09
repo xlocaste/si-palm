@@ -8,11 +8,11 @@ export default function List({ auth, notifikasi, kontrak }) {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Daftar Invoice
+                    Jatuh Tempo
                 </h2>
             }
         >
-            <Head title="Daftar Invoice" />
+            <Head title="Jatuh Tempo" />
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
                     {notifikasi.length > 0 && (
