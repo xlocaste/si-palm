@@ -284,7 +284,8 @@ class KontrakController extends Controller
             'kontrak' => $kontrak
         ]);
 
-        return $pdf->stream('kontrak_cpo_' . $kontrak->no_kontrak . '.pdf');
+        return $pdf->stream('kontrak_cpo_' . preg_replace('/[\/\\\\]/', '-', $kontrak->no_kontrak) . '.pdf');
+
     }
 
     public function printSinglePK(Kontrak $kontrak)
@@ -299,6 +300,6 @@ class KontrakController extends Controller
             'kontrak' => $kontrak
         ]);
 
-        return $pdf->stream('kontrak_pk_' . $kontrak->no_kontrak . '.pdf');
+        return $pdf->stream('kontrak_pk_' . preg_replace('/[\/\\\\]/', '-', $kontrak->no_kontrak) . '.pdf');
     }
 }
