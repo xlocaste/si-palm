@@ -10,15 +10,18 @@ body {
 .header {
     text-align: center;
     font-weight: bold;
+    margin-bottom: 8px;
 }
 
 .label {
     font-weight: bold;
+    font-size: x-small;
 }
 
 .label2 {
     font-weight: bold;
     padding-left: 20px;
+    font-size: x-small;
 }
 
 .label3 {
@@ -34,9 +37,14 @@ body {
     font-weight: bold;
     padding-left: 20px;
     padding-right: 20px;
+    font-size: x-small;
 }
 
 .value1 {
+    font-size: x-small;
+}
+
+.value {
     font-size: x-small;
 }
 
@@ -49,10 +57,12 @@ body {
     float: left;
     width: 45%;
     text-align: center;
+    font-size: x-small;
 }
 
 .footer .right {
     float: right;
     width: 45%;
     text-align: center;
+    font-size: x-small;
 }
