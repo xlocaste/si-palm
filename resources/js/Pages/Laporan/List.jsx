@@ -14,7 +14,7 @@ export default function List({ auth }) {
             <Head title="Laporan" />
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
-
+                    <p className='uppercase'>maaf website sedang dalam perbaikan</p>
                 </div>
             </div>
         </AuthenticatedLayout>

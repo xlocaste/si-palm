@@ -1,0 +1,42 @@
+* {
+    padding-bottom: 0;
+    margin: 0;
+}
+
+.container {
+    padding: 54px;
+}
+
+.container .image {
+    text-align: right;
+}
+
+.container .image img {
+    width: 15%;
+}
+
+.judul {
+    text-align: center;
+    border: 1px solid;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.tempat {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.table table{
+    margin-top: 15px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table table .uraian {
+    width: 50%;
+}
+
+.table table .jumlah {
+    width: 35%;
+}
