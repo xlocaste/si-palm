@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
+import Select from 'react-select';
 
 export default function Add({ auth, kontrak }) {
     const [values, setValues] = useState({
@@ -44,10 +45,15 @@ export default function Add({ auth, kontrak }) {
         router.post(route('sales-order.store'), values);
     };
 
+    const options = kontrak.map((k) => ({
+        value: k.id,
+        label: `${k.jenis_kontrak} - ${k.no_kontrak} - Harga: Rp${k.harga}, Volume: ${k.volume}`,
+    }));
+
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Invoice</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Sales Order</h2>}
         >
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
@@ -99,22 +105,24 @@ export default function Add({ auth, kontrak }) {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="kontrak_id" className="block text-sm font-medium text-gray-700">Kontrak</label>
-                                <select
+                                <label className="block mb-1 font-medium">Pilih Kontrak</label>
+                                <Select
                                     name="kontrak_id"
-                                    id="kontrak_id"
-                                    value={values.kontrak_id}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full border p-2 rounded"
-                                >
-                                    <option value="">-- Pilih Kontrak --</option>
-                                    {kontrak.map((k) => (
-                                        <option key={k.id} value={k.id}>
-                                            {`#${k.id} - No.Kontrak: ${k.no_kontrak} - Harga: Rp${k.harga.toLocaleString('id-ID')} - Volume: ${k.volume.toLocaleString()}`}
-                                        </option>
-                                    ))}
-                                </select>
+                                    options={options}
+                                    value={options.find((opt) => opt.value === values.kontrak_id)}
+                                    onChange={(selectedOption) => {
+                                        const selected = kontrak.find(k => k.id === selectedOption?.value);
+                                        const nilai = selected ? Number(selected.harga) * Number(selected.volume) : '';
+                                        setValues({
+                                            ...values,
+                                            kontrak_id: selectedOption ? selectedOption.value : '',
+                                            nilai,
+                                        });
+                                    }}
+                                    isClearable
+                                    placeholder="-- Pilih Kontrak --"
+                                    className="text-sm"
+                                />
                             </div>
                             <div>
                                 <label>Nilai</label>
