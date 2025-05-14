@@ -94,6 +94,17 @@ class InvoiceController extends Controller
         return Redirect::route('invoice.index')->with('message', 'Data berhasil dihapus');
     }
 
+    public function show(Invoice $invoice)
+    {
+        $invoice->load([
+            'kontrak',
+        ]);
+
+        return Inertia::render('Invoice/Detail', [
+            'Invoice' => $invoice
+        ]);
+    }
+
     public function create()
     {
         $usedKontrakIds = Invoice::pluck('kontrak_id')->toArray();

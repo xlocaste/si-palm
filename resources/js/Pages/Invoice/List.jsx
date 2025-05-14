@@ -88,12 +88,18 @@ export default function List({ auth, InvoiceCPO, InvoicePK }) {
                                             <td className="px-6 py-4 border">{item.kontrak?.volume}</td>
                                             <td className="px-6 py-4 border">Rp {parseFloat(item.nilai).toLocaleString()}</td>
                                             <td className="px-6 py-4 border space-x-2">
-                                                <button
-                                                    onClick={() => openDetailModal(item, "cpo")}
-                                                    className="text-blue-500 hover:underline"
+                                                <Link
+                                                    href={route(
+                                                        "invoice.show",
+                                                        item.id
+                                                    )}
+                                                    className="text-blue-500 hover:text-blue-700"
+                                                    title="Detail"
                                                 >
-                                                    <FontAwesomeIcon icon={faEye} />
-                                                </button>
+                                                    <FontAwesomeIcon
+                                                        icon={faEye}
+                                                    />
+                                                </Link>
 
                                                 <a
                                                     href={route("invoice.print", item.id)}

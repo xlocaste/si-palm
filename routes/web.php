@@ -105,6 +105,7 @@ Route::prefix('/invoice')->name('invoice.')->group(function () {
         Route::put('/{invoice}', [InvoiceController::class, 'update'])->name('update');
         Route::delete('/{invoice}', [InvoiceController::class, 'destroy'])->name('destroy');
         Route::get('/{invoice}/edit', [InvoiceController::class, 'edit'])->name('edit');
+        Route::get('/{invoice}/show', [InvoiceController::class, 'show'])->name('show');
         Route::get('/print/{invoice}', [InvoiceController::class, 'print'])->name('print');
     });
 });
