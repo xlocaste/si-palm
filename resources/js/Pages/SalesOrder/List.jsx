@@ -41,11 +41,13 @@ export default function List({ auth, salesOrderCPO, salesOrderPK }) {
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
                     <div className="flex items-center justify-between mb-6">
-                        <PrimaryButton>
-                            <Link href={route("sales-order.create")}>
-                                TAMBAH SALES ORDER
-                            </Link>
-                        </PrimaryButton>
+                        {auth?.user?.roles?.some(role => role.name === 'admin') && (
+                            <PrimaryButton>
+                                <Link href={route("sales-order.create")}>
+                                    TAMBAH SALES ORDER
+                                </Link>
+                            </PrimaryButton>
+                        )}
                         <form onSubmit={handleSearch} className="flex items-center gap-2">
                             <input
                                 type="text"
