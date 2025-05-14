@@ -34,50 +34,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    // Mengambil data kontrak untuk ditampilkan di dashboard
-    $kontrakData = Kontrak::all();
-
-    // Mendapatkan kontrak yang mendekati atau melewati jatuh tempo (dalam 7 hari ke depan atau sudah lewat)
-    $today = Carbon::now()->startOfDay();
-    $sevenDaysLater = Carbon::now()->addDays(7)->endOfDay();
-
-    $kontrakMendekatiJatuhTempo = Kontrak::whereBetween('jatuh_tempo', [$today, $sevenDaysLater])->get();
-    $kontrakJatuhTempo = Kontrak::where('jatuh_tempo', '<', $today)->get();
-
-    // Mengambil data untuk grafik (berdasarkan bulan)
-    $kontrakPerBulan = Kontrak::selectRaw('MONTH(tanggal_kontrak) as bulan,
-                                          SUM(CASE WHEN komoditi = "CPO" THEN volume * harga ELSE 0 END) as total_cpo,
-                                          SUM(CASE WHEN komoditi = "KERNEL" THEN volume * harga ELSE 0 END) as total_kernel')
-        ->whereYear('tanggal_kontrak', date('Y'))
-        ->groupBy('bulan')
-        ->orderBy('bulan')
-        ->get();
-
-    $chartData = [];
-    $namaBulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-
-    foreach ($kontrakPerBulan as $data) {
-        $chartData[] = [
-            'name' => $namaBulan[$data->bulan - 1],
-            'cpo' => (int) $data->total_cpo,
-            'kernel' => (int) $data->total_kernel
-        ];
-    }
-
-    return Inertia::render('Dashboard', [
-        'kontrakData' => $kontrakData,
-        'kontrakMendekatiJatuhTempo' => $kontrakMendekatiJatuhTempo,
-        'kontrakJatuhTempo' => $kontrakJatuhTempo,
-        'chartData' => $chartData,
-        'totalCPO' => $kontrakData->where('komoditi', 'CPO')->sum(function ($kontrak) {
-            return $kontrak->volume * $kontrak->harga;
-        }),
-        'totalKernel' => $kontrakData->where('komoditi', 'KERNEL')->sum(function ($kontrak) {
-            return $kontrak->volume * $kontrak->harga;
-        })
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [KontrakController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

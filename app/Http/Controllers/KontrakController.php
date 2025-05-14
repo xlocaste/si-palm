@@ -8,6 +8,7 @@ use App\Models\Kontrak;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -257,6 +258,15 @@ class KontrakController extends Controller
     {
         return Inertia::render('Kontrak/Detail', [
             'Kontrak' => $kontrak
+        ]);
+    }
+
+    public function dashboard()
+    {
+        return Inertia::render('Dashboard', [
+            'auth' => [
+                'user' => Auth::user(),
+            ],
         ]);
     }
 
