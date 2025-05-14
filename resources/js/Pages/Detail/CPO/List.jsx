@@ -6,12 +6,9 @@ import {
     faEdit,
     faTrash,
     faSearch,
-    faFilePdf,
     faPrint,
     faEye,
 } from "@fortawesome/free-solid-svg-icons";
-import Modal from "@/Components/Modal";
-import DetailView from "@/Components/DetailView";
 
 export default function List({ kontrakCPO, filters, auth }) {
     console.log(kontrakCPO)
@@ -22,9 +19,6 @@ export default function List({ kontrakCPO, filters, auth }) {
         harga_from: filters?.harga_from || "",
         harga_to: filters?.harga_to || "",
     });
-
-    const [modalOpen, setModalOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
 
     const handleChange = (e) => {
         const key = e.target.id;
@@ -44,13 +38,6 @@ export default function List({ kontrakCPO, filters, auth }) {
         if (confirm("Yakin ingin menghapus data ini?")) {
             router.delete(route("kontrak.destroy", id));
         }
-    };
-
-    const handleExportPDF = () => {
-        router.get(route("kontrak-cpo.index"), {
-            ...values,
-            export_pdf: "true",
-        });
     };
 
     const handlePrint = (id) => {
@@ -110,7 +97,7 @@ export default function List({ kontrakCPO, filters, auth }) {
 
                     <div className="mb-6 bg-gray-50-700 p-4 rounded-lg">
                         <form onSubmit={handleSubmit}>
-                            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label
                                         htmlFor="search"
@@ -164,40 +151,6 @@ export default function List({ kontrakCPO, filters, auth }) {
                                         id="date_to"
                                         className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
                                         value={values.date_to}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label
-                                        htmlFor="harga_from"
-                                        className="block text-sm font-medium text-gray-700-300 mb-1"
-                                    >
-                                        Harga Dari
-                                    </label>
-                                    <input
-                                        type="number"
-                                        id="harga_from"
-                                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
-                                        placeholder="Minimal"
-                                        value={values.harga_from}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label
-                                        htmlFor="harga_to"
-                                        className="block text-sm font-medium text-gray-700-300 mb-1"
-                                    >
-                                        Harga Sampai
-                                    </label>
-                                    <input
-                                        type="number"
-                                        id="harga_to"
-                                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50-800-600"
-                                        placeholder="Maksimal"
-                                        value={values.harga_to}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -276,19 +229,18 @@ export default function List({ kontrakCPO, filters, auth }) {
                                             </td>
                                             <td className="px-4 py-2 text-center">
                                                 <div className="flex justify-center gap-3">
-                                                    <button
-                                                        onClick={() =>
-                                                            openDetailModal(
-                                                                kontrak
-                                                            )
-                                                        }
+                                                    <Link
+                                                        href={route(
+                                                            "kontrak.show",
+                                                            kontrak.id
+                                                        )}
                                                         className="text-blue-500 hover:text-blue-700"
                                                         title="Detail"
                                                     >
                                                         <FontAwesomeIcon
                                                             icon={faEye}
                                                         />
-                                                    </button>
+                                                    </Link>
                                                     <Link
                                                         href={route(
                                                             "kontrak.edit",
@@ -346,14 +298,6 @@ export default function List({ kontrakCPO, filters, auth }) {
                     </div>
                 </div>
             </div>
-
-            <Modal
-                isOpen={modalOpen}
-                onClose={() => setModalOpen(false)}
-                title={`Detail Kontrak CPO: ${selectedItem?.no_kontrak || ""}`}
-            >
-                {selectedItem && <DetailView data={selectedItem} />}
-            </Modal>
         </AuthenticatedLayout>
     );
 }

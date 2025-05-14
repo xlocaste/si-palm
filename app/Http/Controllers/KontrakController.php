@@ -253,6 +253,13 @@ class KontrakController extends Controller
         return Redirect::route('kontrak.index')->with('message', 'Data berhasil dihapus');
     }
 
+    public function show(Kontrak $kontrak)
+    {
+        return Inertia::render('Kontrak/Detail', [
+            'Kontrak' => $kontrak
+        ]);
+    }
+
     public function edit(Kontrak $Kontrak)
     {
         return Inertia::render('Kontrak/Update', [

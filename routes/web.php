@@ -93,6 +93,7 @@ Route::prefix('/kontrak')->name('kontrak.')->group(function () {
         Route::put('/{kontrak}', [KontrakController::class, 'update'])->name('update');
         Route::delete('/{kontrak}', [KontrakController::class, 'destroy'])->name('destroy');
         Route::get('/{kontrak}/edit', [KontrakController::class, 'edit'])->name('edit');
+        Route::get('/{kontrak}/show', [KontrakController::class, 'show'])->name('show');
     });
 });
 
