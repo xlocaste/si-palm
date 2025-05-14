@@ -2,6 +2,7 @@ import { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { router } from "@inertiajs/react";
+import Select from 'react-select';
 
 export default function Add({ auth, kontrak, invoice }) {
     const [values, setValues] = useState({
@@ -26,6 +27,16 @@ export default function Add({ auth, kontrak, invoice }) {
         router.post(route("realisasi-penyerahan.store"), values);
     };
 
+    const options = kontrak.map((k) => ({
+        value: k.id,
+        label: `${k.jenis_kontrak} - ${k.no_kontrak} - Harga: Rp${k.harga}, Volume: ${k.volume}`,
+    }));
+
+    const invoiceOptions = invoice.map((inv) => ({
+        value: inv.id,
+        label: `Invoice #${inv.no_invoice} - Tanggal: ${inv.tanggal_bayar}`,
+    }));
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -36,39 +47,42 @@ export default function Add({ auth, kontrak, invoice }) {
                     <div className="bg-white shadow-sm sm:rounded-lg p-6">
                         <form onSubmit={handleSubmit} className="grid grid-cols-2 items-center gap-6">
                             <div>
-                                <label>Pilih Kontrak</label>
-                                <select
+                                <label className="block mb-1 font-medium">Pilih Kontrak</label>
+                                <Select
                                     name="kontrak_id"
-                                    value={values.kontrak_id}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full border p-2 rounded"
-                                >
-                                    <option value="">-- Pilih Kontrak --</option>
-                                    {kontrak.map((k) => (
-                                        <option key={k.id} value={k.id}>
-                                            {`#${k.id} - Harga: Rp${k.harga}, Volume: ${k.volume}`}
-                                        </option>
-                                    ))}
-                                </select>
+                                    options={options}
+                                    value={options.find((opt) => opt.value === values.kontrak_id)}
+                                    onChange={(selectedOption) => {
+                                        const selected = kontrak.find(k => k.id === selectedOption?.value);
+                                        const nilai = selected ? Number(selected.harga) * Number(selected.volume) : '';
+                                        setValues({
+                                            ...values,
+                                            kontrak_id: selectedOption ? selectedOption.value : '',
+                                            nilai,
+                                        });
+                                    }}
+                                    isClearable
+                                    placeholder="-- Pilih Kontrak --"
+                                    className="text-sm"
+                                />
                             </div>
 
                             <div>
-                                <label>Pilih Invoice</label>
-                                <select
+                                <label className="block mb-1 font-medium">Pilih Invoice</label>
+                                <Select
                                     name="invoice_id"
-                                    value={values.invoice_id}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full border p-2 rounded"
-                                >
-                                    <option value="">-- Pilih Invoice --</option>
-                                    {invoice.map((inv) => (
-                                        <option key={inv.id} value={inv.id}>
-                                            {`Invoice #${inv.no_invoice} - Tanggal: ${inv.tanggal_bayar}`}
-                                        </option>
-                                    ))}
-                                </select>
+                                    options={invoiceOptions}
+                                    value={invoiceOptions.find((opt) => opt.value === values.invoice_id)}
+                                    onChange={(selectedOption) => {
+                                        setValues({
+                                            ...values,
+                                            invoice_id: selectedOption ? selectedOption.value : '',
+                                        });
+                                    }}
+                                    isClearable
+                                    placeholder="-- Pilih Invoice --"
+                                    className="text-sm"
+                                />
                             </div>
 
                             <div>
