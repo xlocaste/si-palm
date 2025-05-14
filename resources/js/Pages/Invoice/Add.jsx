@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
+import Select from 'react-select';
 import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Add({ auth, kontrak }) {
@@ -29,6 +30,11 @@ export default function Add({ auth, kontrak }) {
         console.log('Kirim data:', values);
     };
 
+    const options = kontrak.map((k) => ({
+        value: k.id,
+        label: `${k.jenis_kontrak} - No.Kontrak: ${k.no_kontrak} - Harga: Rp${k.harga}, Volume: ${k.volume}`,
+    }));
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -47,15 +53,24 @@ export default function Add({ auth, kontrak }) {
                                 <input type="date" name="tanggal_bayar" value={values.tanggal_bayar} onChange={handleChange} required className="w-full border p-2 rounded" />
                             </div>
                             <div>
-                                <label>Pilih Kontrak</label>
-                                <select name="kontrak_id" value={values.kontrak_id} onChange={handleChange} required className="w-full border p-2 rounded">
-                                    <option value="">-- Pilih Kontrak --</option>
-                                    {kontrak.map((k) => (
-                                        <option key={k.id} value={k.id}>
-                                            {`${k.jenis_kontrak} - No.Kontrak:${k.no_kontrak} - Harga: Rp${k.harga}, Volume: ${k.volume}`}
-                                        </option>
-                                    ))}
-                                </select>
+                                <label className="block mb-1 font-medium">Pilih Kontrak</label>
+                                <Select
+                                    name="kontrak_id"
+                                    options={options}
+                                    value={options.find((opt) => opt.value === values.kontrak_id)}
+                                    onChange={(selectedOption) => {
+                                        const selected = kontrak.find(k => k.id === selectedOption?.value);
+                                        const nilai = selected ? Number(selected.harga) * Number(selected.volume) : '';
+                                        setValues({
+                                            ...values,
+                                            kontrak_id: selectedOption ? selectedOption.value : '',
+                                            nilai,
+                                        });
+                                    }}
+                                    isClearable
+                                    placeholder="-- Pilih Kontrak --"
+                                    className="text-sm"
+                                />
                             </div>
                             <div>
                                 <label>Nilai (Rp)</label>

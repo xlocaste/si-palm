@@ -107,8 +107,7 @@ class InvoiceController extends Controller
 
     public function create()
     {
-        $usedKontrakIds = Invoice::pluck('kontrak_id')->toArray();
-        $kontrak = Kontrak::whereNotIn('id', $usedKontrakIds)->get();
+        $kontrak = Kontrak::all();
 
         return Inertia::render('Invoice/Add', [
             'auth' => [
