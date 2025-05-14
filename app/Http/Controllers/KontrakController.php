@@ -263,9 +263,33 @@ class KontrakController extends Controller
 
     public function dashboard()
     {
+        $tahunIni = now()->year;
+
+        $kontrakData = Kontrak::selectRaw('MONTH(tanggal_kontrak) as bulan, LOWER(jenis_kontrak) as jenis_kontrak, COUNT(*) as total')
+            ->whereYear('tanggal_kontrak', $tahunIni)
+            ->groupBy(DB::raw('MONTH(tanggal_kontrak)'), DB::raw('LOWER(jenis_kontrak)'))
+            ->orderBy('bulan')
+            ->get();
+
+        $dataCpo = array_fill(1, 12, 0);
+        $dataPk = array_fill(1, 12, 0);
+
+        foreach ($kontrakData as $row) {
+            if ($row->jenis_kontrak === 'cpo') {
+                $dataCpo[$row->bulan] = $row->total;
+            } elseif ($row->jenis_kontrak === 'pk') {
+                $dataPk[$row->bulan] = $row->total;
+            }
+        }
+
         return Inertia::render('Dashboard', [
             'auth' => [
                 'user' => Auth::user(),
+            ],
+            'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+            'datasets' => [
+                'cpo' => array_values($dataCpo),
+                'pk' => array_values($dataPk),
             ],
         ]);
     }
