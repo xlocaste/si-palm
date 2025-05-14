@@ -104,6 +104,18 @@ class RealisasiPenyerahanController extends Controller
         return Redirect::route('realisasi-penyerahan.index')->with('message', 'Data berhasil dihapus');
     }
 
+    public function show(RealisasiPenyerahan $realisasiPenyerahan)
+    {
+        $realisasiPenyerahan->load([
+            'kontrak',
+            'invoice',
+        ]);
+
+        return Inertia::render('RealisasiPenyerahan/Detail', [
+            'RealisasiPenyerahan' => $realisasiPenyerahan
+        ]);
+    }
+
     public function edit(RealisasiPenyerahan $realisasiPenyerahan)
     {
         return Inertia::render('RealisasiPenyerahan/Update', [

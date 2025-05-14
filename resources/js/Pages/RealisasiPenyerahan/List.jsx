@@ -113,12 +113,18 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 border space-x-2">
-                                                <button
-                                                    onClick={() => openDetailModal(item, "cpo")}
-                                                    className="text-blue-500 hover:underline"
+                                                <Link
+                                                    href={route(
+                                                        "realisasi-penyerahan.show",
+                                                        item.id
+                                                    )}
+                                                    className="text-blue-500 hover:text-blue-700"
+                                                    title="Detail"
                                                 >
-                                                    <FontAwesomeIcon icon={faEye} />
-                                                </button>
+                                                    <FontAwesomeIcon
+                                                        icon={faEye}
+                                                    />
+                                                </Link>
 
                                                 <a
                                                     href={route("realisasi-penyerahan.print", item.id)}
@@ -193,12 +199,18 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 border space-x-2">
-                                                <button
-                                                    onClick={() => openDetailModal(item, "pk")}
-                                                    className="text-blue-500 hover:underline"
+                                                <Link
+                                                    href={route(
+                                                        "realisasi-penyerahan.show",
+                                                        item.id
+                                                    )}
+                                                    className="text-blue-500 hover:text-blue-700"
+                                                    title="Detail"
                                                 >
-                                                    <FontAwesomeIcon icon={faEye} />
-                                                </button>
+                                                    <FontAwesomeIcon
+                                                        icon={faEye}
+                                                    />
+                                                </Link>
 
                                                 <a
                                                     href={route("realisasi-penyerahan.print", item.id)}

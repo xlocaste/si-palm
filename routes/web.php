@@ -131,6 +131,7 @@ Route::prefix('/realisasi-penyerahan')->name('realisasi-penyerahan.')->group(fun
         Route::put('/{realisasiPenyerahan}', [RealisasiPenyerahanController::class, 'update'])->name('update');
         Route::delete('/{realisasiPenyerahan}', [RealisasiPenyerahanController::class, 'destroy'])->name('destroy');
         Route::get('/{realisasiPenyerahan}/edit', [RealisasiPenyerahanController::class, 'edit'])->name('edit');
+        Route::get('/{realisasiPenyerahan}/show', [RealisasiPenyerahanController::class, 'show'])->name('show');
         Route::get('/print/{realisasiPenyerahan}', [RealisasiPenyerahanController::class, 'printSingle'])->name('print');
     });
 });
