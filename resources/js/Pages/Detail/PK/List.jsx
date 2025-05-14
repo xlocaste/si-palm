@@ -109,7 +109,7 @@ export default function List({ kontrakPK, filters, auth }) {
 
                     <div className="mb-6 bg-gray-50 p-4 rounded-lg">
                         <form onSubmit={handleSubmit}>
-                            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label
                                         htmlFor="search"
@@ -163,40 +163,6 @@ export default function List({ kontrakPK, filters, auth }) {
                                         id="date_to"
                                         className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 -800 -600 "
                                         value={values.date_to}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label
-                                        htmlFor="harga_from"
-                                        className="block text-sm font-medium text-gray-700 -300 mb-1"
-                                    >
-                                        Harga Dari
-                                    </label>
-                                    <input
-                                        type="number"
-                                        id="harga_from"
-                                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 -800 -600 "
-                                        placeholder="Minimal"
-                                        value={values.harga_from}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label
-                                        htmlFor="harga_to"
-                                        className="block text-sm font-medium text-gray-700 -300 mb-1"
-                                    >
-                                        Harga Sampai
-                                    </label>
-                                    <input
-                                        type="number"
-                                        id="harga_to"
-                                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 -800 -600 "
-                                        placeholder="Maksimal"
-                                        value={values.harga_to}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -271,19 +237,18 @@ export default function List({ kontrakPK, filters, auth }) {
                                             </td>
                                             <td className="px-4 py-2 text-center">
                                                 <div className="flex justify-center gap-3">
-                                                    <button
-                                                        onClick={() =>
-                                                            openDetailModal(
-                                                                kontrak
-                                                            )
-                                                        }
+                                                    <Link
+                                                        href={route(
+                                                            "kontrak.show",
+                                                            kontrak.id
+                                                        )}
                                                         className="text-blue-500 hover:text-blue-700"
                                                         title="Detail"
                                                     >
                                                         <FontAwesomeIcon
                                                             icon={faEye}
                                                         />
-                                                    </button>
+                                                    </Link>
                                                     <Link
                                                         href={route(
                                                             "kontrak.edit",
