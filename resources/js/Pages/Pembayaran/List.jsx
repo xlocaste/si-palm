@@ -1,11 +1,20 @@
 import React from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { FaEdit } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 export default function List({ Pembayaran, auth }) {
     console.log(Pembayaran)
+
+    const handleDelete = (id) => {
+            if (confirm("Yakin ingin menghapus data ini?")) {
+                router.delete(route("pembayaran.destroy", id));
+            }
+        };
+
   return (
     <>
     <AuthenticatedLayout
@@ -54,12 +63,19 @@ export default function List({ Pembayaran, auth }) {
                       <td className="px-4 py-2 border">{item.rek_no}</td>
                       <td className="px-4 py-2 border">{item.jatuh_tempo_pembayaran}</td>
                       <td className="px-4 py-2 border space-x-2">
-                        <Link
-                          href={`/pembayaran/${item.id}/edit`}
-                          className="text-blue-600 hover:underline"
+                        <button
+                            onClick={() =>
+                                handleDelete(
+                                    item.id
+                                )
+                            }
+                            className="text-red-500 hover:text-red-700"
+                            title="Hapus"
                         >
-                          <FaEdit />
-                        </Link>
+                            <FontAwesomeIcon
+                                icon={faTrash}
+                            />
+                        </button>
                       </td>
                     </tr>
                   ))

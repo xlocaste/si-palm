@@ -7,6 +7,7 @@ use App\Models\Pembayaran;
 use App\Models\Kontrak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 
@@ -51,5 +52,12 @@ class PembayaranController extends Controller
         Pembayaran::create($request->all());
 
         return redirect()->route('pembayaran.index')->with('success', 'Data pembayaran berhasil disimpan.');
+    }
+
+    public function destroy(Pembayaran $pembayaran)
+    {
+        $pembayaran->delete();
+
+        return Redirect::route('pembayaran.index')->with('message', 'Data berhasil dihapus');
     }
 }
