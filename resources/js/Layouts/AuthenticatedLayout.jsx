@@ -56,6 +56,7 @@ export default function Authenticated({ user, header, children }) {
                                     </NavLink>
                                 )}
                             </Menu.Item>
+                            {user?.roles?.some(role => role.name === 'admin') && (
                             <Menu.Item>
                                 {() => (
                                     <NavLink href={route('kontrak.create')} active={route().current('kontrak.create')}>
@@ -63,6 +64,7 @@ export default function Authenticated({ user, header, children }) {
                                     </NavLink>
                                 )}
                             </Menu.Item>
+                            )}
                             <Menu.Item>
                                 {() => (
                                     <NavLink href={route('pembayaran.index')} active={route().current('pembayaran.create')}>
@@ -104,7 +106,6 @@ export default function Authenticated({ user, header, children }) {
                     </NavLink>
                 </nav>
 
-                {/* Dropdown Akun di Bawah */}
                 <div className="mt-auto border-t pt-4 border-gray-200">
                     <Dropdown>
                         <Dropdown.Trigger>

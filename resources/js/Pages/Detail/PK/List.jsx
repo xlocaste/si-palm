@@ -249,31 +249,35 @@ export default function List({ kontrakPK, filters, auth }) {
                                                             icon={faEye}
                                                         />
                                                     </Link>
-                                                    <Link
-                                                        href={route(
-                                                            "kontrak.edit",
-                                                            kontrak.id
-                                                        )}
-                                                        className="text-yellow-500 hover:text-yellow-700"
-                                                        title="Edit"
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            icon={faEdit}
-                                                        />
-                                                    </Link>
-                                                    <button
-                                                        onClick={() =>
-                                                            handleDelete(
+                                                    {auth?.user?.roles?.some(role => role.name === 'admin') && (
+                                                        <Link
+                                                            href={route(
+                                                                "kontrak.edit",
                                                                 kontrak.id
-                                                            )
-                                                        }
-                                                        className="text-red-500 hover:text-red-700"
-                                                        title="Hapus"
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            icon={faTrash}
-                                                        />
-                                                    </button>
+                                                            )}
+                                                            className="text-yellow-500 hover:text-yellow-700"
+                                                            title="Edit"
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={faEdit}
+                                                            />
+                                                        </Link>
+                                                    )}
+                                                    {auth?.user?.roles?.some(role => role.name === 'admin') && (
+                                                        <button
+                                                            onClick={() =>
+                                                                handleDelete(
+                                                                    kontrak.id
+                                                                )
+                                                            }
+                                                            className="text-red-500 hover:text-red-700"
+                                                            title="Hapus"
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={faTrash}
+                                                            />
+                                                        </button>
+                                                    )}
                                                     <button
                                                         onClick={() =>
                                                             handlePrint(
