@@ -32,7 +32,7 @@ export default function Add({ auth, kontrak }) {
 
     const options = kontrak.map((k) => ({
         value: k.id,
-        label: `${k.jenis_kontrak} - No.Kontrak: ${k.no_kontrak} - Harga: Rp${k.harga}, Volume: ${k.volume}`,
+        label: `${k.jenis_kontrak} - ${k.no_kontrak} - Harga: Rp${k.harga}, Volume: ${k.volume}`,
     }));
 
     return (
