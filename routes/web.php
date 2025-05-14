@@ -118,6 +118,7 @@ Route::prefix('/sales-order')->name('sales-order.')->group(function () {
         Route::put('/{salesOrder}', [SalesOrderController::class, 'update'])->name('update');
         Route::delete('/{salesOrder}', [SalesOrderController::class, 'destroy'])->name('destroy');
         Route::get('/{salesOrder}/edit', [SalesOrderController::class, 'edit'])->name('edit');
+        Route::get('/{salesOrder}/show', [SalesOrderController::class, 'show'])->name('show');
         Route::get('/print/{salesOrder}', [SalesOrderController::class, 'printSingle'])->name('print');
     });
 });

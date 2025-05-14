@@ -106,6 +106,18 @@ class SalesOrderController extends Controller
         return Redirect::route('sales-order.index')->with('message', 'Data berhasil dihapus');
     }
 
+    public function show(SalesOrder $salesOrder)
+    {
+        $salesOrder->load([
+            'kontrak',
+        ]);
+
+        return Inertia::render('SalesOrder/Detail', [
+            'SalesOrder' => $salesOrder
+        ]);
+    }
+
+
     public function edit(SalesOrder $salesOrder)
     {
         return Inertia::render('SalesOrder/Update', [
