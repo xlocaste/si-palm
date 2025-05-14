@@ -20,8 +20,6 @@ class RealisasiPenyerahan extends Model
         'kk',
         'no_ba',
         'no_surat_penerbitan_invoice',
-        'no_ba',
-        'no_surat_penerbitan_invoice',
         'tanggal_surat_invoice',
     ];
 
@@ -29,7 +27,7 @@ class RealisasiPenyerahan extends Model
     {
         return $this->belongsTo(Kontrak::class);
     }
-    
+
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);

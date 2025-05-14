@@ -9,6 +9,8 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { IoIosSearch } from "react-icons/io";
 
 export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahanPK }) {
+    console.log(realisasiPenyerahanCPO)
+    console.log(realisasiPenyerahanPK)
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [modalTitle, setModalTitle] = useState("");
@@ -89,11 +91,8 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                             <td className="px-6 py-4 border">{item.tanggal_serah}</td>
                                             <td className="px-4 py-2">
                                                 <span
-                                                    className={`text-${
-                                                        item.alb ? "green" : "red"
-                                                    }-500`}
                                                 >
-                                                    ALB: {item.alb ? "Yes" : "No"}
+                                                    ALB: {item.alb}
                                                 </span>
                                                 <br />
                                                 <span
@@ -101,7 +100,7 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                                         item.ka ? "green" : "red"
                                                     }-500`}
                                                 >
-                                                    KA: {item.ka ? "Yes" : "No"}
+                                                    KA: {item.ka}
                                                 </span>
                                                 <br />
                                                 <span
@@ -109,7 +108,7 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                                         item.kk ? "green" : "red"
                                                     }-500`}
                                                 >
-                                                    KK: {item.kk ? "Yes" : "No"}
+                                                    KK: {item.kk}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 border space-x-2">
