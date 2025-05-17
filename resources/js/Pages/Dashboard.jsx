@@ -12,7 +12,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-export default function Dashboard({ auth, datasets, labels }) {
+export default function Dashboard({ auth, datasets, labels, realisasi}) {
     console.log(datasets)
     const data = labels.map((label, index) => ({
         bulan: label,
@@ -33,7 +33,35 @@ export default function Dashboard({ auth, datasets, labels }) {
 
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
-                    <h3 className="text-xl font-semibold mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="bg-white shadow rounded-lg p-4 flex items-center">
+                            <div className="flex-1">
+                            <h4 className="text-sm font-medium text-gray-500">Total CPO</h4>
+                            <p className="mt-1 text-2xl font-semibold text-indigo-600">
+                                {realisasi.cpo}
+                            </p>
+                            </div>
+                            <div>
+                            <svg className="w-8 h-8 text-indigo-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 6h14M3 10h14M3 14h14"/>
+                            </svg>
+                            </div>
+                        </div>
+                        <div className="bg-white shadow rounded-lg p-4 flex items-center">
+                            <div className="flex-1">
+                            <h4 className="text-sm font-medium text-gray-500">Total PK</h4>
+                            <p className="mt-1 text-2xl font-semibold text-green-500">
+                                {realisasi.pk}
+                            </p>
+                            </div>
+                            <div>
+                            <svg className="w-8 h-8 text-green-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 6h14M3 10h14M3 14h14"/>
+                            </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 className="text-xl font-semibold my-4">
                         Grafik Kontrak per Bulan (Tahun Ini)
                     </h3>
 

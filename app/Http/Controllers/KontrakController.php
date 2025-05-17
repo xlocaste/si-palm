@@ -6,6 +6,7 @@ use App\Http\Requests\Kontrak\StoreRequest;
 use App\Http\Requests\Kontrak\UpdateRequest;
 use App\Models\Kontrak;
 use App\Models\Pembayaran;
+use App\Models\RealisasiPenyerahan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -274,6 +275,18 @@ class KontrakController extends Controller
         $dataCpo = array_fill(1, 12, 0);
         $dataPk = array_fill(1, 12, 0);
 
+        $realisasiData = RealisasiPenyerahan::whereHas('kontrak', function ($query) use ($tahunIni) {
+            $query->whereYear('tanggal_kontrak', $tahunIni);
+        })
+        ->selectRaw('LOWER(jenis_kontrak) as jenis_kontrak, COUNT(*) as total')
+        ->join('kontrak', 'realisasi_penyerahan.kontrak_id', '=', 'kontrak.id')
+        ->groupBy(DB::raw('LOWER(jenis_kontrak)'))
+        ->get()
+        ->pluck('total', 'jenis_kontrak');
+
+        $realisasiCpo = $realisasiData['cpo'] ?? 0;
+        $realisasiPk = $realisasiData['pk'] ?? 0;
+
         foreach ($kontrakData as $row) {
             if ($row->jenis_kontrak === 'cpo') {
                 $dataCpo[$row->bulan] = $row->total;
@@ -290,6 +303,10 @@ class KontrakController extends Controller
             'datasets' => [
                 'cpo' => array_values($dataCpo),
                 'pk' => array_values($dataPk),
+            ],
+            'realisasi' => [
+                'cpo' => $realisasiCpo,
+                'pk' => $realisasiPk,
             ],
         ]);
     }
