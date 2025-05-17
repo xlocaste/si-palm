@@ -8,7 +8,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
             <div class="w-full h-screen bg-[url('/image/lp.jpg')] bg-cover bg-center">
                 <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-                <div className="sm:fixed sm:top-0 sm:right-0 p-6 text-end">
+                <div className="relative z-10 sm:top-0 sm:right-0 p-6 text-end">
                     {auth.user ? (
                         <Link
                             href={route('dashboard')}
