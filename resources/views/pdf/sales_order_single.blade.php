@@ -67,7 +67,7 @@
                         <td>5</td>
                         <td>0,5</td>
                         <td>{{$salesOrder->volume_sales_order}}</td>
-                        <td>{{$salesOrder->tahap}}</td>
+                        <td>Tahap - {{$salesOrder->tahap}}</td>
                     </tr>
                 </tbody>
                 <tfoot>
