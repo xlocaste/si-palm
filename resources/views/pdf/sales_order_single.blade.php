@@ -125,6 +125,23 @@
             <p>Tembusan :</p>
             <p>Lorem ipsum dolor sit.</p>
         </div>
+        <table class="footer">
+            <tr class="tr">
+                <td style="padding: 0">
+                    <p style="color: blue; padding-right: 0; margin: 0;">AKLAK<a style="color: black; padding: 0; margin: 0;"> - Amanah, Kompeten, Harmonis, Loyal, Adaptif, Kolaboratif</a> </p>
+                    <p>Head Office Gedung Agro Plaza Lt. 8</p>
+                    <p>Jl. H.R Rasuma Said Kaiv X2 No.1</p>
+                    <p>Telp     : +62 21 31119000</p>
+                    <p>Email    : ptpnusantara4@ptpn4.co.id</p>
+                </td>
+                <td style="padding: 0" style="text-align: right;">
+                    <p style="font-weight: 500; padding: 0; margin: 0; ">Regional V - Pontianak</p>
+                    <p>Jl. Sultan Abdurahman 11, Pontianak 78113</p>
+                    <p>Telp : +62 561 734110</p>
+                    <p>Email : sekper@ptpn13.co.id</p>
+                </td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>
