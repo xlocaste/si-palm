@@ -135,7 +135,7 @@ class RealisasiPenyerahanController extends Controller
 
     public function printSingle(RealisasiPenyerahan $realisasiPenyerahan)
     {
-        $realisasiPenyerahan->load(['kontrak', 'invoice']);
+        $realisasiPenyerahan->load(['kontrak.pembayaran', 'invoice']);
 
         $pdf = Pdf::loadView('pdf.realisasi_penyerahan_single', [
             'realisasiPenyerahan' => $realisasiPenyerahan

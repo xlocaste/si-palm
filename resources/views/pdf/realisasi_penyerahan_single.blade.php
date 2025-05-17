@@ -1,232 +1,137 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realisasi Penyerahan #{{ $realisasiPenyerahan->no_ba }}</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            line-height: 1.4;
-            color: #333;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .info-section {
-            margin-bottom: 20px;
-        }
-        .company-info {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        .realisasi-title {
-            text-align: center;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 20px 0;
-            text-transform: uppercase;
-        }
-        .detail-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        .detail-table td {
-            padding: 5px;
-            vertical-align: top;
-        }
-        .detail-table .label {
-            width: 35%;
-            font-weight: bold;
-        }
-        .detail-table .separator {
-            width: 5%;
-            text-align: center;
-        }
-        .detail-table .value {
-            width: 60%;
-        }
-        
-        .status-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            border: 1px solid #ddd;
-        }
-        .status-table th, .status-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        .status-table th {
-            background-color: #f2f2f2;
-        }
-        
-        .footer {
-            margin-top: 50px;
-            text-align: center;
-            font-size: 11px;
-        }
-        
-        .signature {
-            margin-top: 60px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .signature-box {
-            width: 45%;
-            text-align: center;
-        }
-        .signature-line {
-            margin: 50px auto 0;
-            border-top: 1px solid #000;
-            width: 70%;
-        }
-        
-        .status-yes {
-            color: green;
-            font-weight: bold;
-        }
-        
-        .status-no {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Realisasi Penyerahan</title>
+    <link rel="stylesheet" href="{{ public_path('css/rp.css') }}">
 </head>
 <body>
-    <div class="header">
-        <h1>PT. SAWIT INDONESIA</h1>
-        <p>Jl. Industri No. 123, Kota Medan, Sumatera Utara</p>
-        <p>Telp: (061) 1234567 | Email: info@sawitindonesia.co.id</p>
-    </div>
-    
-    <div class="realisasi-title">
-        Berita Acara Realisasi Penyerahan
-    </div>
-    
-    <div class="info-section">
-        <table class="detail-table">
-            <tr>
-                <td class="label">Nomor Berita Acara</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $realisasiPenyerahan->no_ba }}</td>
-            </tr>
-            <tr>
-                <td class="label">Nomor Surat Penerbitan Invoice</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $realisasiPenyerahan->no_surat_penerbitan_invoice }}</td>
-            </tr>
-            <tr>
-                <td class="label">Tanggal Surat Invoice</td>
-                <td class="separator">:</td>
-                <td class="value">{{ date('d/m/Y', strtotime($realisasiPenyerahan->tanggal_surat_invoice)) }}</td>
-            </tr>
-            <tr>
-                <td class="label">Tanggal Serah</td>
-                <td class="separator">:</td>
-                <td class="value">{{ date('d/m/Y', strtotime($realisasiPenyerahan->tanggal_serah)) }}</td>
-            </tr>
-            <tr>
-                <td class="label">Nomor Kontrak</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $realisasiPenyerahan->kontrak->no_kontrak ?? '-' }}</td>
-            </tr>
-            <tr>
-                <td class="label">Nomor Invoice</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $realisasiPenyerahan->invoice->no_invoice ?? '-' }}</td>
-            </tr>
-            <tr>
-                <td class="label">Pembeli</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $realisasiPenyerahan->kontrak->pembeli ?? '-' }}</td>
-            </tr>
-            <tr>
-                <td class="label">Komoditas</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $realisasiPenyerahan->kontrak->jenis_kontrak === 'CPO' ? 'Minyak Sawit (CPO)' : 'Inti Sawit (PK)' }}</td>
-            </tr>
-            <tr>
-                <td class="label">Volume</td>
-                <td class="separator">:</td>
-                <td class="value">{{ $realisasiPenyerahan->kontrak->volume ?? '-' }}</td>
-            </tr>
-            <tr>
-                <td class="label">Nilai</td>
-                <td class="separator">:</td>
-                <td class="value">Rp {{ number_format($realisasiPenyerahan->invoice->nilai ?? 0,0,',','.') }}</td>
+     <div class="container">
+        <div class="image">
+            <img src="image/ptpn.png" alt="">
+        </div>
+        <div class="header">
+            <table class="head">
+                <tr>
+                    <td>Nomor</td> <td> : </td> <td> Isi Nomor </td>
+                    <td></td>
+                    <td style="text-align: right">Tempat dan tanggal sekarang</td>
+                </tr>
+                <tr>
+                    <td>Lamp.</td> <td> : </td> <td> - </td>
+                </tr>
+                <tr>
+                    <td>Hal</td> <td> : </td> <td> - </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="width: 120px"></td>
+                    <td>
+                        <p>Kepada</p>
+                        <p style="font-weight: 500">Divisi Pemasaran </p>
+                        <p style="font-weight: 500">PT. Perkebunan Nusantara IV </p>
+                        <p>di-</p>
+                        <p style="padding-left: 50px">Tempat</p>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt molestias minima obcaecati reprehenderit error beatae voluptates vitae facere natus rerum quos, placeat animi corporis.</p>
+                        <p style="font-weight: 500">A. Pembeli</p>
+                        <p>Nama Pembeli : {{$realisasiPenyerahan->kontrak->pembeli}}</p>
+                        <p>No. Kontrak : {{$realisasiPenyerahan->kontrak->no_kontrak}}</p>
+                        <p>Volume Kontrak : {{$realisasiPenyerahan->kontrak->volume}}</p>
+                        <p>Volume Realisasi : {{$realisasiPenyerahan->kontrak->volume}}</p>
+                        <p style="font-weight: 500">B. Realisasi Penyerahan</p>
+                        <table class="table">
+                            <thead class="thead">
+                                <tr>
+                                    <th rowspan="2">Nomor/Tgl</th>
+                                    <th rowspan="2">Mutu ALB (%)</th>
+                                    <th rowspan="2">Volume (Kg)</th>
+                                    <th colspan="2">Pembayaran</th>
+                                    <th colspan="6">Realisasi Penyerahan</th>
+                                    <th rowspan="2">FOB</th>
+                                    <th rowspan="2">Sisa Kontrak (Kg)</th>
+                                </tr>
+                                <tr>
+                                    <th>Tgl Batas Pembayaran</th>
+                                    <th>Tgl Realisasi Pembayaran</th>
+
+                                    <th>Tgl Realisasi Pengapalan</th>
+                                    <th>Tahap</th>
+                                    <th>Volume (Kg)</th>
+                                    <th>ALB (%)</th>
+                                    <th>K. Air (%)</th>
+                                    <th>K. Kot. (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody">
+                                <tr>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                    <td>lorem</td>
+                                </tr>
+                                <tr>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                    <td>jumlah</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, cumque officia? Odit itaque perspiciatis,
+                            dolorum praesentium rem inventore explicabo, numquam non veniam ipsum eos!</p>
+                            <br>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, sed! Nobis, nulla!</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="ttd">
+            <div class="isi">
+
+                <p>PT, PERKEBUNAN NUSANTARA IV</p>
+                <p>Senior Executive Vice President</p>
+                <p style="text-decoration: underline; font-weight: 500; padding-top: 80px;">Muhammad Zulham Rambe</p>
+                <p>SEVP Bussines Support</p>
+            </div>
+        </div>
+        <table class="footer">
+            <tr class="tr">
+                <td style="padding: 0">
+                    <p style="color: blue; padding-right: 0; margin: 0;">AKLAK<a style="color: black; padding: 0; margin: 0;"> - Amanah, Kompeten, Harmonis, Loyal, Adaptif, Kolaboratif</a> </p>
+                    <p>Head Office Gedung Agro Plaza Lt. 8</p>
+                    <p>Jl. H.R Rasuma Said Kaiv X2 No.1</p>
+                    <p>Telp     : +62 21 31119000</p>
+                    <p>Email    : ptpnusantara4@ptpn4.co.id</p>
+                </td>
+                <td style="padding: 0" style="text-align: right;">
+                    <p style="font-weight: 500; padding: 0; margin: 0; ">Regional V - Pontianak</p>
+                    <p>Jl. Sultan Abdurahman 11, Pontianak 78113</p>
+                    <p>Telp : +62 561 734110</p>
+                    <p>Email : sekper@ptpn13.co.id</p>
+                </td>
             </tr>
         </table>
-    </div>
-    
-    <div>
-        <h3>Status Penyerahan:</h3>
-        <table class="status-table">
-            <thead>
-                <tr>
-                    <th>Kriteria</th>
-                    <th>Persentase</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Analisa Laboratorium (ALB)</td>
-                    <td>{{ $realisasiPenyerahan->alb }}%</td>
-                    <td class="{{ $realisasiPenyerahan->alb > 0 ? 'status-yes' : 'status-no' }}">
-                        {{ $realisasiPenyerahan->alb > 0 ? 'OK' : 'NOT OK' }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Kadar Air (KA)</td>
-                    <td>{{ $realisasiPenyerahan->ka }}%</td>
-                    <td class="{{ $realisasiPenyerahan->ka > 0 ? 'status-yes' : 'status-no' }}">
-                        {{ $realisasiPenyerahan->ka > 0 ? 'OK' : 'NOT OK' }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Kadar Kotoran (KK)</td>
-                    <td>{{ $realisasiPenyerahan->kk }}%</td>
-                    <td class="{{ $realisasiPenyerahan->kk > 0 ? 'status-yes' : 'status-no' }}">
-                        {{ $realisasiPenyerahan->kk > 0 ? 'OK' : 'NOT OK' }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <div style="margin-top: 40px;">
-        <p>Berdasarkan hasil pemeriksaan di atas, dengan ini dinyatakan bahwa penyerahan komoditas telah dilaksanakan sesuai dengan ketentuan yang berlaku dalam kontrak.</p>
-    </div>
-    
-    <div style="display: flex; margin-top: 50px;">
-        <div style="width: 50%; text-align: center;">
-            <div style="margin-bottom: 60px;">Pembeli,</div>
-            <div style="border-top: 1px solid #000; width: 60%; margin: 0 auto;"></div>
-            <div style="margin-top: 5px;">{{ $realisasiPenyerahan->kontrak->pembeli ?? '' }}</div>
-        </div>
-        
-        <div style="width: 50%; text-align: center;">
-            <div style="margin-bottom: 60px;">Medan, {{ date('d F Y', strtotime($realisasiPenyerahan->tanggal_serah)) }}</div>
-            <div style="border-top: 1px solid #000; width: 60%; margin: 0 auto;"></div>
-            <div style="margin-top: 5px;">PT. Sawit Indonesia</div>
-        </div>
-    </div>
-    
-    <div class="footer">
-        <p>Dokumen ini sah dan diproses oleh komputer</p>
-        <p>Silakan hubungi kami untuk informasi lebih lanjut</p>
-    </div>
+     </div>
 </body>
-</html> 
+</html>
