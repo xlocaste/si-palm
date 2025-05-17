@@ -52,6 +52,7 @@
                         <th rowspan="2">ALB<br>(%)</th>
                         <th rowspan="2">K. A - K. K<br>(%)</th>
                         <th rowspan="2">Jumlah<br>(Netto)</th>
+                        <th rowspan="2">Catatan</th>
                     </tr>
                     <tr style="background-color: #ffff66; font-weight: bold;">
                         <th>Nomor</th>
@@ -60,30 +61,44 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>testing</td>
-                        <td>testing</td>
-                        <td>testing</td>
-                        <td>testing</td>
-                        <td>testing</td>
-                        <td>testing</td>
+                        <td>{{$salesOrder->kontrak->jenis_kontrak}}</td>
+                        <td>{{$salesOrder->kontrak->no_kontrak}}</td>
+                        <td>{{$salesOrder->kontrak->tanggal_kontrak}}</td>
+                        <td>5</td>
+                        <td>0,5</td>
+                        <td>{{$salesOrder->volume_sales_order}}</td>
+                        <td>{{$salesOrder->tahap}}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="6" style="text-align: left; font-weight: 500">
+                        <td colspan="7" style="text-align: left; font-weight: 500">
                             Syarat Penyerahan: PKS Rimbu Belian
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3" style="text-align: left;">
+                        <td colspan="4" style="text-align: left;">
                             Pembayaran telah dilaksanakan melalui :
+                            <p style="padding: 0; margin: 0; font-weight: 500;">{{$salesOrder->kontrak->pembayaran->nama_bank}}</p>
+                            <p style="padding: 0; margin: 0;">Ke Rekening PTPN IV</p>
+                            <p style="padding: 0; margin: 0;">A/C No. {{$salesOrder->kontrak->pembayaran->rek_no}}</p>
+                            <p style="padding: 0; margin: 0;">Pada tanggal {{$salesOrder->kontrak->pembayaran->created_at}}</p>
                         </td>
-                        <td colspan="3" style="text-align: left; font-weight: 500">
-                            Catatan :
+                        <td colspan="3" style="text-align: left; padding: 0;">
+                            <p style="font-weight: 500">Catatan :</p>
+                            <p>
+                                - Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                            </p>
+                            <p>
+                                - Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            </p>
+                            <p>
+                                - Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            </p>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="6" style="text-align: left;">
+                        <td colspan="7" style="text-align: left;">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut exercitationem, adipisci a ea error magnam deleniti dolores molestias laborum alias ipsam porro nostrum natus. Voluptas recusandae deserunt aliquam animi autem?
                         </td>
                     </tr>

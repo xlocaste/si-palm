@@ -19,6 +19,7 @@ class Pembayaran extends Model
         'atas_nama',
         'rek_no',
         'jatuh_tempo_pembayaran',
+        'created_at'
     ];
 
     public function kontrak()

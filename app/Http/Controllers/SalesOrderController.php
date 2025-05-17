@@ -127,7 +127,7 @@ class SalesOrderController extends Controller
 
     public function printSingle(SalesOrder $salesOrder)
     {
-        $salesOrder->load('kontrak');
+        $salesOrder->load('kontrak.pembayaran');
 
         $pdf = Pdf::loadView('pdf.sales_order_single', [
             'salesOrder' => $salesOrder
