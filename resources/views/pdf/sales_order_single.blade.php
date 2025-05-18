@@ -25,10 +25,10 @@
                     </td>
                     <td> : </td>
                     <td>
-                        isi dari nomor
+                        {{$salesOrder->no_sales_order}}
                     </td>
                     <td>
-                        Tempat dan waktu sekarang
+                        Pontianak, {{ $salesOrder->formatted_created_at }}
                     </td>
                 </tr>
                 <tr style="font-weight: 500;">
@@ -37,13 +37,16 @@
                     </td>
                     <td> : </td>
                     <td>
-                        Penerima
+                        {{$salesOrder->kontrak->pembeli}}
                     </td>
                 </tr>
             </table>
         </div>
         <div class="table" style="margin-top: 20px;">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae qui praesentium eveniet accusamus corrupti commodi at quo voluptatibus veritatis quidem. :</p>
+            <p>
+                Mohon segera dilaksanakan pengambilan {{$salesOrder->kontrak->jenis_kontrak}} di PKS Rimba Belian Kalimantan Barat sesuai
+kontrak sebagai berikut :
+            </p>
             <table style="margin-top: 5px">
                 <thead>
                     <tr>
@@ -87,19 +90,21 @@
                         <td colspan="3" style="text-align: left; padding: 0;">
                             <p style="font-weight: 500">Catatan :</p>
                             <p>
-                                - Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                - Setelah barang diserahkan, agar dibuat Berita Acara serah terima.
                             </p>
                             <p>
-                                - Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                - Penimbangan / pengukuran dilaksanakan di gudang tempat pengambilan barang.
                             </p>
                             <p>
-                                - Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                - Pengambilan barang, sesegera mungkin
                             </p>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="7" style="text-align: left;">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut exercitationem, adipisci a ea error magnam deleniti dolores molestias laborum alias ipsam porro nostrum natus. Voluptas recusandae deserunt aliquam animi autem?
+                            Order penyerahan ini berlaku sejak tanggal diterbitkan s/d tgl. <a style="font-weight: bold">30 Januari 2024</a> Terhitung mulai tanggal
+                            jatuh tempo DO ini, barang belum diambil maka segala ongkos veem, sewa gudang, kerusakan mutu dan
+                            kesusutan, dll. Ditanggung oleh pembeli.
                         </td>
                     </tr>
                 </tfoot>
@@ -138,7 +143,8 @@
         </div>
         <div style="padding-top: 10px;">
             <p>Tembusan :</p>
-            <p>Lorem ipsum dolor sit.</p>
+            <p>5PRM (PKS Rimba Belian)
+</p>
         </div>
         <table class="footer">
             <tr class="tr">
