@@ -15,15 +15,15 @@
         <div class="header">
             <table class="head">
                 <tr>
-                    <td>Nomor</td> <td> : </td> <td> Isi Nomor </td>
+                    <td>Nomor</td> <td> : </td> <td> </td>
                     <td></td>
-                    <td style="text-align: right">Tempat dan tanggal sekarang</td>
+                    <td style="text-align: right">Pontianak, {{ $realisasiPenyerahan->formatted_created_at }}</td>
                 </tr>
                 <tr>
                     <td>Lamp.</td> <td> : </td> <td> - </td>
                 </tr>
                 <tr>
-                    <td>Hal</td> <td> : </td> <td> - </td>
+                    <td>Hal</td> <td> : </td> <td> Realisasi Pengapalan/Pengiriman {{$realisasiPenyerahan->kontrak->jenis_kontrak}} </td>
                 </tr>
             </table>
             <table>
@@ -35,7 +35,10 @@
                         <p style="font-weight: 500">PT. Perkebunan Nusantara IV </p>
                         <p>di-</p>
                         <p style="padding-left: 50px">Tempat</p>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt molestias minima obcaecati reprehenderit error beatae voluptates vitae facere natus rerum quos, placeat animi corporis.</p>
+                        <p>
+                            Dengan ini kami sampaikan mengenai realisasi pengapalan {{$realisasiPenyerahan->kontrak->jenis_kontrak}} PKS Rimba Belian & PKS Gunung
+                            Meliau di wilayah Regional V PT. Perkebunan Nusantara IV sebagai berikut:
+                        </p>
                         <p style="font-weight: 500">A. Pembeli</p>
                         <p>Nama Pembeli : {{$realisasiPenyerahan->kontrak->pembeli}}</p>
                         <p>No. Kontrak : {{$realisasiPenyerahan->kontrak->no_kontrak}}</p>
@@ -67,41 +70,46 @@
                             </thead>
                             <tbody class="tbody">
                                 <tr>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
-                                    <td>lorem</td>
+                                    <td>{{$realisasiPenyerahan->kontrak->no_kontrak}}</td>
+                                    <td>{{$realisasiPenyerahan->alb}}</td>
+                                    <td>{{$realisasiPenyerahan->kontrak->volume}}</td>
+                                    <td>{{$realisasiPenyerahan->kontrak->jatuh_tempo}}</td>
+                                    <td>{{$realisasiPenyerahan->formatted_created_at}}</td>
+                                    <td>{{$realisasiPenyerahan->formatted_created_at}}</td>
+                                    <td> 1 </td>
+                                    <td>{{$realisasiPenyerahan->kontrak->volume}}</td>
+                                    <td>{{$realisasiPenyerahan->alb}}</td>
+                                    <td>{{$realisasiPenyerahan->ka}}</td>
+                                    <td>{{$realisasiPenyerahan->kk}}</td>
+                                    <td>
+                                        5PRM
+                                        5PGM
+                                    </td>
+                                    <td> - </td>
                                 </tr>
                                 <tr>
                                     <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
-                                    <td>jumlah</td>
+                                    <td></td>
+                                    <td>{{$realisasiPenyerahan->kontrak->volume}}</td>
+                                    <td></td>
+                                    <td>{{$realisasiPenyerahan->kontrak->volume}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{$realisasiPenyerahan->kontrak->volume}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, cumque officia? Odit itaque perspiciatis,
-                            dolorum praesentium rem inventore explicabo, numquam non veniam ipsum eos!</p>
+                        <p>
+                            Dengan ini agar dapat segera diterbitkan perhitungan rampung atas pengapalan {{$realisasiPenyerahan->kontrak->jenis_kontrak}} untuk Kontrak
+                            No. {{$realisasiPenyerahan->kontrak->no_kontrak}}
+                        </p>
                             <br>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, sed! Nobis, nulla!</p>
+                        <p>Demikian kami sampaikan, atas perhatian dan kerjasamanya diucapkan terimakasih.</p>
                     </td>
                 </tr>
             </table>

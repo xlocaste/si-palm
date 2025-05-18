@@ -39,9 +39,15 @@ class Kontrak extends Model
         'jenis_tempo_penyerahan',
         'jenis_kontrak',
     ];
+
     public function invoices()
     {
         return $this->hasMany(Invoice::class);
+    }
+
+    public function salesOrder()
+    {
+        return $this->hasMany(SalesOrder::class);
     }
 
     public function pembayaran()
