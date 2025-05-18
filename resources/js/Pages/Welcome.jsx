@@ -7,8 +7,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <Head title="Sistem Informasi Penjualan Sawit" />
 
             <div class="w-full h-screen bg-[url('/image/lp.jpg')] bg-cover bg-center">
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-                <div className="relative z-10 sm:top-0 sm:right-0 p-6 text-end">
+                <div className="absolute inset-0 h-screen bg-black bg-opacity-50"></div>
+                <div className="absolute z-10 h-screen sm:top-0 sm:right-0 p-6 text-end">
                     {auth.user ? (
                         <Link
                             href={route('dashboard')}
@@ -34,7 +34,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     )}
                 </div>
 
-                <div className="relative z-10 max-w-7xl mx-auto p-6 lg:p-8 text-center">
+                <div className="absolute z-10 max-w-7xl mx-auto p-6 lg:p-8 text-center">
                     <div className="flex justify-center mb-6">
                         <ApplicationLogo />
                     </div>
