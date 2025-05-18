@@ -68,10 +68,13 @@ class InvoiceController extends Controller
 
         $ppn = ($kontrak->ppn / 100) * $nilai;
 
+        $jumlah = $nilai + $ppn;
+
         Invoice::create([
             'kontrak_id' => $kontrak->id,
             'nilai' => $nilai,
             'ppn' => $ppn,
+            'jumlah' => $jumlah,
             'terbilang' => $request->terbilang,
             'no_invoice' => $request->no_invoice,
             'tanggal_bayar' => $request->tanggal_bayar,

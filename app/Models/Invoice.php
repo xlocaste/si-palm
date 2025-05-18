@@ -18,6 +18,7 @@ class Invoice extends Model
         'nilai',
         'ppn',
         'terbilang',
+        'jumlah',
     ];
 
     public function kontrak()

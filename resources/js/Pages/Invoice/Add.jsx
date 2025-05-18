@@ -11,6 +11,7 @@ export default function Add({ auth, kontrak }) {
         kontrak_id: '',
         nilai: '',
         ppn: '',
+        jumlah: '',
         terbilang: '',
     });
 
@@ -55,13 +56,16 @@ export default function Add({ auth, kontrak }) {
                                     value={options.find((opt) => opt.value === values.kontrak_id)}
                                     onChange={(selectedOption) => {
                                         const selected = kontrak.find(k => k.id === selectedOption?.value);
-                                        const nilai = selected ? Number(selected.harga) * Number(selected.volume) : '';
-                                        const ppn = selected ? (selected.ppn / 100) * nilai : '';
+                                        const nilai = selected ? Number(selected.harga) * Number(selected.volume) : 0;
+                                        const ppn = selected ? (selected.ppn / 100) * nilai : 0;
+                                        const jumlah = nilai + ppn;
+
                                         setValues({
                                             ...values,
                                             kontrak_id: selectedOption ? selectedOption.value : '',
                                             nilai,
                                             ppn,
+                                            jumlah,
                                         });
                                     }}
                                     isClearable
@@ -85,6 +89,16 @@ export default function Add({ auth, kontrak }) {
                                     type="number"
                                     name="ppn"
                                     value={values.ppn}
+                                    readOnly
+                                    className="w-full border p-2 rounded bg-gray-100"
+                                />
+                            </div>
+                            <div>
+                                <label>Jumlah (Rp)</label>
+                                <input
+                                    type="number"
+                                    name="jumlah"
+                                    value={values.jumlah}
                                     readOnly
                                     className="w-full border p-2 rounded bg-gray-100"
                                 />

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('tanggal_bayar');
             $table->string('nilai');
             $table->string('ppn');
+            $table->string('jumlah');
             $table->text('terbilang');
             $table->timestamps();
 

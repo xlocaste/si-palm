@@ -27,6 +27,7 @@ class UpdateRequest extends FormRequest
             'nilai'=>['required'],
             'ppn'=>['required'],
             'terbilang'=>['required'],
+            'jumlah'=>['required'],
         ];
     }
 }

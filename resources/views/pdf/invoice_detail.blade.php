@@ -65,9 +65,11 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 30%">Nilai</td>
+                                    <td style="width: 2%">:</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%">PPN 11%</td>
+                                    <td style="width: 2%">:</td>
                                 </tr>
                             </table>
                         </td>
