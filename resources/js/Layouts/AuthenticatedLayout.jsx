@@ -86,7 +86,7 @@ export default function Authenticated({ user, header, children }) {
                 <div className="mt-auto border-t pt-4">
                     <Dropdown>
                         <Dropdown.Trigger>
-                            <button className="text-sm text-gray-600">Akun ▼</button>
+                            <button className="text-sm text-black">Akun ▼</button>
                         </Dropdown.Trigger>
                         <Dropdown.Content>
                             <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
