@@ -12,17 +12,15 @@
         </div>
         <div class="judul">
             <h2 style="text-decoration: underline; background-color: yellow;">INVOICE</h2>
-            <h5>Nomor : </h5>
+            <h5>Nomor : {{$invoice->no_invoice}}</h5>
         </div>
         <div class="alamat">
             <div class="tempat">
-                <p>Tempat dan tanggal sekarang</p>
+                <p>Pontianak dan tanggal sekarang</p>
             </div>
-            <table>
-                <tr><td>Kepada </td><td>:</td><td>Lorem ipsum dolor sit.</td></tr>
-                <tr><td></td><td></td><td>Lorem ipsum dolor sit amet consectetur.</td></tr>
-                <tr><td></td><td></td><td>Lorem ipsum dolor sit.</td></tr>
-
+            <table style="width: 50%;">
+                <tr><td style="vertical-align: top">Kepada </td><td style="vertical-align: top">:</td><td style="font">
+                    {{$invoice->kontrak->pembeli}}
             </table>
         </div>
 
@@ -37,7 +35,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="tbody;" style="border: 1px solid"></td>
+                        <td class="tbody;" style="border: 1px solid">
+                            {{$invoice->kontrak->no_kontrak}}
+                        </td>
                         <td class="tbody;" style="border: 1px solid">
                             Pembayaran atas penjualan {{ $invoice->kontrak->jenis_kontrak ?? '-' }}
                             {{ $invoice->kontrak->pembeli ?? '-' }} sesuai dengan Kontrak Jual Beli
@@ -65,22 +65,18 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 30%">Nilai</td>
-                                    <td style="width: 2%">:</td>
-                                    <td style="width: 68%">{{ $invoice->nilai }}</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%">PPN 11%</td>
-                                    <td style="width: 2%">:</td>
-                                    <td style="width: 68%">{{ $invoice->kontrak->ppn ?? '-' }}</td>
                                 </tr>
                             </table>
                         </td>
-                        <td class="tbody;" style="border: 1px solid">testing</td>
+                        <td class="tbody;" style="border: 1px solid; vertical-align: bottom;">Rp.{{$invoice->nilai}}</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid"></td>
                         <td style="text-align: right; border: 1px solid;">Jumlah</td>
-                        <td style="text-align: center; border: 1px solid;">Jumlah</td>
+                        <td style="text-align: left; border: 1px solid;">Rp.{{$invoice->nilai}}</td>
                     </tr>
                 </tbody>
             </table>

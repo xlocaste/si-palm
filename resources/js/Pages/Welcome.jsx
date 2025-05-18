@@ -77,7 +77,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
 function FeatureCard({ title, description }) {
     return (
-        <div className="dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-gray-800 rounded-lg shadow p-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{description}</p>
         </div>

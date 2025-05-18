@@ -71,7 +71,7 @@
         <h1>DAFTAR INVOICE</h1>
         <p>Tanggal Cetak: {{ date('d-m-Y H:i:s') }}</p>
     </div>
-    
+
     <div class="filter">
         <table class="filter-info">
             <tr>
@@ -92,7 +92,7 @@
             </tr>
         </table>
     </div>
-    
+
     @if(count($invoiceCPO) > 0)
     <div class="section-title">Invoice Minyak Sawit (CPO)</div>
     <table class="data">
@@ -122,7 +122,7 @@
         </tbody>
     </table>
     @endif
-    
+
     @if(count($invoicePK) > 0)
     <div class="section-title">Invoice Inti Sawit (PK)</div>
     <table class="data">
@@ -152,15 +152,15 @@
         </tbody>
     </table>
     @endif
-    
+
     @if(count($invoiceCPO) === 0 && count($invoicePK) === 0)
     <div style="text-align: center; margin: 40px 0; color: #666;">
         Tidak ada data invoice yang ditemukan.
     </div>
     @endif
-    
+
     <div class="footer">
         <div class="page-number">Halaman {{ '{PAGE_NUM}' }} dari {{ '{PAGE_COUNT}' }}</div>
     </div>
 </body>
-</html> 
+</html>
