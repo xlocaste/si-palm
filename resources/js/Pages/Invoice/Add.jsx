@@ -10,18 +10,13 @@ export default function Add({ auth, kontrak }) {
         tanggal_bayar: '',
         kontrak_id: '',
         nilai: '',
+        ppn: '',
+        terbilang: '',
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
-        if (name === 'kontrak_id') {
-            const selected = kontrak.find(k => k.id == value);
-            const nilai = selected ? selected.harga * selected.volume : '';
-            setValues({ ...values, kontrak_id: parseInt(value), nilai });
-        } else {
-            setValues({ ...values, [name]: value });
-        }
+        setValues({ ...values, [name]: value });
     };
 
     const handleSubmit = (e) => {
@@ -61,10 +56,12 @@ export default function Add({ auth, kontrak }) {
                                     onChange={(selectedOption) => {
                                         const selected = kontrak.find(k => k.id === selectedOption?.value);
                                         const nilai = selected ? Number(selected.harga) * Number(selected.volume) : '';
+                                        const ppn = selected ? (selected.ppn / 100) * nilai : '';
                                         setValues({
                                             ...values,
                                             kontrak_id: selectedOption ? selectedOption.value : '',
                                             nilai,
+                                            ppn,
                                         });
                                     }}
                                     isClearable
@@ -80,6 +77,27 @@ export default function Add({ auth, kontrak }) {
                                     value={values.nilai}
                                     readOnly
                                     className="w-full border p-2 rounded bg-gray-100"
+                                />
+                            </div>
+                            <div>
+                                <label>PPN (Rp)</label>
+                                <input
+                                    type="number"
+                                    name="ppn"
+                                    value={values.ppn}
+                                    readOnly
+                                    className="w-full border p-2 rounded bg-gray-100"
+                                />
+                            </div>
+                            <div>
+                                <label>Terbilang</label>
+                                <input
+                                    type="text"
+                                    name="terbilang"
+                                    value={values.terbilang}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full border p-2 rounded"
                                 />
                             </div>
                             <div className="col-span-2 flex justify-end">

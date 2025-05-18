@@ -17,6 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('kontrak_id')->nullable();
             $table->date('tanggal_bayar');
             $table->string('nilai');
+            $table->string('ppn');
+            $table->text('terbilang');
             $table->timestamps();
 
             $table->foreign('kontrak_id')->references('id')->on('kontrak');

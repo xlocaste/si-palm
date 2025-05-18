@@ -25,6 +25,8 @@ class StoreRequest extends FormRequest
             'no_invoice'=>['required'],
             'tanggal_bayar'=>['required'],
             'nilai'=>['required'],
+            'ppn'=>['required'],
+            'terbilang'=>['required'],
         ];
     }
 }

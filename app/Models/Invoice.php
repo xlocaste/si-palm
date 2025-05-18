@@ -16,6 +16,8 @@ class Invoice extends Model
         'no_invoice',
         'tanggal_bayar',
         'nilai',
+        'ppn',
+        'terbilang',
     ];
 
     public function kontrak()

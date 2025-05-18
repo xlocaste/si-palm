@@ -15,7 +15,7 @@ export default function Update({ auth, kontrak }) {
         jatuh_tempo: kontrak.jatuh_tempo || "",
         jenis_tempo_penyerahan: kontrak.jenis_tempo_penyerahan || "",
         penjual_dan_pemilik_komoditas:
-            kontrak.penjual_dan_pemilik_komoditas || "",
+        kontrak.penjual_dan_pemilik_komoditas || "",
         no_referensi: kontrak.no_referensi || "",
         komoditi: kontrak.komoditi || "",
         jenis_komoditi: kontrak.jenis_komoditi || "",

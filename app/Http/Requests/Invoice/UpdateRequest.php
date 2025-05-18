@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'no_invoice'=>['required'],
+            'tanggal_bayar'=>['required'],
+            'nilai'=>['required'],
+            'ppn'=>['required'],
+            'terbilang'=>['required'],
         ];
     }
 }
