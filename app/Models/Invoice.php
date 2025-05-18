@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +20,7 @@ class Invoice extends Model
         'ppn',
         'terbilang',
         'jumlah',
+        'created_at',
     ];
 
     public function kontrak()
@@ -26,4 +28,8 @@ class Invoice extends Model
         return $this->belongsTo(Kontrak::class);
     }
 
+    public function getFormattedCreatedAtAttribute()
+    {
+        return Carbon::parse($this->created_at)->translatedFormat('d F Y');
+    }
 }

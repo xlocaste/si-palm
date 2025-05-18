@@ -16,7 +16,7 @@
         </div>
         <div class="alamat">
             <div class="tempat">
-                <p>Pontianak dan tanggal sekarang</p>
+                <p>Pontianak, {{ $invoice->formatted_created_at }}</p>
             </div>
             <table style="width: 50%;">
                 <tr><td style="vertical-align: top">Kepada </td><td style="vertical-align: top">:</td><td style="font">
