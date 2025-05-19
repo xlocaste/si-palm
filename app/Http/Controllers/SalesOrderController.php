@@ -133,6 +133,6 @@ class SalesOrderController extends Controller
             'salesOrder' => $salesOrder
         ]);
 
-        return $pdf->stream('sales_order_' . $salesOrder->no_sales_order . '.pdf');
+        return $pdf->stream('sales_order_' . preg_replace('/[\/\\\\]/', '-',  $salesOrder->no_sales_order ). '.pdf');
     }
 }

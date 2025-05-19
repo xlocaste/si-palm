@@ -145,6 +145,6 @@ class RealisasiPenyerahanController extends Controller
             'realisasiPenyerahan' => $realisasiPenyerahan
         ]);
 
-        return $pdf->stream('realisasi_penyerahan_' . $realisasiPenyerahan->no_ba . '.pdf');
+        return $pdf->stream('realisasi_penyerahan_' . preg_replace('/[\/\\\\]/', '-', $realisasiPenyerahan->no_ba). '.pdf');
     }
 }
