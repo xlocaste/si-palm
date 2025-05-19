@@ -34,7 +34,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     )}
                 </div>
 
-                <div className="absolute z-10 max-w-7xl mx-auto p-6 lg:p-8 text-center">
+                <div className="absolute z-10 w-full p-6 lg:p-8 text-center">
                     <div className="flex justify-center mb-6">
                         <ApplicationLogo />
                     </div>
