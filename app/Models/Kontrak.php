@@ -50,6 +50,11 @@ class Kontrak extends Model
         return $this->hasMany(SalesOrder::class);
     }
 
+    public function realisasiPenyerahan()
+    {
+        return $this->hasMany(RealisasiPenyerahan::class);
+    }
+
     public function pembayaran()
     {
         return $this->hasOne(Pembayaran::class);
