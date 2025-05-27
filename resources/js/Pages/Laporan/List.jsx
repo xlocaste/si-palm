@@ -1,5 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, router } from '@inertiajs/react';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Head, Link, router } from '@inertiajs/react';
 import { FaPrint } from 'react-icons/fa';
 
 export default function List({ auth, kontrak }) {
@@ -21,86 +23,39 @@ export default function List({ auth, kontrak }) {
                         <thead className="bg-gray-50">
                             <tr>
                                 <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase border">No Kontrak</th>
-                                <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase border">Kontrak</th>
-                                <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase border">Invoice</th>
-                                <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase border">Sales Order</th>
+                                <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase border">No Invoice</th>
+                                <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase border">No Sales Order</th>
                                 <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase border">Realisasi Penyerahan</th>
+                                <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase border">Action</th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-100">
                             {kontrak.length > 0 ? (
-                                kontrak.map((item) => {
-                                    const kontrakPrintRoute = item.jenis_kontrak === 'CPO'
-                                        ? route('kontrak-cpo.print', item.id)
-                                        : item.jenis_kontrak === 'PK'
-                                            ? route('kontrak-pk.print', item.id)
-                                            : null;
-
-                                    return (
-                                        <tr key={item.id} className="hover:bg-gray-50">
-                                            <td className="px-4 py-2 border">{item.no_kontrak}</td>
-
-                                            <td className="px-4 py-2 border text-center">
-                                                {kontrakPrintRoute ? (
-                                                    <button
-                                                        onClick={() => router.get(kontrakPrintRoute)}
-                                                        className="inline-flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded"
-                                                    >
-                                                        <FaPrint />
-                                                        <span>Print</span>
-                                                    </button>
-                                                ) : (
-                                                    <span className="text-gray-400 text-sm">-</span>
+                                kontrak.map((item, index) => (
+                                    <tr key={item.id} className="hover:bg-gray-50">
+                                        <td className="px-4 py-2 border text-center">{item.no_kontrak}</td>
+                                        <td className="px-4 py-2 border text-center">{item.invoices[0].no_invoice}</td>
+                                        <td className="px-4 py-2 border text-center">{item.sales_order[0].no_sales_order}</td>
+                                        <td className="px-4 py-2 border text-center">{item.sales_order[0].id}</td>
+                                        <td className="px-4 py-2 border text-center">
+                                            <Link
+                                                href={route(
+                                                    "laporan.show",
+                                                    item.id
                                                 )}
-                                            </td>
-
-                                            <td className="px-4 py-2 border text-center">
-                                                {item.invoices.length > 0 ? (
-                                                    <button
-                                                        onClick={() => router.get(route('invoice.print', item.invoices[0].id))}
-                                                        className="inline-flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded"
-                                                    >
-                                                        <FaPrint />
-                                                        <span>Print</span>
-                                                    </button>
-                                                ) : (
-                                                    <span className="text-gray-400 text-sm">-</span>
-                                                )}
-                                            </td>
-
-                                            <td className="px-4 py-2 border text-center">
-                                                {item.sales_order.length > 0 ? (
-                                                    <button
-                                                        onClick={() => router.get(route('sales-order.print', item.sales_order[0].id))}
-                                                        className="inline-flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded"
-                                                    >
-                                                        <FaPrint />
-                                                        <span>Print</span>
-                                                    </button>
-                                                ) : (
-                                                    <span className="text-gray-400 text-sm">-</span>
-                                                )}
-                                            </td>
-
-                                            <td className="px-4 py-2 border text-center">
-                                                {item.realisasi_penyerahan.length > 0 ? (
-                                                    <button
-                                                    onClick={() => router.get(route('realisasi-penyerahan.print', item.realisasi_penyerahan[0].id))}
-                                                    className="inline-flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded"
-                                                    >
-                                                    <FaPrint />
-                                                    <span>Print</span>
-                                                    </button>
-                                                ) : (
-                                                    <span className="text-gray-400 text-sm">-</span>
-                                                )}
-                                            </td>
-                                        </tr>
-                                    );
-                                })
+                                                className="text-blue-500 hover:text-blue-700"
+                                                title="Detail"
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faEye}
+                                                />
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                ))
                             ) : (
                                 <tr>
-                                    <td colSpan="4" className="px-4 py-4 text-center text-gray-500">
+                                    <td colSpan="5" className="px-4 py-4 text-center text-gray-500">
                                         Tidak ada data kontrak.
                                     </td>
                                 </tr>

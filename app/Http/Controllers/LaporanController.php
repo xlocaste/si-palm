@@ -20,4 +20,17 @@ class LaporanController extends Controller
             'kontrak' => $kontrak,
         ]);
     }
+
+    public function show(Kontrak $kontrak)
+    {
+        $kontrak->load([
+            'invoices',
+            'salesOrder',
+            'realisasiPenyerahan',
+        ]);
+
+        return Inertia::render('Laporan/Detail', [
+            'kontrak' => $kontrak,
+        ]);
+    }
 }

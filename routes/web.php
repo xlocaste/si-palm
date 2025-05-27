@@ -136,6 +136,7 @@ Route::prefix('/jatuh-tempo')->name('jatuh-tempo.')->group(function () {
 Route::prefix('/laporan')->name('laporan.')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [LaporanController::class, 'index'])->name('index');
+        Route::get('/{kontrak}/show', [LaporanController::class, 'show'])->name('show');
     });
 });
 
