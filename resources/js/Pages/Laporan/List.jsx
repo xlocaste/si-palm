@@ -34,9 +34,15 @@ export default function List({ auth, kontrak }) {
                                 kontrak.map((item, index) => (
                                     <tr key={item.id} className="hover:bg-gray-50">
                                         <td className="px-4 py-2 border text-center">{item.no_kontrak}</td>
-                                        <td className="px-4 py-2 border text-center">{item.invoices[0].no_invoice}</td>
-                                        <td className="px-4 py-2 border text-center">{item.sales_order[0].no_sales_order}</td>
-                                        <td className="px-4 py-2 border text-center">{item.sales_order[0].id}</td>
+                                        <td className="px-4 py-2 border text-center">
+                                        {item?.invoices?.[0]?.no_invoice ?? '-'}
+                                        </td>
+                                        <td className="px-4 py-2 border text-center">
+                                        {item?.sales_order?.[0]?.no_sales_order ?? '-'}
+                                        </td>
+                                        <td className="px-4 py-2 border text-center">
+                                        {item?.realisasiPenyerahan?.[0]?.id ?? '-'}
+                                        </td>
                                         <td className="px-4 py-2 border text-center">
                                             <Link
                                                 href={route(
