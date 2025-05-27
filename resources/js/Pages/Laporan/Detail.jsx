@@ -67,8 +67,8 @@ export default function Detail({ auth, Kontrak }) {
                         <DetailItem label="No Surat Penerbitan Invoice" value={Kontrak.realisasi_penyerahan?.[0]?.no_surat_penerbitan_invoice || '-'} />
                         <DetailItem label="Tanggal Surat Invoice" value={Kontrak.realisasi_penyerahan?.[0]?.tanggal_surat_invoice || '-'} />
                         <div className="col-span-2 flex justify-end gap-4">
-                            <SecondaryButton onClick={() => window.print()}>
-                                Cetak / Print
+                            <SecondaryButton>
+                                <Link href={route('laporan.merge', Kontrak.id)}>Print</Link>
                             </SecondaryButton>
 
                             <SecondaryButton>

@@ -137,6 +137,7 @@ Route::prefix('/laporan')->name('laporan.')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [LaporanController::class, 'index'])->name('index');
         Route::get('/{kontrak}/show', [LaporanController::class, 'show'])->name('show');
+        Route::get('/{kontrak}/print', [LaporanController::class, 'merge'])->name('merge');
     });
 });
 

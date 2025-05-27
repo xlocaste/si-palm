@@ -6,6 +6,8 @@ use App\Models\Kontrak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Barryvdh\DomPDF\Facade\Pdf;
+use iio\libmergepdf\Merger;
 
 class LaporanController extends Controller
 {
@@ -32,5 +34,44 @@ class LaporanController extends Controller
         return Inertia::render('Laporan/Detail', [
             'Kontrak' => $kontrak,
         ]);
+    }
+
+    public function merge($kontrak)
+    {
+        $kontrak = Kontrak::with(['pembayaran', 'invoices', 'salesOrder', 'realisasiPenyerahan'])->findOrFail($kontrak);
+
+        if ($kontrak->jenis_kontrak === 'CPO') {
+            $pdfKontrak = Pdf::loadView('pdf.kontrak_cpo_single', compact('kontrak'))->output();
+        } elseif ($kontrak->jenis_kontrak === 'PK') {
+            $pdfKontrak = Pdf::loadView('pdf.kontrak_pk_single', compact('kontrak'))->output();
+        } else {
+            abort(404, 'Jenis kontrak tidak valid');
+        }
+
+        $merger = new Merger();
+        $merger->addRaw($pdfKontrak);
+
+        foreach ($kontrak->invoices as $invoice) {
+            $pdfInvoice = Pdf::loadView('pdf.invoice_detail', compact('invoice'))->output();
+            $merger->addRaw($pdfInvoice);
+        }
+
+        foreach ($kontrak->salesOrder as $salesOrder) {
+            $pdfSalesOrder = Pdf::loadView('pdf.sales_order_single', compact('salesOrder'))->output();
+            $merger->addRaw($pdfSalesOrder);
+        }
+
+        foreach ($kontrak->realisasiPenyerahan as $realisasiPenyerahan) {
+            $pdfRealisasi = Pdf::loadView('pdf.realisasi_penyerahan_single', compact('realisasiPenyerahan'))->output();
+            $merger->addRaw($pdfRealisasi);
+        }
+
+        $gabungan = $merger->merge();
+
+        $filename = 'laporan_kontrak_' . $kontrak->id . '.pdf';
+
+        return response($gabungan)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="' . $filename . '"');
     }
 }
