@@ -41,7 +41,7 @@ export default function List({ auth, kontrak }) {
                                         {item?.sales_order?.[0]?.no_sales_order ?? '-'}
                                         </td>
                                         <td className="px-4 py-2 border text-center">
-                                        {item?.realisasiPenyerahan?.[0]?.id ?? '-'}
+                                        {item?.realisasi_penyerahan?.[0]?.id ?? '-'}
                                         </td>
                                         <td className="px-4 py-2 border text-center">
                                             <Link
