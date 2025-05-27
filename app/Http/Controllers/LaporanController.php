@@ -30,7 +30,7 @@ class LaporanController extends Controller
         ]);
 
         return Inertia::render('Laporan/Detail', [
-            'kontrak' => $kontrak,
+            'Kontrak' => $kontrak,
         ]);
     }
 }
