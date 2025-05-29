@@ -84,7 +84,7 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                 <tr>
                                     <th className="px-6 py-3 border">No BA</th>
                                     <th className="px-6 py-3 border">No Surat Penerbitan Invoice</th>
-                                    <th className="px-6 py-3 border">Kontrak</th>
+                                    <th className="px-6 py-3 border">No Kontrak</th>
                                     <th className="px-6 py-3 border">Tanggal Serah</th>
                                     <th className="px-6 py-3 border">Status</th>
                                     <th className="px-6 py-3 border">Aksi</th>
@@ -96,7 +96,7 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                         <tr key={index} className="bg-white border-b hover:bg-gray-50">
                                             <td className="px-6 py-4 border">{item.no_ba}</td>
                                             <td className="px-6 py-4 border">{item.no_surat_penerbitan_invoice}</td>
-                                            <td className="px-6 py-4 border">{item.kontrak.id}</td>
+                                            <td className="px-6 py-4 border">{item.kontrak.no_kontrak}</td>
                                             <td className="px-6 py-4 border">{item.tanggal_serah}</td>
                                             <td className="px-4 py-2">
                                                 <span
@@ -174,7 +174,7 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                 <tr>
                                     <th className="px-6 py-3 border">No BA</th>
                                     <th className="px-6 py-3 border">No Surat Penerbitan Invoice</th>
-                                    <th className="px-6 py-3 border">Kontrak</th>
+                                    <th className="px-6 py-3 border">No Kontrak</th>
                                     <th className="px-6 py-3 border">Tanggal Serah</th>
                                     <th className="px-6 py-3 border">Status</th>
                                     <th className="px-6 py-3 border">Aksi</th>
@@ -186,7 +186,7 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                         <tr key={index} className="bg-white border-b hover:bg-gray-50">
                                             <td className="px-6 py-4 border">{item.no_ba}</td>
                                             <td className="px-6 py-4 border">{item.no_surat_penerbitan_invoice}</td>
-                                            <td className="px-6 py-4 border">{item.kontrak.id}</td>
+                                            <td className="px-6 py-4 border">{item.kontrak.no_kontrak}</td>
                                             <td className="px-6 py-4 border">{item.tanggal_serah}</td>
                                             <td className="px-4 py-2">
                                                 <span
