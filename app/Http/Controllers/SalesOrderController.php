@@ -18,22 +18,24 @@ class SalesOrderController extends Controller
     {
         $searchTerm = $request->search;
 
-        $salesOrderCPO = SalesOrder::whereHas('kontrak', function ($query) {
+        $salesOrderCPO = SalesOrder::whereHas('kontrak', function ($query) use ($searchTerm) {
                 $query->where('jenis_kontrak', 'CPO');
+
+                if ($searchTerm) {
+                    $query->where('no_kontrak', 'like', '%' . $searchTerm . '%');
+                }
             })
             ->with('kontrak')
-            ->when($searchTerm, function ($query, $searchTerm) {
-                $query->where('no_sales_order', 'like', '%' . $searchTerm . '%');
-            })
             ->get();
 
-        $salesOrderPK = SalesOrder::whereHas('kontrak', function ($query) {
+        $salesOrderPK = SalesOrder::whereHas('kontrak', function ($query) use ($searchTerm) {
                 $query->where('jenis_kontrak', 'PK');
+
+                if ($searchTerm) {
+                    $query->where('no_kontrak', 'like', '%' . $searchTerm . '%');
+                }
             })
             ->with('kontrak')
-            ->when($searchTerm, function ($query, $searchTerm) {
-                $query->where('no_sales_order', 'like', '%' . $searchTerm . '%');
-            })
             ->get();
 
         if ($request->has('export_pdf') && $request->export_pdf === 'true') {
