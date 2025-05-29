@@ -3,16 +3,12 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faPrint, faTrash } from "@fortawesome/free-solid-svg-icons";
-import Modal from "@/Components/Modal";
-import DetailView from "@/Components/DetailView";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { IoIosSearch } from "react-icons/io";
 
 export default function List({ auth, InvoiceCPO, InvoicePK }) {
     console.log(InvoiceCPO)
     const { flash = {} } = usePage().props;
-    const [modalOpen, setModalOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
     const { filters } = usePage().props;
     const [search, setSearch] = useState(filters.search || "");
 
