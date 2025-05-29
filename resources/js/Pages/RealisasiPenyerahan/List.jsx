@@ -15,7 +15,7 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
 
     const handleSearch = (e) => {
         e.preventDefault();
-        router.get(route("realisasiPenyerahan.index"), { search }, { preserveState: true });
+        router.get(route("realisasi-penyerahan.index"), { search }, { preserveState: true });
     };
 
     const handleDelete = (id) => {

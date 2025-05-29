@@ -17,24 +17,35 @@ class RealisasiPenyerahanController extends Controller
 {
     public function index(Request $request)
     {
+        $searchTerm = $request->search;
+
         $queryCPO = RealisasiPenyerahan::with('kontrak', 'invoice')
             ->whereHas('kontrak', function ($query) {
                 $query->where('jenis_kontrak', 'CPO');
             });
+
         $queryPK = RealisasiPenyerahan::with('kontrak', 'invoice')
             ->whereHas('kontrak', function ($query) {
                 $query->where('jenis_kontrak', 'PK');
             });
 
-        if ($request->has('search') && $request->search) {
-            $searchTerm = '%' . $request->search . '%';
-            $queryCPO->where(function ($q) use ($searchTerm) {
-                $q->where('no_ba', 'like', $searchTerm)
-                    ->orWhere('no_surat_penerbitan_invoice', 'like', $searchTerm);
+        if ($searchTerm) {
+            $likeSearch = '%' . $searchTerm . '%';
+
+            $queryCPO->where(function ($q) use ($likeSearch) {
+                $q->where('no_ba', 'like', $likeSearch)
+                ->orWhere('no_surat_penerbitan_invoice', 'like', $likeSearch)
+                ->orWhereHas('kontrak', function ($k) use ($likeSearch) {
+                    $k->where('no_kontrak', 'like', $likeSearch);
+                });
             });
-            $queryPK->where(function ($q) use ($searchTerm) {
-                $q->where('no_ba', 'like', $searchTerm)
-                    ->orWhere('no_surat_penerbitan_invoice', 'like', $searchTerm);
+
+            $queryPK->where(function ($q) use ($likeSearch) {
+                $q->where('no_ba', 'like', $likeSearch)
+                ->orWhere('no_surat_penerbitan_invoice', 'like', $likeSearch)
+                ->orWhereHas('kontrak', function ($k) use ($likeSearch) {
+                    $k->where('no_kontrak', 'like', $likeSearch);
+                });
             });
         }
 
