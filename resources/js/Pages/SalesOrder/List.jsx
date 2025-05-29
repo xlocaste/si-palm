@@ -13,7 +13,7 @@ export default function List({ auth, salesOrderCPO, salesOrderPK }) {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        router.get(route("salesOrder.index"), { search }, { preserveState: true });
+        router.get(route("sales-order.index"), { search }, { preserveState: true });
     };
 
     const handleDelete = (id) => {
