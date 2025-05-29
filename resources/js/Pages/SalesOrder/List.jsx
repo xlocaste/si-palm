@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faPrint } from "@fortawesome/free-solid-svg-icons";
-import Modal from "@/Components/Modal";
-import DetailView from "@/Components/DetailView";
+import { faEye, faPrint, faTrash } from "@fortawesome/free-solid-svg-icons";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { IoIosSearch } from "react-icons/io";
 
 export default function List({ auth, salesOrderCPO, salesOrderPK }) {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
-    const [modalTitle, setModalTitle] = useState("");
+    const { flash } = usePage().props;
     const { filters } = usePage().props;
     const [search, setSearch] = useState(filters.search || "");
 
@@ -20,12 +16,12 @@ export default function List({ auth, salesOrderCPO, salesOrderPK }) {
         router.get(route("salesOrder.index"), { search }, { preserveState: true });
     };
 
-    const openDetailModal = (item, type) => {
-        setSelectedItem(item);
-        setModalTitle(
-            `Detail Sales Order ${type === "cpo" ? "CPO" : "PK"}: ${item.no_sales_order}`
-        );
-        setModalOpen(true);
+    const handleDelete = (id) => {
+        if (confirm("Yakin ingin menghapus Sales Order ini?")) {
+            router.delete(route("sales-order.destroy", id), {
+                preserveScroll: true,
+            });
+        }
     };
 
     return (
@@ -38,6 +34,17 @@ export default function List({ auth, salesOrderCPO, salesOrderPK }) {
             }
         >
             <Head title="Daftar Sales Order" />
+            {flash.success && (
+                <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
+                    {flash.success}
+                </div>
+            )}
+
+            {flash.error && (
+                <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                    {flash.error}
+                </div>
+            )}
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
                     <div className="flex items-center justify-between mb-6">
@@ -111,6 +118,13 @@ export default function List({ auth, salesOrderCPO, salesOrderPK }) {
                                                 >
                                                     <FontAwesomeIcon icon={faPrint} />
                                                 </a>
+                                                <button
+                                                    onClick={() => handleDelete(item.id)}
+                                                    className="text-red-600 hover:text-red-800"
+                                                    title="Hapus"
+                                                >
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))
@@ -188,14 +202,6 @@ export default function List({ auth, salesOrderCPO, salesOrderPK }) {
                     </div>
                 </div>
             </div>
-
-            <Modal
-                isOpen={modalOpen}
-                onClose={() => setModalOpen(false)}
-                title={modalTitle}
-            >
-                {selectedItem && <DetailView data={selectedItem} />}
-            </Modal>
         </AuthenticatedLayout>
     );
 }

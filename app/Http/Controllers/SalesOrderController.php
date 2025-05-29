@@ -6,6 +6,7 @@ use App\Http\Requests\SalesOrder\StoreRequest;
 use App\Http\Requests\SalesOrder\UpdateRequest;
 use App\Models\Kontrak;
 use App\Models\SalesOrder;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
@@ -101,9 +102,20 @@ class SalesOrderController extends Controller
 
     public function destroy(SalesOrder $salesOrder)
     {
-        $salesOrder->delete();
+        try {
+            $salesOrder->delete();
 
-        return Redirect::route('sales-order.index')->with('message', 'Data berhasil dihapus');
+            return Redirect::route('sales-order.index')
+                ->with('success', 'Data Sales Order berhasil dihapus');
+        } catch (QueryException $e) {
+            if ($e->getCode() === '23000') {
+                return Redirect::route('sales-order.index')
+                    ->with('error', 'Gagal menghapus: Data sedang digunakan di tabel lain.');
+            }
+
+            return Redirect::route('sales-order.index')
+                ->with('error', 'Terjadi kesalahan saat menghapus data.');
+        }
     }
 
     public function show(SalesOrder $salesOrder)
