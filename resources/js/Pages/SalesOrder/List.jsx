@@ -187,6 +187,13 @@ export default function List({ auth, salesOrderCPO, salesOrderPK }) {
                                                 >
                                                     <FontAwesomeIcon icon={faPrint} />
                                                 </a>
+                                                <button
+                                                    onClick={() => handleDelete(item.id)}
+                                                    className="text-red-600 hover:text-red-800"
+                                                    title="Hapus"
+                                                >
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))
