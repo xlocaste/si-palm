@@ -133,21 +133,24 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                                         icon={faEye}
                                                     />
                                                 </Link>
-
-                                                <a
+                                                {auth?.user?.roles?.some(role => role.name === 'admin') && (
+                                                    <a
                                                     href={route("realisasi-penyerahan.print", item.id)}
                                                     target="_blank"
                                                     className="text-green-600 hover:underline"
-                                                >
+                                                    >
                                                     <FontAwesomeIcon icon={faPrint} />
                                                 </a>
-                                                <button
+                                                )}
+                                                {auth?.user?.roles?.some(role => role.name === 'admin') && (
+                                                    <button
                                                     onClick={() => handleDelete(item.id)}
                                                     className="text-red-600 hover:text-red-800"
                                                     title="Hapus"
-                                                >
+                                                    >
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </button>
+                                                )}
                                             </td>
                                         </tr>
                                     ))
@@ -226,21 +229,24 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                                         icon={faEye}
                                                     />
                                                 </Link>
-
-                                                <a
+                                                {auth?.user?.roles?.some(role => role.name === 'admin') && (
+                                                    <a
                                                     href={route("realisasi-penyerahan.print", item.id)}
                                                     target="_blank"
                                                     className="text-green-600 hover:underline"
-                                                >
+                                                    >
                                                     <FontAwesomeIcon icon={faPrint} />
                                                 </a>
-                                                <button
+                                                )}
+                                                {auth?.user?.roles?.some(role => role.name === 'admin') && (
+                                                    <button
                                                     onClick={() => handleDelete(item.id)}
                                                     className="text-red-600 hover:text-red-800"
                                                     title="Hapus"
-                                                >
+                                                    >
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </button>
+                                                )}
                                             </td>
                                         </tr>
                                     ))
