@@ -7,6 +7,7 @@ use App\Http\Requests\RealisasiPenyerahan\UpdateRequest;
 use App\Models\Invoice;
 use App\Models\Kontrak;
 use App\Models\RealisasiPenyerahan;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -99,9 +100,15 @@ class RealisasiPenyerahanController extends Controller
 
     public function destroy(RealisasiPenyerahan $realisasiPenyerahan)
     {
+        try {
         $realisasiPenyerahan->delete();
 
-        return Redirect::route('realisasi-penyerahan.index')->with('message', 'Data berhasil dihapus');
+            return Redirect::route('realisasi-penyerahan.index')
+                ->with('success', 'Data berhasil dihapus');
+        } catch (QueryExceptionn $e) {
+            return Redirect::route('realisasi-penyerahan.index')
+                ->with('error', 'Gagal menghapus: Data sedang digunakan di tabel lain.');
+        }
     }
 
     public function show(RealisasiPenyerahan $realisasiPenyerahan)

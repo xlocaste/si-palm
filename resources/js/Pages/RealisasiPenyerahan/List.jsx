@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faPrint } from "@fortawesome/free-solid-svg-icons";
-import Modal from "@/Components/Modal";
-import DetailView from "@/Components/DetailView";
+import { faEye, faPrint, faTrash } from "@fortawesome/free-solid-svg-icons";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { IoIosSearch } from "react-icons/io";
 
 export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahanPK }) {
     console.log(realisasiPenyerahanCPO)
     console.log(realisasiPenyerahanPK)
-    const [modalOpen, setModalOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
-    const [modalTitle, setModalTitle] = useState("");
+    const { flash } = usePage().props;
     const { filters } = usePage().props;
     const [search, setSearch] = useState(filters.search || "");
 
@@ -22,12 +18,12 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
         router.get(route("realisasiPenyerahan.index"), { search }, { preserveState: true });
     };
 
-    const openDetailModal = (item, type) => {
-        setSelectedItem(item);
-        setModalTitle(
-            `Detail Realisasi Penyerahan ${type === "cpo" ? "CPO" : "PK"}: ${item.no_ba}`
-        );
-        setModalOpen(true);
+    const handleDelete = (id) => {
+        if (confirm("Yakin ingin menghapus data ini?")) {
+            router.delete(route("realisasi-penyerahan.destroy", id), {
+                preserveScroll: true,
+            });
+        }
     };
 
     return (
@@ -40,6 +36,17 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
             }
         >
             <Head title="Daftar Realisasi Penyerahan" />
+            {flash.success && (
+                <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
+                    {flash.success}
+                </div>
+            )}
+
+            {flash.error && (
+                <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                    {flash.error}
+                </div>
+            )}
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
                     <div className="flex items-center justify-between mb-6">
@@ -134,6 +141,13 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                                 >
                                                     <FontAwesomeIcon icon={faPrint} />
                                                 </a>
+                                                <button
+                                                    onClick={() => handleDelete(item.id)}
+                                                    className="text-red-600 hover:text-red-800"
+                                                    title="Hapus"
+                                                >
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))
@@ -220,6 +234,13 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                                                 >
                                                     <FontAwesomeIcon icon={faPrint} />
                                                 </a>
+                                                <button
+                                                    onClick={() => handleDelete(item.id)}
+                                                    className="text-red-600 hover:text-red-800"
+                                                    title="Hapus"
+                                                >
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))
@@ -235,14 +256,6 @@ export default function List({ auth, realisasiPenyerahanCPO, realisasiPenyerahan
                     </div>
                 </div>
             </div>
-
-            <Modal
-                isOpen={modalOpen}
-                onClose={() => setModalOpen(false)}
-                title={modalTitle}
-            >
-                {selectedItem && <DetailView data={selectedItem} />}
-            </Modal>
         </AuthenticatedLayout>
     );
 }
