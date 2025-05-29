@@ -63,7 +63,7 @@ export default function List({ auth, InvoiceCPO, InvoicePK }) {
                                 type="text"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                placeholder="Cari..."
+                                placeholder="Cari No Kontrak..."
                                 className="border px-3 pr-40 py-1 rounded-md text-sm"
                             />
                             <button

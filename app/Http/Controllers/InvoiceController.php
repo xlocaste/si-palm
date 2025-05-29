@@ -17,20 +17,24 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         $queryInvoiceCPO = Invoice::with('kontrak')
-            ->whereHas('kontrak', function ($query) {
+            ->whereHas('kontrak', function ($query) use ($request) {
                 $query->where('jenis_kontrak', 'CPO');
+
+                if ($request->has('search') && $request->search) {
+                    $searchTerm = '%' . $request->search . '%';
+                    $query->where('no_kontrak', 'like', $searchTerm);
+                }
             });
 
         $queryInvoicePK = Invoice::with('kontrak')
-            ->whereHas('kontrak', function ($query) {
+            ->whereHas('kontrak', function ($query) use ($request) {
                 $query->where('jenis_kontrak', 'PK');
-            });
 
-        if ($request->has('search') && $request->search) {
-            $searchTerm = '%' . $request->search . '%';
-            $queryInvoiceCPO->where('no_invoice', 'like', $searchTerm);
-            $queryInvoicePK->where('no_invoice', 'like', $searchTerm);
-        }
+                if ($request->has('search') && $request->search) {
+                    $searchTerm = '%' . $request->search . '%';
+                    $query->where('no_kontrak', 'like', $searchTerm);
+                }
+            });
 
         $daftarInvoiceCPO = $queryInvoiceCPO->get();
         $daftarInvoicePK = $queryInvoicePK->get();
