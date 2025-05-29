@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Invoice\UpdateRequest;
 use App\Models\Invoice;
 use App\Models\Kontrak;
+use Illuminate\Database\QueryException;
 use Inertia\Inertia;
 use App\Http\Requests\Invoice\StoreRequest;
 use Illuminate\Http\Request;
@@ -96,9 +97,16 @@ class InvoiceController extends Controller
 
     public function destroy(Invoice $invoice)
     {
-        $invoice->delete();
+        try {
+            $invoice->delete();
+            return Redirect::route('invoice.index')->with('success', 'Invoice berhasil dihapus.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                return Redirect::back()->with('error', 'Gagal menghapus. Invoice sedang digunakan pada data lain.');
+            }
 
-        return Redirect::route('invoice.index')->with('message', 'Data berhasil dihapus');
+            return Redirect::back()->with('error', 'Terjadi kesalahan saat menghapus invoice.');
+        }
     }
 
     public function show(Invoice $invoice)

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faPrint } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPrint, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import DetailView from "@/Components/DetailView";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -10,9 +10,9 @@ import { IoIosSearch } from "react-icons/io";
 
 export default function List({ auth, InvoiceCPO, InvoicePK }) {
     console.log(InvoiceCPO)
+    const { flash = {} } = usePage().props;
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [modalTitle, setModalTitle] = useState("");
     const { filters } = usePage().props;
     const [search, setSearch] = useState(filters.search || "");
 
@@ -21,12 +21,15 @@ export default function List({ auth, InvoiceCPO, InvoicePK }) {
         router.get(route("invoice.index"), { search }, { preserveState: true });
     };
 
-    const openDetailModal = (item, type) => {
-        setSelectedItem(item);
-        setModalTitle(
-            `Detail Invoice ${type === "cpo" ? "CPO" : "PK"}: ${item.no_invoice}`
-        );
-        setModalOpen(true);
+    const handleDelete = (id) => {
+        if (confirm("Yakin ingin menghapus invoice ini?")) {
+            router.delete(route("invoice.destroy", id), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    setModalOpen(false);
+                },
+            });
+        }
     };
 
     return (
@@ -39,6 +42,16 @@ export default function List({ auth, InvoiceCPO, InvoicePK }) {
             }
         >
             <Head title="Daftar Invoice" />
+            {flash.success && (
+                <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
+                    {flash.success}
+                </div>
+            )}
+            {flash.error && (
+                <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                    {flash.error}
+                </div>
+            )}
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
                     <div className="flex items-center justify-between mb-6">
@@ -110,6 +123,13 @@ export default function List({ auth, InvoiceCPO, InvoicePK }) {
                                                 >
                                                     <FontAwesomeIcon icon={faPrint} />
                                                 </a>
+                                                <button
+                                                    onClick={() => handleDelete(item.id)}
+                                                    className="text-red-600 hover:text-red-800"
+                                                    title="Hapus"
+                                                >
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))
@@ -185,14 +205,6 @@ export default function List({ auth, InvoiceCPO, InvoicePK }) {
                     </div>
                 </div>
             </div>
-
-            <Modal
-                isOpen={modalOpen}
-                onClose={() => setModalOpen(false)}
-                title={modalTitle}
-            >
-                {selectedItem && <DetailView data={selectedItem} />}
-            </Modal>
         </AuthenticatedLayout>
     );
 }
