@@ -5,6 +5,7 @@ import { router } from "@inertiajs/react";
 import Select from 'react-select';
 
 export default function Add({ auth, kontrak, invoice }) {
+    console.log(invoice)
     const [values, setValues] = useState({
         kontrak_id: '',
         invoice_id: '',
@@ -34,13 +35,13 @@ export default function Add({ auth, kontrak, invoice }) {
 
     const invoiceOptions = invoice.map((inv) => ({
         value: inv.id,
-        label: `Invoice #${inv.no_invoice} - Tanggal: ${inv.tanggal_bayar}`,
+        label: `Invoice #${inv.no_invoice} - No Kontrak ${inv.kontrak.no_kontrak} -  Tanggal: ${inv.tanggal_bayar}`,
     }));
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Invoice</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Realisasi Penyerahan</h2>}
         >
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">

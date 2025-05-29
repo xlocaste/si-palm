@@ -136,7 +136,7 @@ class RealisasiPenyerahanController extends Controller
     {
         return Inertia::render('RealisasiPenyerahan/Add', [
             'kontrak' => Kontrak::all(),
-            'invoice' => Invoice::all(),
+            'invoice' => Invoice::with('kontrak')->get(),
         ]);
     }
 
