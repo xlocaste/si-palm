@@ -25,6 +25,8 @@ export default function Add({ auth, kontrak, invoice }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const confirmed = window.confirm("Apakah Anda yakin ingin menyimpan data ini?");
+        if (!confirmed) return;
         router.post(route("realisasi-penyerahan.store"), values);
     };
 

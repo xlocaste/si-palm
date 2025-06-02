@@ -42,6 +42,8 @@ export default function Add({ auth, kontrak }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const confirmed = window.confirm("Apakah Anda yakin ingin menyimpan data ini?");
+        if (!confirmed) return;
         router.post(route('sales-order.store'), values);
     };
 
