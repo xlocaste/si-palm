@@ -45,7 +45,8 @@ export default function Update({ auth, kontrak }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        const confirmed = window.confirm("Apakah Anda yakin ingin menyimpan data ini?");
+        if (!confirmed) return;
         put(route("kontrak.update", kontrak.id), {
             preserveState: true,
         });
