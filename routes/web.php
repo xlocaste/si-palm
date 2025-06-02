@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BukuController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\JatuhTempoController;
 use App\Http\Controllers\KontrakController;
@@ -138,6 +139,18 @@ Route::prefix('/laporan')->name('laporan.')->group(function () {
         Route::get('/', [LaporanController::class, 'index'])->name('index');
         Route::get('/{kontrak}/show', [LaporanController::class, 'show'])->name('show');
         Route::get('/{kontrak}/print', [LaporanController::class, 'merge'])->name('merge');
+    });
+});
+
+Route::prefix('/buku')->name('buku.')->group(function () {
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/', [BukuController::class, 'index'])->name('index');
+        Route::get('/create', [BukuController::class, 'create'])->name('create');
+        Route::post('/', [BukuController::class, 'store'])->name('store');
+        Route::put('/{buku}', [BukuController::class, 'update'])->name('update');
+        Route::delete('/{buku}', [BukuController::class, 'destroy'])->name('destroy');
+        Route::get('/{buku}/edit', [BukuController::class, 'edit'])->name('edit');
+        Route::get('/{buku}/show', [BukuController::class, 'show'])->name('show');
     });
 });
 

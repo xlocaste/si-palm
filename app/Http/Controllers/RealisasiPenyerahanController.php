@@ -116,7 +116,7 @@ class RealisasiPenyerahanController extends Controller
 
             return Redirect::route('realisasi-penyerahan.index')
                 ->with('success', 'Data berhasil dihapus');
-        } catch (QueryExceptionn $e) {
+        } catch (QueryException $e) {
             return Redirect::route('realisasi-penyerahan.index')
                 ->with('error', 'Gagal menghapus: Data sedang digunakan di tabel lain.');
         }
