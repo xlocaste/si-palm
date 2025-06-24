@@ -41,6 +41,17 @@ export default function Add({ auth, pembayaran }) {
         }));
     }, [values.harga]);
 
+    useEffect(() => {
+        const harga = parseFloat(values.harga_satuan) || 0;
+        const volume = parseFloat(values.volume) || 0;
+        const jumlah = harga * volume;
+
+        setValues(prev => ({
+            ...prev,
+            jumlah_pembayaran: jumlah,
+        }));
+    }, [values.harga_satuan, values.volume]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setValues({ ...values, [name]: value });
@@ -167,7 +178,7 @@ export default function Add({ auth, pembayaran }) {
                         </div>
                         <div>
                             <label>Jumlah Pembayaran</label>
-                            <input type="number" name="jumlah_pembayaran" value={values.jumlah_pembayaran} onChange={handleChange} required className="w-full border p-2 rounded" />
+                            <input type="number" name="jumlah_pembayaran" value={values.jumlah_pembayaran} onChange={handleChange} readOnly required className="w-full border p-2 rounded" />
                         </div>
 
                         <div className="col-span-2 flex justify-end">
