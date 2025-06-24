@@ -6,6 +6,7 @@ use App\Http\Requests\SalesOrder\StoreRequest;
 use App\Http\Requests\SalesOrder\UpdateRequest;
 use App\Models\Kontrak;
 use App\Models\SalesOrder;
+use App\Models\Ttd;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -143,8 +144,11 @@ class SalesOrderController extends Controller
     {
         $salesOrder->load('kontrak.pembayaran');
 
+        $ttd = Ttd::latest()->first();
+
         $pdf = Pdf::loadView('pdf.sales_order_single', [
-            'salesOrder' => $salesOrder
+            'salesOrder' => $salesOrder,
+            'ttd' => $ttd
         ]);
 
         return $pdf->stream('sales_order_' . preg_replace('/[\/\\\\]/', '-',  $salesOrder->no_sales_order ). '.pdf');

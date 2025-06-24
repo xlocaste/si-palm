@@ -7,6 +7,7 @@ use App\Http\Requests\RealisasiPenyerahan\UpdateRequest;
 use App\Models\Invoice;
 use App\Models\Kontrak;
 use App\Models\RealisasiPenyerahan;
+use App\Models\Ttd;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -154,13 +155,16 @@ class RealisasiPenyerahanController extends Controller
     public function printSingle(RealisasiPenyerahan $realisasiPenyerahan)
     {
         $realisasiPenyerahan->load(['kontrak.pembayaran',
-         'invoice',
-        'salesOrder',
-        'kontrak.salesOrder'
-    ]);
+            'invoice',
+            'salesOrder',
+            'kontrak.salesOrder'
+        ]);
+
+        $ttd = Ttd::latest()->first();
 
         $pdf = Pdf::loadView('pdf.realisasi_penyerahan_single', [
-            'realisasiPenyerahan' => $realisasiPenyerahan
+            'realisasiPenyerahan' => $realisasiPenyerahan,
+            'ttd' => $ttd
         ]);
 
         return $pdf->stream('realisasi_penyerahan_' . preg_replace('/[\/\\\\]/', '-', $realisasiPenyerahan->no_ba). '.pdf');

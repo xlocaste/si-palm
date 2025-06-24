@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kontrak;
+use App\Models\Ttd;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -50,6 +51,8 @@ class LaporanController extends Controller
     {
         $kontrak = Kontrak::with(['pembayaran', 'invoices', 'salesOrder', 'realisasiPenyerahan'])->findOrFail($kontrak);
 
+        $ttd = Ttd::latest()->first();
+
         if ($kontrak->jenis_kontrak === 'CPO') {
             $pdfKontrak = Pdf::loadView('pdf.kontrak_cpo_single', compact('kontrak'))->output();
         } elseif ($kontrak->jenis_kontrak === 'PK') {
@@ -62,17 +65,17 @@ class LaporanController extends Controller
         $merger->addRaw($pdfKontrak);
 
         foreach ($kontrak->invoices as $invoice) {
-            $pdfInvoice = Pdf::loadView('pdf.invoice_detail', compact('invoice'))->output();
+            $pdfInvoice = Pdf::loadView('pdf.invoice_detail', compact('invoice', 'ttd'))->output();
             $merger->addRaw($pdfInvoice);
         }
 
         foreach ($kontrak->salesOrder as $salesOrder) {
-            $pdfSalesOrder = Pdf::loadView('pdf.sales_order_single', compact('salesOrder'))->output();
+            $pdfSalesOrder = Pdf::loadView('pdf.sales_order_single', compact('salesOrder', 'ttd'))->output();
             $merger->addRaw($pdfSalesOrder);
         }
 
         foreach ($kontrak->realisasiPenyerahan as $realisasiPenyerahan) {
-            $pdfRealisasi = Pdf::loadView('pdf.realisasi_penyerahan_single', compact('realisasiPenyerahan'))->output();
+            $pdfRealisasi = Pdf::loadView('pdf.realisasi_penyerahan_single', compact('realisasiPenyerahan', 'ttd'))->output();
             $merger->addRaw($pdfRealisasi);
         }
 

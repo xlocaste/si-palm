@@ -105,7 +105,7 @@
                 <div class="isi">
                     <p>PT, PERKEBUNAN NUSANTARA IV</p>
                     <p>Senior Executive Vice President</p>
-                    <p style="text-decoration: underline; font-weight: 500; padding-top: 80px;">Muhammad Zulham Rambe</p>
+                    <p style="text-decoration: underline; font-weight: 500; padding-top: 80px;">{{ $ttd->sevp }}</p>
                     <p>SEVP Bussines Support</p>
                 </div>
             </div>

@@ -125,7 +125,7 @@ kontrak sebagai berikut :
                         <br>
                         <br>
                         <br>
-                        Arie Rizky Richard
+                        {{ $ttd->ksbl }}
                     </th>
                     <th>
                         Kepala Bagian Pengadaan & TI
@@ -136,7 +136,7 @@ kontrak sebagai berikut :
                         <br>
                         <br>
                         <br>
-                        Sri Yetty Mida M, N.
+                        {{ $ttd->kbpt }}
                     </th>
                 </tr>
             </table>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Invoice\UpdateRequest;
 use App\Models\Invoice;
 use App\Models\Kontrak;
+use App\Models\Ttd;
 use Illuminate\Database\QueryException;
 use Inertia\Inertia;
 use App\Http\Requests\Invoice\StoreRequest;
@@ -146,8 +147,9 @@ class InvoiceController extends Controller
     public function print($invoice)
     {
         $invoice = Invoice::with('kontrak')->findOrFail($invoice);
+        $ttd = Ttd::latest()->first();
 
-        $pdf = Pdf::loadView('pdf.invoice_detail', compact('invoice'));
+        $pdf = Pdf::loadView('pdf.invoice_detail', compact('invoice', 'ttd'));
         return $pdf->stream("invoice_" . preg_replace('/[\/\\\\]/', '-', $invoice->no_invoice).".pdf");
     }
 }
