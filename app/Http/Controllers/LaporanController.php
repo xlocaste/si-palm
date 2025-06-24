@@ -11,15 +11,25 @@ use iio\libmergepdf\Merger;
 
 class LaporanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kontrak = Kontrak::with(['invoices', 'salesOrder', 'realisasiPenyerahan'])->get();
+        $query = Kontrak::with(['invoices', 'salesOrder', 'realisasiPenyerahan']);
+
+        if ($request->filled('bulan')) {
+            $query->whereMonth('tanggal_kontrak', $request->bulan);
+        }
+
+        $kontrak = $query->get();
 
         return Inertia::render('Laporan/List', [
             'auth' => [
                 'user' => Auth::user(),
             ],
             'kontrak' => $kontrak,
+            'filters' => [
+                'bulan' => $request->bulan,
+                'tahun' => $request->tahun,
+            ],
         ]);
     }
 
