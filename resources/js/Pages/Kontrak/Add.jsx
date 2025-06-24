@@ -2,6 +2,7 @@ import { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
+import { useEffect } from "react";
 
 export default function Add({ auth, pembayaran }) {
     const [values, setValues] = useState({
@@ -32,6 +33,13 @@ export default function Add({ auth, pembayaran }) {
         dasar_ketentuan: "",
         jumlah_pembayaran: "",
     });
+
+    useEffect(() => {
+        setValues(prev => ({
+            ...prev,
+            harga_satuan: prev.harga,
+        }));
+    }, [values.harga]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -135,7 +143,7 @@ export default function Add({ auth, pembayaran }) {
                         </div>
                         <div>
                             <label>Harga Satuan</label>
-                            <input type="number" name="harga_satuan" value={values.harga_satuan} onChange={handleChange} required className="w-full border p-2 rounded" />
+                            <input type="number" name="harga_satuan" value={values.harga_satuan} onChange={handleChange} readOnly required className="w-full border p-2 rounded" />
                         </div>
                         <div>
                             <label>PPN (%)</label>
