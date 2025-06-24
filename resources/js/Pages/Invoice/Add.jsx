@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
 import Select from 'react-select';
 import PrimaryButton from "@/Components/PrimaryButton";
+import { useEffect } from "react";
 
 export default function Add({ auth, kontrak }) {
     const [values, setValues] = useState({
@@ -14,6 +15,40 @@ export default function Add({ auth, kontrak }) {
         jumlah: '',
         terbilang: '',
     });
+
+    function toTerbilang(n) {
+        const satuan = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"];
+
+        n = Math.floor(n);
+
+        if (n < 12) return satuan[n];
+        if (n < 20) return toTerbilang(n - 10) + " Belas";
+        if (n < 100) return toTerbilang(Math.floor(n / 10)) + " Puluh " + toTerbilang(n % 10);
+        if (n < 200) return "Seratus " + toTerbilang(n - 100);
+        if (n < 1000) return toTerbilang(Math.floor(n / 100)) + " Ratus " + toTerbilang(n % 100);
+        if (n < 2000) return "Seribu " + toTerbilang(n - 1000);
+        if (n < 1000000) return toTerbilang(Math.floor(n / 1000)) + " Ribu " + toTerbilang(n % 1000);
+        if (n < 1000000000) return toTerbilang(Math.floor(n / 1000000)) + " Juta " + toTerbilang(n % 1000000);
+        if (n < 1000000000000) return toTerbilang(Math.floor(n / 1000000000)) + " Miliar " + toTerbilang(n % 1000000000);
+        if (n < 1000000000000000) return toTerbilang(Math.floor(n / 1000000000000)) + " Triliun " + toTerbilang(n % 1000000000000);
+
+        return "Angka terlalu besar";
+    }
+
+    useEffect(() => {
+        const jumlah = parseFloat(values.jumlah) || 0;
+        if (jumlah > 0) {
+            setValues(prev => ({
+                ...prev,
+                terbilang: toTerbilang(jumlah).trim() + " Rupiah",
+            }));
+        } else {
+            setValues(prev => ({
+                ...prev,
+                terbilang: '',
+            }));
+        }
+    }, [values.jumlah]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
