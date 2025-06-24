@@ -8,6 +8,7 @@ use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RealisasiPenyerahanController;
 use App\Http\Controllers\SalesOrderController;
+use App\Http\Controllers\TtdController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -138,6 +139,13 @@ Route::prefix('/laporan')->name('laporan.')->group(function () {
         Route::get('/', [LaporanController::class, 'index'])->name('index');
         Route::get('/{kontrak}/show', [LaporanController::class, 'show'])->name('show');
         Route::get('/{kontrak}/print', [LaporanController::class, 'merge'])->name('merge');
+    });
+});
+
+Route::prefix('/ttd')->name('ttd.')->group(function () {
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/', [TtdController::class, 'index'])->name('index');
+        Route::put('/{ttd}', [TtdController::class, 'update'])->name('update');
     });
 });
 

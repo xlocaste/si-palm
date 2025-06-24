@@ -13,6 +13,7 @@ import {
     CalendarIcon,
     ChevronDownIcon,
 } from '@heroicons/react/24/outline';
+import { FaCog } from 'react-icons/fa';
 
 export default function Authenticated({ user, header, children }) {
     const [showingSidebar, setShowingSidebar] = useState(false);
@@ -80,6 +81,10 @@ export default function Authenticated({ user, header, children }) {
 
                     <Link href={route('laporan.index')} className="flex items-center gap-2">
                         <CalendarIcon className="h-5 w-5" /> Laporan
+                    </Link>
+
+                    <Link href={route('ttd.index')} className="flex items-center gap-2">
+                        <FaCog className="h-5 w-5" /> Pengaturan TTD
                     </Link>
                 </nav>
 
