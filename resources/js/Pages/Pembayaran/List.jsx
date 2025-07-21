@@ -48,6 +48,7 @@ export default function List({ Pembayaran, auth }) {
                   <th className="px-4 py-2 border">Atas Nama</th>
                   <th className="px-4 py-2 border">Rekening No</th>
                   <th className="px-4 py-2 border">Jatuh Tempo</th>
+                  <th className="px-4 py-2 border">File</th>
                   <th className="px-4 py-2 border">Aksi</th>
                 </tr>
               </thead>
@@ -55,14 +56,35 @@ export default function List({ Pembayaran, auth }) {
                 {Pembayaran.length > 0 ? (
                   Pembayaran.map((item, index) => (
                     <tr key={item.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-2 border">{item.kontrak.no_kontrak}</td>
-                      <td className="px-4 py-2 border">{item.metode}</td>
-                      <td className="px-4 py-2 border">{item.nama_bank}</td>
-                      <td className="px-4 py-2 border">{item.cara_pembayaran}</td>
-                      <td className="px-4 py-2 border">{item.atas_nama}</td>
-                      <td className="px-4 py-2 border">{item.rek_no}</td>
-                      <td className="px-4 py-2 border">{item.jatuh_tempo_pembayaran}</td>
+                      <td className="px-4 py-2 border">{item.kontrak?.no_kontrak || "Data Kosong"}</td>
+                        <td className="px-4 py-2 border">{item.metode || "Data Kosong"}</td>
+                        <td className="px-4 py-2 border">{item.nama_bank || "Data Kosong"}</td>
+                        <td className="px-4 py-2 border">{item.cara_pembayaran || "Data Kosong"}</td>
+                        <td className="px-4 py-2 border">{item.atas_nama || "Data Kosong"}</td>
+                        <td className="px-4 py-2 border">{item.rek_no || "Data Kosong"}</td>
+                        <td className="px-4 py-2 border">{item.jatuh_tempo_pembayaran || "Data Kosong"}</td>
+                        <td className="px-4 py-2 border">
+                            {item.file ? (
+                                <a
+                                href={`storage/${item.file}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:underline"
+                                >
+                                Lihat File
+                                </a>
+                            ) : (
+                                "Data Kosong"
+                            )}
+                        </td>
                       <td className="px-4 py-2 border space-x-2">
+                        <Link
+                            href={route("pembayaran.edit", item.id)}
+                            className="text-blue-500 hover:text-blue-700"
+                            title="Edit"
+                        >
+                            <FaEdit />
+                        </Link>
                         <button
                             onClick={() =>
                                 handleDelete(

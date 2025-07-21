@@ -18,6 +18,7 @@ class Pembayaran extends Model
         'cara_pembayaran',
         'atas_nama',
         'rek_no',
+        'file',
         'jatuh_tempo_pembayaran',
         'created_at'
     ];

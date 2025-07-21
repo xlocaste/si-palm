@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\MetodeEnum;
+use App\Http\Requests\Pembayaran\StoreRequest;
+use App\Http\Requests\Pembayaran\UpdateRequest;
 use App\Models\Pembayaran;
 use App\Models\Kontrak;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 
 class PembayaranController extends Controller
@@ -37,19 +37,44 @@ class PembayaranController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $request->validate([
-            'metode' => ['required', new Enum(MetodeEnum::class)],
-            'nama_bank' => 'required',
-            'cara_pembayaran' => 'required',
-            'atas_nama' => 'required',
-            'rek_no' => 'required',
-            'jatuh_tempo_pembayaran' => 'nullable|date',
-            'kontrak_id' => 'required|exists:kontrak,id|unique:pembayaran,kontrak_id',
+        $filePath = null;
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('pembayaran', 'public');
+        }
+
+        Pembayaran::create([
+            'file' => $filePath,
         ]);
 
-        Pembayaran::create($request->all());
+        return redirect()->route('pembayaran.index')->with('success', 'Data pembayaran berhasil disimpan.');
+    }
+
+    public function edit(Pembayaran $pembayaran)
+    {
+        $kontrak = Kontrak::doesntHave('pembayaran')->get();
+
+        return Inertia::render('Pembayaran/Update', [
+            'auth' => [
+                'user' => Auth::user(),
+            ],
+            'kontrak' => $kontrak,
+            'pembayaran' => $pembayaran,
+        ]);
+    }
+
+    public function update(UpdateRequest $request, Pembayaran $pembayaran)
+    {
+        $pembayaran->update([
+            'metode' => $request->metode,
+            'nama_bank' => $request->nama_bank,
+            'cara_pembayaran' => $request->cara_pembayaran,
+            'atas_nama' => $request->atas_nama,
+            'rek_no' => $request->rek_no,
+            'jatuh_tempo_pembayaran' => $request->jatuh_tempo_pembayaran,
+            'kontrak_id' => $request->kontrak_id,
+        ]);
 
         return redirect()->route('pembayaran.index')->with('success', 'Data pembayaran berhasil disimpan.');
     }
