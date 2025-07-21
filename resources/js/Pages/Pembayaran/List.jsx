@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 export default function List({ Pembayaran, auth }) {
-    console.log(Pembayaran)
+    console.log(auth)
 
     const handleDelete = (id) => {
             if (confirm("Yakin ingin menghapus data ini?")) {
@@ -30,11 +30,13 @@ export default function List({ Pembayaran, auth }) {
         <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
             <div className='flex justify-between items-center'>
                 <label className="font-bold text-gray-700 ">DAFTAR PEMBAYARAN</label>
-                <Link href={route('pembayaran.create')}>
+                {auth.user.roles[0]?.name === 'headoffice' && (
+                    <Link href={route('pembayaran.create')}>
                     <PrimaryButton className="mb-4 px-4 py-2 text-white rounded">
                         Tambah Pembayaran
                     </PrimaryButton>
                 </Link>
+                )}
             </div>
 
           <div className="overflow-auto">
@@ -78,13 +80,15 @@ export default function List({ Pembayaran, auth }) {
                             )}
                         </td>
                       <td className="px-4 py-2 border space-x-2">
-                        <Link
-                            href={route("pembayaran.edit", item.id)}
-                            className="text-blue-500 hover:text-blue-700"
-                            title="Edit"
-                        >
-                            <FaEdit />
-                        </Link>
+                        {auth.user.roles[0]?.name === 'admin' && (
+                            <Link
+                                href={route("pembayaran.edit", item.id)}
+                                className="text-blue-500 hover:text-blue-700"
+                                title="Edit"
+                                >
+                                <FaEdit />
+                            </Link>
+                        )}
                         <button
                             onClick={() =>
                                 handleDelete(
